@@ -81,6 +81,21 @@ background:linear-gradient(90deg,#ff2020,#286cff);transition:.4s
 }
 .album:hover::before{width:100%}
 .album-number{color:#555;font-size:11px;letter-spacing:3px}
+.album-cover{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    display:block;
+    margin-top:22px;
+    border:1px solid #222;
+    transition:transform .35s ease, filter .35s ease, border-color .35s ease;
+    cursor:zoom-in;
+}
+.album:hover .album-cover{
+    transform:scale(1.025);
+    filter:brightness(1.12);
+    border-color:#444;
+}
 .album h3{margin-top:45px;font-size:24px;line-height:1.1;text-transform:uppercase}
 .album-icon{position:absolute;right:25px;bottom:20px;color:#555;font-size:25px;transition:.3s}
 
@@ -152,6 +167,45 @@ nav a{margin-left:12px;font-size:9px}
 .music-section,.streaming-section{padding:80px 5%}
 .albums,.streaming-grid{grid-template-columns:1fr}
 }
+
+.cover-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.94);
+    z-index:10000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    padding:30px;
+    cursor:zoom-out;
+}
+.cover-modal.open{display:flex}
+.cover-modal img{
+    max-width:min(82vw,700px);
+    max-height:78vh;
+    object-fit:contain;
+    box-shadow:0 20px 80px rgba(0,0,0,.7);
+}
+#modalTitle{
+    margin-top:20px;
+    color:#aaa;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+.close-cover{
+    position:absolute;
+    top:25px;
+    right:35px;
+    background:none;
+    border:0;
+    color:#fff;
+    font-size:42px;
+    cursor:pointer;
+    line-height:1;
+}
+
 </style>
 </head>
 
@@ -197,7 +251,8 @@ piece to the Literally Steplers universe.
 
 <div class="albums">
 
-<div class="album"><div class="album-number">01</div><h3>Debut Album</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">01</div>
+<img src="images/debut.png" alt="Debut Album cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Debut Album</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>God VS Animatronic</span></div>
 <div class="track"><span class="track-number">02</span><span>In the Boat With the Tchola</span></div>
 <div class="track"><span class="track-number">03</span><span>Lil Bro</span></div>
@@ -206,7 +261,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uzU-8xcq1Do&list=PLmOobnsZmxx56Aq7r0oXF1t2W4_n6q9C9">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">02</div><h3>Yâmers</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">02</div>
+<img src="images/yamers.png" alt="Yâmers cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Yâmers</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>En La Cadeia</span></div>
 <div class="track"><span class="track-number">02</span><span>Tem Alguma Coisa Errada</span></div>
 <div class="track"><span class="track-number">03</span><span>The Peak</span></div>
@@ -216,7 +272,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Qer2WlePYhE&list=PLmOobnsZmxx5-AFLZlYKf8APe9l3380Ti">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">03</div><h3>Stemers</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">03</div>
+<img src="images/stemers.png" alt="Stemers cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Stemers</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>7 Minutes</span></div>
 <div class="track"><span class="track-number">02</span><span>Ear Monster</span></div>
 <div class="track"><span class="track-number">03</span><span>Niganin</span></div>
@@ -226,7 +283,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ZkQitXIAvKE&list=PLmOobnsZmxx413QPYWP-17aBBYJVW7pwz">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">04</div><h3>Hell's Aura</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">04</div>
+<img src="images/hells-aura.png" alt="Hell's Aura cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Hell's Aura</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Captivity</span></div>
 <div class="track"><span class="track-number">02</span><span>Hell's Aura</span></div>
 <div class="track"><span class="track-number">03</span><span>Rodrigo</span></div>
@@ -235,7 +293,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9ABRMktwx24&list=PLmOobnsZmxx4zIBOlIy9W6C1GuaErGv6m">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">05</div><h3>The Home</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">05</div>
+<img src="images/the-home.png" alt="The Home cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>The Home</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Quirathi</span></div>
 <div class="track"><span class="track-number">02</span><span>The Yamers Path</span></div>
 <div class="track"><span class="track-number">03</span><span>No Cap on Steplers</span></div>
@@ -245,7 +304,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=n415hP-Jymc&list=PLmOobnsZmxx5Si52DDFCLF0TRA1WnMyFh">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">06</div><h3>Diabolical Dog</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">06</div>
+<img src="images/diabolical-dog.png" alt="Diabolical Dog cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Diabolical Dog</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Diabolical Dog</span></div>
 <div class="track"><span class="track-number">02</span><span>Goonaldo</span></div>
 <div class="track"><span class="track-number">03</span><span>Hell Rodeo</span></div>
@@ -255,7 +315,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5hl4EP3w-LI&list=PLmOobnsZmxx6nxWTIfPnsuomCcyaoAsWJ">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">07</div><h3>Return To The Boat</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">07</div>
+<img src="images/return-to-the-boat.png" alt="Return To The Boat cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Return To The Boat</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>GvsA 2.0</span></div>
 <div class="track"><span class="track-number">02</span><span>In The Boat With The Tchola 2.0</span></div>
 <div class="track"><span class="track-number">03</span><span>Lil Bro 2.0</span></div>
@@ -264,7 +325,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=tHJhkyS0UjU&list=PLmOobnsZmxx7JN5MeoTXUMjqHv0XolgMH">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">08</div><h3>Steplers</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">08</div>
+<img src="images/steplers.png" alt="Steplers cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Steplers</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>There Him</span></div>
 <div class="track"><span class="track-number">02</span><span>Mirror Realm _ mlaeR rorriM</span></div>
 <div class="track"><span class="track-number">03</span><span>I Can Breath</span></div>
@@ -278,7 +340,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=E0kqtzl_qMY&list=PLmOobnsZmxx7Jq6af-wdwNQU6puyyjBcu">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">09</div><h3>Herborine</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">09</div>
+<img src="images/herborine.png" alt="Herborine cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Herborine</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Eat Eat</span></div>
 <div class="track"><span class="track-number">02</span><span>Mbabi</span></div>
 <div class="track"><span class="track-number">03</span><span>Bite And Fall</span></div>
@@ -288,7 +351,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=38dvQrJUU8c&list=PLmOobnsZmxx7qa8kNkGebm3sRrusiaWWq">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">10</div><h3>Armless John</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">10</div>
+<img src="images/armless-john.png" alt="Armless John cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Armless John</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Cup Chicken</span></div>
 <div class="track"><span class="track-number">02</span><span>Upside Down</span></div>
 <div class="track"><span class="track-number">03</span><span>Aiming Wrong</span></div>
@@ -298,7 +362,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-8lR15eYzeE&list=PLmOobnsZmxx7cr0wVt1yuGlYpjoPyWaPL">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">11</div><h3>The Cashier</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">11</div>
+<img src="images/the-cashier.png" alt="The Cashier cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>The Cashier</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Waymaker</span></div>
 <div class="track"><span class="track-number">02</span><span>Penalman</span></div>
 <div class="track"><span class="track-number">03</span><span>The Cashier</span></div>
@@ -308,7 +373,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=e7K71Euc_Xo&list=PLmOobnsZmxx4apRMe7h4JlPMxF0uXiXJE">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">12</div><h3>The Guy From Picture</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">12</div>
+<img src="images/the-guy-from-picture.png" alt="The Guy From Picture cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>The Guy From Picture</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Transition</span></div>
 <div class="track"><span class="track-number">02</span><span>Green or Purple</span></div>
 <div class="track"><span class="track-number">03</span><span>The Guy From Picture</span></div>
@@ -318,7 +384,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sgMRaWm-tQM&list=PLmOobnsZmxx6HTNYIwvTwr1piFS6VWL4a">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">13</div><h3>The Tchola</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">13</div>
+<img src="images/the-tchola.png" alt="The Tchola cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>The Tchola</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Cappucined</span></div>
 <div class="track"><span class="track-number">02</span><span>He Need to Be Fried</span></div>
 <div class="track"><span class="track-number">03</span><span>The Tchola</span></div>
@@ -328,7 +395,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9ar0bbdB2Fg&list=PLIpi2ecjHkPg">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">14</div><h3>Mausoleum</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">14</div>
+<img src="images/mausoleum.png" alt="Mausoleum cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Mausoleum</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Occultism</span></div>
 <div class="track"><span class="track-number">02</span><span>Labirynth</span></div>
 <div class="track"><span class="track-number">03</span><span>Mausoleum</span></div>
@@ -338,7 +406,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9FrqY3mWnqE&list=PLmOobnsZmxx5lhFtIMwh-kQDT3HLL4Iur">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">15</div><h3>The Page</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">15</div>
+<img src="images/the-page.png" alt="The Page cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>The Page</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Page</span></div>
 <div class="track"><span class="track-number">02</span><span>Lildiuty</span></div>
 <div class="track"><span class="track-number">03</span><span>The Page</span></div>
@@ -348,7 +417,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=wE45ImMKogs&list=PLehvQmDDQ54g">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">16</div><h3>Real South</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">16</div>
+<img src="images/real-south.png" alt="Real South cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Real South</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Palms</span></div>
 <div class="track"><span class="track-number">02</span><span>Dream</span></div>
 <div class="track"><span class="track-number">03</span><span>Real South</span></div>
@@ -358,7 +428,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=r_Z7rZDpPrM&list=PLYNyti-Z3Qa8">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">17</div><h3>Canada</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">17</div>
+<img src="images/canada.png" alt="Canada cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Canada</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Rent-A-Brun</span></div>
 <div class="track"><span class="track-number">02</span><span>The Palit</span></div>
 <div class="track"><span class="track-number">03</span><span>Canada</span></div>
@@ -368,7 +439,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4ESJaajYLiI&list=PLRhvrvwv7WnU">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">18</div><h3>Laminhapal</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">18</div>
+<img src="images/laminhapal.png" alt="Laminhapal cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>Laminhapal</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Derby's District</span></div>
 <div class="track"><span class="track-number">02</span><span>Dig And Bowls</span></div>
 <div class="track"><span class="track-number">03</span><span>Grabidiqui</span></div>
@@ -379,7 +451,8 @@ piece to the Literally Steplers universe.
 <a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=a2uZH5STgrs&list=PLIEYF_Lc6LP8">YOUTUBE PLAYLIST</a>
 </div></div>
 
-<div class="album"><div class="album-number">19</div><h3>One Team, One Dream</h3><div class="album-icon">+</div><div class="tracks">
+<div class="album"><div class="album-number">19</div>
+<img src="images/one-team-one-dream.png" alt="One Team, One Dream cover" class="album-cover" onclick="openCover(event, this.src, this.alt)"><h3>One Team, One Dream</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Big Liter Challenge</span></div>
 <div class="track"><span class="track-number">02</span><span>I See, Luke!</span></div>
 <div class="track"><span class="track-number">03</span><span>Little Strawberry</span></div>
@@ -435,6 +508,13 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 </a>
 </section>
 
+
+<div id="coverModal" class="cover-modal" onclick="closeCover()">
+  <button class="close-cover" aria-label="Close">&times;</button>
+  <img id="modalCover" src="" alt="">
+  <div id="modalTitle"></div>
+</div>
+
 <footer>
 LITERALLY STEPLERS © 2026<br>
 <strong>Copyright © MrLeoLL &amp; Rizinperro</strong>
@@ -453,6 +533,21 @@ if(event.target.closest(".youtube")) return;
 this.classList.toggle("active");
 });
 });
+
+function openCover(event, src, title){
+    event.stopPropagation();
+    document.getElementById("modalCover").src = src;
+    document.getElementById("modalCover").alt = title;
+    document.getElementById("modalTitle").textContent = title.replace(" cover","");
+    document.getElementById("coverModal").classList.add("open");
+}
+function closeCover(){
+    document.getElementById("coverModal").classList.remove("open");
+}
+document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeCover();
+});
+
 </script>
 
 </body>
