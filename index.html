@@ -1,1065 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Literally Steplers</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#050505;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 
-/* =========================
-   RESET
-========================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+#intro{
+position:fixed;inset:0;background:radial-gradient(circle at center,#151515 0%,#050505 55%,#000 100%);
+display:flex;justify-content:center;align-items:center;z-index:9999;
+transition:opacity 1s ease,visibility 1s ease
 }
-
-html {
-    scroll-behavior: smooth;
+#intro.hidden{opacity:0;visibility:hidden}
+.intro-content{text-align:center;animation:introAppear 1.5s ease forwards}
+.intro-small{color:#777;font-size:12px;letter-spacing:7px;margin-bottom:25px}
+.intro-title{
+font-size:clamp(45px,9vw,120px);font-weight:900;letter-spacing:-5px;line-height:.8;
+background:linear-gradient(90deg,#ff2020,#fff,#397cff);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent
 }
-
-body {
-    background: #050505;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    overflow-x: hidden;
+.intro-line{width:0;height:2px;background:linear-gradient(90deg,#ff2020,#397cff);margin:35px auto;animation:introLine 1.5s ease forwards}
+.enter-button{
+border:1px solid #444;background:transparent;color:#fff;padding:15px 45px;font-size:12px;
+font-weight:bold;letter-spacing:4px;cursor:pointer;transition:.3s
 }
+.enter-button:hover{background:#fff;color:#000;border-color:#fff}
 
-
-/* =========================
-   INTRO
-========================= */
-
-#intro {
-
-    position: fixed;
-    inset: 0;
-
-    background:
-        radial-gradient(circle at center, #151515 0%, #050505 55%, #000 100%);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    z-index: 9999;
-
-    transition:
-        opacity 1s ease,
-        visibility 1s ease;
-
+header{
+height:80px;border-bottom:1px solid #202020;display:flex;align-items:center;
+justify-content:space-between;padding:0 7%;position:sticky;top:0;z-index:100;
+background:rgba(5,5,5,.92);backdrop-filter:blur(12px)
 }
+.logo{text-decoration:none;color:#fff;font-weight:900;font-size:17px;letter-spacing:3px}
+.logo span{color:#ff2020}
+nav a{color:#aaa;text-decoration:none;margin-left:35px;font-size:12px;font-weight:bold;letter-spacing:3px;transition:.2s}
+nav a:hover{color:#fff}
 
-#intro.hidden {
-
-    opacity: 0;
-    visibility: hidden;
-
+.hero{
+min-height:calc(100vh - 80px);display:flex;flex-direction:column;justify-content:center;
+padding:100px 7%;position:relative;overflow:hidden;border-bottom:1px solid #181818
 }
-
-.intro-content {
-
-    text-align: center;
-
-    animation: introAppear 1.5s ease forwards;
-
+.hero::before{
+content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:#ff1616;
+filter:blur(180px);opacity:.08;right:-200px;top:100px
 }
-
-.intro-small {
-
-    color: #777;
-
-    font-size: 12px;
-
-    letter-spacing: 7px;
-
-    margin-bottom: 25px;
-
+.hero::after{
+content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:#286cff;
+filter:blur(180px);opacity:.07;left:-200px;bottom:-200px
 }
-
-.intro-title {
-
-    font-size: clamp(45px, 9vw, 120px);
-
-    font-weight: 900;
-
-    letter-spacing: -5px;
-
-    line-height: .8;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff2020,
-            #ffffff,
-            #397cff
-        );
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
+.small-title{color:#777;font-size:12px;letter-spacing:4px;margin-bottom:30px}
+.hero h1{font-size:clamp(55px,10vw,145px);line-height:.82;letter-spacing:-7px;font-weight:900;max-width:1000px}
+.hero h1 .red{color:#ff2020}
+.hero p{max-width:700px;margin-top:45px;color:#999;line-height:1.8;font-size:16px}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:40px}
+.hero-button{
+display:inline-block;padding:16px 30px;background:#ff2020;color:#fff;text-decoration:none;
+font-size:11px;font-weight:bold;letter-spacing:3px;transition:.3s
 }
+.hero-button.secondary{background:transparent;border:1px solid #333}
+.hero-button:hover{background:#fff;color:#000;border-color:#fff}
 
-.intro-line {
+.music-section,.streaming-section{padding:120px 7%}
+.section-number{color:#666;font-size:12px;letter-spacing:4px}
+.section-title{font-size:clamp(40px,6vw,75px);margin-top:10px;letter-spacing:-3px}
 
-    width: 0;
-    height: 2px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff2020,
-            #397cff
-        );
-
-    margin: 35px auto;
-
-    animation: introLine 1.5s ease forwards;
-
+.albums{
+margin-top:70px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#222;border:1px solid #222
 }
-
-.enter-button {
-
-    border: 1px solid #444;
-
-    background: transparent;
-
-    color: white;
-
-    padding: 15px 45px;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    letter-spacing: 4px;
-
-    cursor: pointer;
-
-    transition: .3s;
-
+.album{
+background:#080808;padding:32px;min-height:250px;position:relative;cursor:pointer;transition:.3s;overflow:hidden
 }
-
-.enter-button:hover {
-
-    background: white;
-
-    color: black;
-
-    border-color: white;
-
+.album:hover{background:#111}
+.album::before{
+content:"";position:absolute;left:0;top:0;width:0;height:3px;
+background:linear-gradient(90deg,#ff2020,#286cff);transition:.4s
 }
+.album:hover::before{width:100%}
+.album-number{color:#555;font-size:11px;letter-spacing:3px}
+.album h3{margin-top:45px;font-size:24px;line-height:1.1;text-transform:uppercase}
+.album-icon{position:absolute;right:25px;bottom:20px;color:#555;font-size:25px;transition:.3s}
 
-
-/* =========================
-   HEADER
-========================= */
-
-header {
-
-    height: 80px;
-
-    border-bottom: 1px solid #202020;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding: 0 7%;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 100;
-
-    background: rgba(5,5,5,.92);
-
-    backdrop-filter: blur(12px);
-
+.tracks{display:none;margin-top:30px;border-top:1px solid #222;padding-top:15px}
+.album.active{background:#0d0d0d}
+.album.active .tracks{display:block}
+.album.active .album-icon{transform:rotate(45deg);color:#ff2020}
+.track{display:flex;gap:15px;padding:10px 0;border-bottom:1px solid #171717;color:#aaa;font-size:13px}
+.track-number{color:#555;min-width:25px}
+.youtube{
+display:inline-block;margin-top:20px;padding:11px 18px;background:#ff2020;color:#fff;text-decoration:none;
+font-size:10px;font-weight:bold;letter-spacing:2px;transition:.2s
 }
+.youtube:hover{background:#fff;color:#000}
 
-.logo {
-
-    text-decoration: none;
-
-    color: white;
-
-    font-weight: 900;
-
-    font-size: 17px;
-
-    letter-spacing: 3px;
-
+.streaming-section{
+border-top:1px solid #222;
+border-bottom:1px solid #222;
+position:relative;
+overflow:hidden
 }
-
-.logo span {
-
-    color: #ff2020;
-
+.streaming-section::before{
+content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+background:#286cff;filter:blur(180px);opacity:.06;right:-180px;top:-100px
 }
-
-nav a {
-
-    color: #aaa;
-
-    text-decoration: none;
-
-    margin-left: 35px;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    letter-spacing: 3px;
-
-    transition: .2s;
-
+.streaming-intro{max-width:750px;margin-top:30px;color:#999;line-height:1.8}
+.streaming-grid{
+margin-top:55px;display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:#222
 }
-
-nav a:hover {
-
-    color: white;
-
+.platform-card{
+background:#080808;padding:40px;position:relative;z-index:1
 }
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-
-    min-height: calc(100vh - 80px);
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    padding: 100px 7%;
-
-    position: relative;
-
-    overflow: hidden;
-
-    border-bottom: 1px solid #181818;
-
+.platform-label{font-size:11px;color:#666;letter-spacing:4px}
+.platform-card h3{font-size:32px;margin:12px 0 25px}
+.platform-links{display:flex;flex-direction:column;gap:10px}
+.platform-link{
+display:flex;align-items:center;justify-content:space-between;
+padding:17px 20px;border:1px solid #222;color:#fff;text-decoration:none;
+font-size:12px;font-weight:bold;letter-spacing:2px;transition:.25s
 }
+.platform-link span{color:#666;font-size:10px;letter-spacing:1px}
+.platform-link:hover{background:#fff;color:#000;border-color:#fff}
+.platform-link:hover span{color:#555}
 
-.hero::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 600px;
-    height: 600px;
-
-    border-radius: 50%;
-
-    background: #ff1616;
-
-    filter: blur(180px);
-
-    opacity: .08;
-
-    right: -200px;
-
-    top: 100px;
-
+.channel{
+margin-top:45px;display:inline-block;color:#fff;text-decoration:none;
+border-bottom:1px solid #ff2020;padding-bottom:8px;font-size:12px;font-weight:bold;letter-spacing:3px;
+transition:.25s
 }
+.channel:hover{color:#ff2020}
 
-.hero::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 500px;
-    height: 500px;
-
-    border-radius: 50%;
-
-    background: #286cff;
-
-    filter: blur(180px);
-
-    opacity: .07;
-
-    left: -200px;
-
-    bottom: -200px;
-
+footer{
+border-top:1px solid #222;padding:60px 7%;text-align:center;color:#444;
+font-size:11px;letter-spacing:3px;line-height:2
 }
+footer strong{color:#777}
 
-.small-title {
+@keyframes introAppear{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes introLine{from{width:0}to{width:180px}}
 
-    color: #777;
-
-    font-size: 12px;
-
-    letter-spacing: 4px;
-
-    margin-bottom: 30px;
-
+@media(max-width:900px){
+.albums{grid-template-columns:repeat(2,1fr)}
 }
-
-.hero h1 {
-
-    font-size: clamp(55px, 10vw, 145px);
-
-    line-height: .82;
-
-    letter-spacing: -7px;
-
-    font-weight: 900;
-
-    max-width: 1000px;
-
+@media(max-width:600px){
+header{padding:0 5%}
+nav a{margin-left:12px;font-size:9px}
+.hero{padding:80px 5%}
+.hero h1{letter-spacing:-4px}
+.music-section,.streaming-section{padding:80px 5%}
+.albums,.streaming-grid{grid-template-columns:1fr}
 }
-
-.hero h1 .red {
-
-    color: #ff2020;
-
-}
-
-.hero p {
-
-    max-width: 700px;
-
-    margin-top: 45px;
-
-    color: #999;
-
-    line-height: 1.8;
-
-    font-size: 16px;
-
-}
-
-.hero-button {
-
-    display: inline-block;
-
-    margin-top: 40px;
-
-    padding: 16px 30px;
-
-    width: fit-content;
-
-    background: #ff2020;
-
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-    letter-spacing: 3px;
-
-    transition: .3s;
-
-}
-
-.hero-button:hover {
-
-    background: white;
-
-    color: black;
-
-}
-
-
-/* =========================
-   SECTION
-========================= */
-
-.music-section {
-
-    padding: 120px 7%;
-
-}
-
-.section-number {
-
-    color: #666;
-
-    font-size: 12px;
-
-    letter-spacing: 4px;
-
-}
-
-.section-title {
-
-    font-size: clamp(40px, 6vw, 75px);
-
-    margin-top: 10px;
-
-    letter-spacing: -3px;
-
-}
-
-
-/* =========================
-   ALBUM GRID
-========================= */
-
-.albums {
-
-    margin-top: 70px;
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 2px;
-
-    background: #222;
-
-    border: 1px solid #222;
-
-}
-
-.album {
-
-    background: #080808;
-
-    padding: 32px;
-
-    min-height: 250px;
-
-    position: relative;
-
-    cursor: pointer;
-
-    transition: .3s;
-
-    overflow: hidden;
-
-}
-
-.album:hover {
-
-    background: #111;
-
-}
-
-.album::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    width: 0;
-
-    height: 3px;
-
-    background: linear-gradient(
-        90deg,
-        #ff2020,
-        #286cff
-    );
-
-    transition: .4s;
-
-}
-
-.album:hover::before {
-
-    width: 100%;
-
-}
-
-.album-number {
-
-    color: #555;
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-}
-
-.album h3 {
-
-    margin-top: 45px;
-
-    font-size: 24px;
-
-    line-height: 1.1;
-
-    text-transform: uppercase;
-
-}
-
-.album-description {
-
-    margin-top: 8px;
-
-    color: #555;
-
-    font-size: 11px;
-
-}
-
-.album-icon {
-
-    position: absolute;
-
-    right: 25px;
-
-    bottom: 20px;
-
-    color: #555;
-
-    font-size: 25px;
-
-}
-
-
-/* =========================
-   TRACKS
-========================= */
-
-.tracks {
-
-    display: none;
-
-    margin-top: 30px;
-
-    border-top: 1px solid #222;
-
-    padding-top: 15px;
-
-}
-
-.album.active {
-
-    background: #0d0d0d;
-
-}
-
-.album.active .tracks {
-
-    display: block;
-
-}
-
-.album.active .album-icon {
-
-    transform: rotate(45deg);
-
-    color: #ff2020;
-
-}
-
-.track {
-
-    display: flex;
-
-    gap: 15px;
-
-    padding: 10px 0;
-
-    border-bottom: 1px solid #171717;
-
-    color: #aaa;
-
-    font-size: 13px;
-
-}
-
-.track-number {
-
-    color: #555;
-
-    min-width: 25px;
-
-}
-
-.youtube {
-
-    display: inline-block;
-
-    margin-top: 20px;
-
-    padding: 11px 18px;
-
-    background: #ff2020;
-
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 10px;
-
-    font-weight: bold;
-
-    letter-spacing: 2px;
-
-    transition: .2s;
-
-}
-
-.youtube:hover {
-
-    background: white;
-
-    color: black;
-
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-
-    border-top: 1px solid #222;
-
-    padding: 60px 7%;
-
-    text-align: center;
-
-    color: #444;
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-}
-
-
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes introAppear {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(30px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-    }
-
-}
-
-@keyframes introLine {
-
-    from {
-
-        width: 0;
-
-    }
-
-    to {
-
-        width: 180px;
-
-    }
-
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 900px) {
-
-    .albums {
-
-        grid-template-columns: repeat(2, 1fr);
-
-    }
-
-}
-
-@media (max-width: 600px) {
-
-    header {
-
-        padding: 0 5%;
-
-    }
-
-    nav a {
-
-        margin-left: 12px;
-
-        font-size: 9px;
-
-    }
-
-    .hero {
-
-        padding: 80px 5%;
-
-    }
-
-    .hero h1 {
-
-        letter-spacing: -4px;
-
-    }
-
-    .music-section {
-
-        padding: 80px 5%;
-
-    }
-
-    .albums {
-
-        grid-template-columns: 1fr;
-
-    }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =================================
-     INTRO
-================================= -->
-
 <div id="intro">
-
-    <div class="intro-content">
-
-        <div class="intro-small">
-            THE OFFICIAL WEBSITE
-        </div>
-
-        <div class="intro-title">
-            LITERALLY<br>STEPLERS
-        </div>
-
-        <div class="intro-line"></div>
-
-        <button class="enter-button" onclick="enterSite()">
-            ENTER
-        </button>
-
-    </div>
-
+<div class="intro-content">
+<div class="intro-small">THE OFFICIAL WEBSITE</div>
+<div class="intro-title">LITERALLY<br>STEPLERS</div>
+<div class="intro-line"></div>
+<button class="enter-button" onclick="enterSite()">ENTER</button>
 </div>
-
-
-<!-- =================================
-     HEADER
-================================= -->
+</div>
 
 <header>
-
-    <a href="#home" class="logo">
-        LITERALLY <span>STEPLERS</span>
-    </a>
-
-    <nav>
-
-        <a href="#home">HOME</a>
-
-        <a href="#music">MUSIC</a>
-
-    </nav>
-
+<a href="#home" class="logo">LITERALLY <span>STEPLERS</span></a>
+<nav>
+<a href="#home">HOME</a>
+<a href="#music">MUSIC</a>
+<a href="#streaming">STREAMING</a>
+</nav>
 </header>
 
-
-<!-- =================================
-     HOME
-================================= -->
-
 <section class="hero" id="home">
-
-    <div class="small-title">
-        01 / THE BAND
-    </div>
-
-    <h1>
-        LITERALLY<br>
-        <span class="red">STEPLERS</span>
-    </h1>
-
-    <p>
-        Literally Steplers is a musical project built around
-        chaos, absurdity, friendship, creativity and an unhealthy
-        amount of questionable ideas.
-        <br><br>
-        From mysterious characters to entire fictional worlds,
-        every album adds another piece to the Literally Steplers universe.
-    </p>
-
-    <a href="#music" class="hero-button">
-        EXPLORE THE DISCOGRAPHY
-    </a>
-
+<div class="small-title">01 / THE BAND</div>
+<h1>LITERALLY<br><span class="red">STEPLERS</span></h1>
+<p>
+Literally Steplers is a musical project built around chaos, absurdity, friendship,
+creativity and an unhealthy amount of questionable ideas.
+<br><br>
+From mysterious characters to entire fictional worlds, every album adds another
+piece to the Literally Steplers universe.
+</p>
+<div class="hero-buttons">
+<a href="#music" class="hero-button">EXPLORE THE DISCOGRAPHY</a>
+<a href="https://www.youtube.com/@LiterallySteplers" target="_blank" rel="noopener" class="hero-button secondary">YOUTUBE CHANNEL</a>
+</div>
 </section>
 
-
-<!-- =================================
-     MUSIC
-================================= -->
-
 <section class="music-section" id="music">
+<div class="section-number">02 / DISCOGRAPHY</div>
+<h2 class="section-title">THE ALBUMS</h2>
 
-    <div class="section-number">
-        02 / DISCOGRAPHY
-    </div>
+<div class="albums">
 
-    <h2 class="section-title">
-        THE ALBUMS
-    </h2>
-
-
-    <div class="albums">
-
-
-<!-- 01 -->
-
-<div class="album">
-
-<div class="album-number">01</div>
-
-<h3>Debut Album</h3>
-
-<div class="album-description">
-    THE BEGINNING
-</div>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">01</div><h3>Debut Album</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>God VS Animatronic</span></div>
 <div class="track"><span class="track-number">02</span><span>In the Boat With the Tchola</span></div>
 <div class="track"><span class="track-number">03</span><span>Lil Bro</span></div>
 <div class="track"><span class="track-number">04</span><span>Literally</span></div>
 <div class="track"><span class="track-number">05</span><span>Tung Sahur</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uzU-8xcq1Do&list=PLmOobnsZmxx56Aq7r0oXF1t2W4_n6q9C9">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=uzU-8xcq1Do&list=PLmOobnsZmxx56Aq7r0oXF1t2W4_n6q9C9">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 02 -->
-
-<div class="album">
-
-<div class="album-number">02</div>
-
-<h3>Yâmers</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">02</div><h3>Yâmers</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>En La Cadeia</span></div>
 <div class="track"><span class="track-number">02</span><span>Tem Alguma Coisa Errada</span></div>
 <div class="track"><span class="track-number">03</span><span>The Peak</span></div>
 <div class="track"><span class="track-number">04</span><span>Tierlist</span></div>
 <div class="track"><span class="track-number">05</span><span>Você Vai Pagar Caro</span></div>
 <div class="track"><span class="track-number">06</span><span>Yâmers</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Qer2WlePYhE&list=PLmOobnsZmxx5-AFLZlYKf8APe9l3380Ti">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=Qer2WlePYhE&list=PLmOobnsZmxx5-AFLZlYKf8APe9l3380Ti">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 03 -->
-
-<div class="album">
-
-<div class="album-number">03</div>
-
-<h3>Stemers</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">03</div><h3>Stemers</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>7 Minutes</span></div>
 <div class="track"><span class="track-number">02</span><span>Ear Monster</span></div>
 <div class="track"><span class="track-number">03</span><span>Niganin</span></div>
 <div class="track"><span class="track-number">04</span><span>Stemers</span></div>
 <div class="track"><span class="track-number">05</span><span>The</span></div>
 <div class="track"><span class="track-number">06</span><span>Tumbulas</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ZkQitXIAvKE&list=PLmOobnsZmxx413QPYWP-17aBBYJVW7pwz">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=ZkQitXIAvKE&list=PLmOobnsZmxx413QPYWP-17aBBYJVW7pwz">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 04 -->
-
-<div class="album">
-
-<div class="album-number">04</div>
-
-<h3>Hell's Aura</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">04</div><h3>Hell's Aura</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Captivity</span></div>
 <div class="track"><span class="track-number">02</span><span>Hell's Aura</span></div>
 <div class="track"><span class="track-number">03</span><span>Rodrigo</span></div>
 <div class="track"><span class="track-number">04</span><span>The Molester Tractor</span></div>
 <div class="track"><span class="track-number">05</span><span>Two At Once</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9ABRMktwx24&list=PLmOobnsZmxx4zIBOlIy9W6C1GuaErGv6m">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=9ABRMktwx24&list=PLmOobnsZmxx4zIBOlIy9W6C1GuaErGv6m">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 05 -->
-
-<div class="album">
-
-<div class="album-number">05</div>
-
-<h3>The Home</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">05</div><h3>The Home</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Quirathi</span></div>
 <div class="track"><span class="track-number">02</span><span>The Yamers Path</span></div>
 <div class="track"><span class="track-number">03</span><span>No Cap on Steplers</span></div>
 <div class="track"><span class="track-number">04</span><span>Daigoleite</span></div>
 <div class="track"><span class="track-number">05</span><span>Write of the Devil</span></div>
 <div class="track"><span class="track-number">06</span><span>The Home</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=n415hP-Jymc&list=PLmOobnsZmxx5Si52DDFCLF0TRA1WnMyFh">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=n415hP-Jymc&list=PLmOobnsZmxx5Si52DDFCLF0TRA1WnMyFh">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 06 -->
-
-<div class="album">
-
-<div class="album-number">06</div>
-
-<h3>Diabolical Dog</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">06</div><h3>Diabolical Dog</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Diabolical Dog</span></div>
 <div class="track"><span class="track-number">02</span><span>Goonaldo</span></div>
 <div class="track"><span class="track-number">03</span><span>Hell Rodeo</span></div>
 <div class="track"><span class="track-number">04</span><span>The Devil's Leash</span></div>
 <div class="track"><span class="track-number">05</span><span>The Last Bark</span></div>
 <div class="track"><span class="track-number">06</span><span>Tio</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5hl4EP3w-LI&list=PLmOobnsZmxx6nxWTIfPnsuomCcyaoAsWJ">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=5hl4EP3w-LI&list=PLmOobnsZmxx6nxWTIfPnsuomCcyaoAsWJ">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 07 -->
-
-<div class="album">
-
-<div class="album-number">07</div>
-
-<h3>Return To The Boat</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">07</div><h3>Return To The Boat</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>GvsA 2.0</span></div>
 <div class="track"><span class="track-number">02</span><span>In The Boat With The Tchola 2.0</span></div>
 <div class="track"><span class="track-number">03</span><span>Lil Bro 2.0</span></div>
 <div class="track"><span class="track-number">04</span><span>Literally 2.0</span></div>
 <div class="track"><span class="track-number">05</span><span>Sahur 2.0</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=tHJhkyS0UjU&list=PLmOobnsZmxx7JN5MeoTXUMjqHv0XolgMH">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=tHJhkyS0UjU&list=PLmOobnsZmxx7JN5MeoTXUMjqHv0XolgMH">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 08 -->
-
-<div class="album">
-
-<div class="album-number">08</div>
-
-<h3>Steplers</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">08</div><h3>Steplers</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>There Him</span></div>
 <div class="track"><span class="track-number">02</span><span>Mirror Realm _ mlaeR rorriM</span></div>
 <div class="track"><span class="track-number">03</span><span>I Can Breath</span></div>
@@ -1070,280 +275,100 @@ YOUTUBE PLAYLIST
 <div class="track"><span class="track-number">08</span><span>2 Peak</span></div>
 <div class="track"><span class="track-number">09</span><span>Deguy Attractor</span></div>
 <div class="track"><span class="track-number">10</span><span>Ngovij</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=E0kqtzl_qMY&list=PLmOobnsZmxx7Jq6af-wdwNQU6puyyjBcu">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=E0kqtzl_qMY&list=PLmOobnsZmxx7Jq6af-wdwNQU6puyyjBcu">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 09 -->
-
-<div class="album">
-
-<div class="album-number">09</div>
-
-<h3>Herborine</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">09</div><h3>Herborine</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Eat Eat</span></div>
 <div class="track"><span class="track-number">02</span><span>Mbabi</span></div>
 <div class="track"><span class="track-number">03</span><span>Bite And Fall</span></div>
 <div class="track"><span class="track-number">04</span><span>Herborine</span></div>
 <div class="track"><span class="track-number">05</span><span>Enncia</span></div>
 <div class="track"><span class="track-number">06</span><span>The Barrier</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=38dvQrJUU8c&list=PLmOobnsZmxx7qa8kNkGebm3sRrusiaWWq">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=38dvQrJUU8c&list=PLmOobnsZmxx7qa8kNkGebm3sRrusiaWWq">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 10 -->
-
-<div class="album">
-
-<div class="album-number">10</div>
-
-<h3>Armless John</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">10</div><h3>Armless John</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Cup Chicken</span></div>
 <div class="track"><span class="track-number">02</span><span>Upside Down</span></div>
 <div class="track"><span class="track-number">03</span><span>Aiming Wrong</span></div>
 <div class="track"><span class="track-number">04</span><span>Armless John</span></div>
 <div class="track"><span class="track-number">05</span><span>The Door</span></div>
 <div class="track"><span class="track-number">06</span><span>The Unborn One</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-8lR15eYzeE&list=PLmOobnsZmxx7cr0wVt1yuGlYpjoPyWaPL">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=-8lR15eYzeE&list=PLmOobnsZmxx7cr0wVt1yuGlYpjoPyWaPL">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 11 -->
-
-<div class="album">
-
-<div class="album-number">11</div>
-
-<h3>The Cashier</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">11</div><h3>The Cashier</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Waymaker</span></div>
 <div class="track"><span class="track-number">02</span><span>Penalman</span></div>
 <div class="track"><span class="track-number">03</span><span>The Cashier</span></div>
 <div class="track"><span class="track-number">04</span><span>Neilitaum</span></div>
 <div class="track"><span class="track-number">05</span><span>Who's This Guy</span></div>
 <div class="track"><span class="track-number">06</span><span>Countability</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=e7K71Euc_Xo&list=PLmOobnsZmxx4apRMe7h4JlPMxF0uXiXJE">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=e7K71Euc_Xo&list=PLmOobnsZmxx4apRMe7h4JlPMxF0uXiXJE">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 12 -->
-
-<div class="album">
-
-<div class="album-number">12</div>
-
-<h3>The Guy From Picture</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">12</div><h3>The Guy From Picture</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Transition</span></div>
 <div class="track"><span class="track-number">02</span><span>Green or Purple</span></div>
 <div class="track"><span class="track-number">03</span><span>The Guy From Picture</span></div>
 <div class="track"><span class="track-number">04</span><span>Not Super Man</span></div>
 <div class="track"><span class="track-number">05</span><span>The Gun</span></div>
 <div class="track"><span class="track-number">06</span><span>Satanical Brothers</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sgMRaWm-tQM&list=PLmOobnsZmxx6HTNYIwvTwr1piFS6VWL4a">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=sgMRaWm-tQM&list=PLmOobnsZmxx6HTNYIwvTwr1piFS6VWL4a">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 13 -->
-
-<div class="album">
-
-<div class="album-number">13</div>
-
-<h3>The Tchola</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">13</div><h3>The Tchola</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Cappucined</span></div>
 <div class="track"><span class="track-number">02</span><span>He Need to Be Fried</span></div>
 <div class="track"><span class="track-number">03</span><span>The Tchola</span></div>
 <div class="track"><span class="track-number">04</span><span>Mr. Skin</span></div>
 <div class="track"><span class="track-number">05</span><span>Unbad</span></div>
 <div class="track"><span class="track-number">06</span><span>Tendence</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9ar0bbdB2Fg&list=PLIpi2ecjHkPg">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=9ar0bbdB2Fg&list=PLIpi2ecjHkPg">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 14 -->
-
-<div class="album">
-
-<div class="album-number">14</div>
-
-<h3>Mausoleum</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">14</div><h3>Mausoleum</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Occultism</span></div>
 <div class="track"><span class="track-number">02</span><span>Labirynth</span></div>
 <div class="track"><span class="track-number">03</span><span>Mausoleum</span></div>
 <div class="track"><span class="track-number">04</span><span>Big Blue</span></div>
 <div class="track"><span class="track-number">05</span><span>Laiopépci</span></div>
 <div class="track"><span class="track-number">06</span><span>The Last Contact</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9FrqY3mWnqE&list=PLmOobnsZmxx5lhFtIMwh-kQDT3HLL4Iur">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=9FrqY3mWnqE&list=PLmOobnsZmxx5lhFtIMwh-kQDT3HLL4Iur">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 15 -->
-
-<div class="album">
-
-<div class="album-number">15</div>
-
-<h3>The Page</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">15</div><h3>The Page</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Page</span></div>
 <div class="track"><span class="track-number">02</span><span>Lildiuty</span></div>
 <div class="track"><span class="track-number">03</span><span>The Page</span></div>
 <div class="track"><span class="track-number">04</span><span>Whiters</span></div>
 <div class="track"><span class="track-number">05</span><span>Emiliano</span></div>
 <div class="track"><span class="track-number">06</span><span>Classic</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=wE45ImMKogs&list=PLehvQmDDQ54g">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=wE45ImMKogs&list=PLehvQmDDQ54g">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 16 -->
-
-<div class="album">
-
-<div class="album-number">16</div>
-
-<h3>Real South</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">16</div><h3>Real South</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Palms</span></div>
 <div class="track"><span class="track-number">02</span><span>Dream</span></div>
 <div class="track"><span class="track-number">03</span><span>Real South</span></div>
 <div class="track"><span class="track-number">04</span><span>The Message</span></div>
 <div class="track"><span class="track-number">05</span><span>The Illusion</span></div>
 <div class="track"><span class="track-number">06</span><span>First One</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=r_Z7rZDpPrM&list=PLYNyti-Z3Qa8">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=r_Z7rZDpPrM&list=PLYNyti-Z3Qa8">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 17 -->
-
-<div class="album">
-
-<div class="album-number">17</div>
-
-<h3>Canada</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">17</div><h3>Canada</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Rent-A-Brun</span></div>
 <div class="track"><span class="track-number">02</span><span>The Palit</span></div>
 <div class="track"><span class="track-number">03</span><span>Canada</span></div>
 <div class="track"><span class="track-number">04</span><span>My Hat</span></div>
 <div class="track"><span class="track-number">05</span><span>The Bill</span></div>
 <div class="track"><span class="track-number">06</span><span>The Instrumental Man</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4ESJaajYLiI&list=PLRhvrvwv7WnU">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=4ESJaajYLiI&list=PLRhvrvwv7WnU">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 18 -->
-
-<div class="album">
-
-<div class="album-number">18</div>
-
-<h3>Laminhapal</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">18</div><h3>Laminhapal</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Derby's District</span></div>
 <div class="track"><span class="track-number">02</span><span>Dig And Bowls</span></div>
 <div class="track"><span class="track-number">03</span><span>Grabidiqui</span></div>
@@ -1351,154 +376,84 @@ YOUTUBE PLAYLIST
 <div class="track"><span class="track-number">05</span><span>Laminhapal</span></div>
 <div class="track"><span class="track-number">06</span><span>pal</span></div>
 <div class="track"><span class="track-number">07</span><span>RD</span></div>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=a2uZH5STgrs&list=PLIEYF_Lc6LP8">YOUTUBE PLAYLIST</a>
+</div></div>
 
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=a2uZH5STgrs&list=PLIEYF_Lc6LP8">
-YOUTUBE PLAYLIST
-</a>
-
-</div>
-</div>
-
-
-<!-- 19 -->
-
-<div class="album">
-
-<div class="album-number">19</div>
-
-<h3>One Team, One Dream</h3>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
+<div class="album"><div class="album-number">19</div><h3>One Team, One Dream</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Big Liter Challenge</span></div>
 <div class="track"><span class="track-number">02</span><span>I See, Luke!</span></div>
 <div class="track"><span class="track-number">03</span><span>Little Strawberry</span></div>
 <div class="track"><span class="track-number">04</span><span>One Team, One Dream</span></div>
 <div class="track"><span class="track-number">05</span><span>PeopleS</span></div>
 <div class="track"><span class="track-number">06</span><span>The Drop House</span></div>
-
-<a class="youtube" target="_blank"
-href="https://www.youtube.com/watch?v=jwQNzroL5Hg&list=PLEAYEH-MzTOg">
-YOUTUBE PLAYLIST
-</a>
+<a class="youtube" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jwQNzroL5Hg&list=PLEAYEH-MzTOg">YOUTUBE PLAYLIST</a>
+</div></div>
 
 </div>
-</div>
-
-
-<!-- 20 -->
-
-<div class="album">
-
-<div class="album-number">20</div>
-
-<h3>Subconcequente</h3>
-
-<div class="album-description">
-    NO TRACKS YET
-</div>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
-<div class="track">
-<span class="track-number">—</span>
-<span>No tracks yet.</span>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- 21 -->
-
-<div class="album">
-
-<div class="album-number">21</div>
-
-<h3>Want Want</h3>
-
-<div class="album-description">
-    NO TRACKS YET
-</div>
-
-<div class="album-icon">+</div>
-
-<div class="tracks">
-
-<div class="track">
-<span class="track-number">—</span>
-<span>No tracks yet.</span>
-</div>
-
-</div>
-
-</div>
-
-
-    </div>
-
 </section>
 
+<section class="streaming-section" id="streaming">
+<div class="section-number">03 / LISTEN NOW</div>
+<h2 class="section-title">EXPERIENCE THE MUSIC</h2>
+<p class="streaming-intro">
+Take Hell's Aura and Stemers with you beyond YouTube.
+Both albums are also available on Spotify and Apple Music.
+</p>
 
-<!-- =================================
-     FOOTER
-================================= -->
+<div class="streaming-grid">
+
+<div class="platform-card">
+<div class="platform-label">STREAMING PLATFORM</div>
+<h3>SPOTIFY</h3>
+<div class="platform-links">
+<a class="platform-link" target="_blank" rel="noopener" href="https://open.spotify.com/intl-pt/album/2oa4CZPqckSFumBbTW3pga">
+HELL'S AURA <span>LISTEN →</span>
+</a>
+<a class="platform-link" target="_blank" rel="noopener" href="https://open.spotify.com/intl-pt/album/29LTsH42159ZVh4KD43VrK">
+STEMERS <span>LISTEN →</span>
+</a>
+</div>
+</div>
+
+<div class="platform-card">
+<div class="platform-label">STREAMING PLATFORM</div>
+<h3>APPLE MUSIC</h3>
+<div class="platform-links">
+<a class="platform-link" target="_blank" rel="noopener" href="https://music.apple.com/br/album/hells-aura-single/6775922625">
+HELL'S AURA <span>LISTEN →</span>
+</a>
+<a class="platform-link" target="_blank" rel="noopener" href="https://music.apple.com/br/album/stemers-ep/6775649500">
+STEMERS <span>LISTEN →</span>
+</a>
+</div>
+</div>
+
+</div>
+
+<a class="channel" target="_blank" rel="noopener" href="https://www.youtube.com/@LiterallySteplers">
+VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
+</a>
+</section>
 
 <footer>
-
-LITERALLY STEPLERS © 2026
-
+LITERALLY STEPLERS © 2026<br>
+<strong>Copyright © MrLeoLL &amp; Rizinperro</strong>
 </footer>
 
-
 <script>
-
-/* =========================
-   INTRO
-========================= */
-
-function enterSite() {
-
-    const intro = document.getElementById("intro");
-
-    intro.classList.add("hidden");
-
+function enterSite(){
+document.getElementById("intro").classList.add("hidden");
 }
 
+const albums=document.querySelectorAll(".album");
 
-/* =========================
-   ALBUMS
-========================= */
-
-const albums = document.querySelectorAll(".album");
-
-albums.forEach(album => {
-
-    album.addEventListener("click", function(event) {
-
-        /*
-        Não fecha/abre o álbum quando
-        o usuário clicar no botão do YouTube.
-        */
-
-        if (event.target.closest(".youtube")) {
-            return;
-        }
-
-        this.classList.toggle("active");
-
-    });
-
+albums.forEach(album=>{
+album.addEventListener("click",function(event){
+if(event.target.closest(".youtube")) return;
+this.classList.toggle("active");
 });
-
+});
 </script>
-
 
 </body>
 </html>
