@@ -1,1144 +1,883 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-html {
-    scroll-behavior: smooth;
-}
-
-
-body {
-    background: #050505;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-}
-
-
-body::after {
-    content: "";
-
-    position: fixed;
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: 9999;
-
-    opacity: .035;
-
-    background-image:
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 3px,
-            white 4px
-        );
-}
-
-
-/* LOADER */
-
-#loader {
-    position: fixed;
-    inset: 0;
-
-    z-index: 10000;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    background: #050505;
-
-    transition: opacity .6s;
-}
-
-
-.loader-logo {
-    font-family: 'Anton', sans-serif;
-
-    font-size: 110px;
-
-    color: #e60000;
-
-    animation: glitch .8s infinite;
-}
-
-
-.loader-text {
-    font-size: 9px;
-
-    letter-spacing: 5px;
-
-    color: #777;
-}
-
-
-/* NAVBAR */
-
-.navbar {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-
-    height: 85px;
-
-    padding: 0 6%;
-
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    z-index: 5000;
-
-    background: rgba(5,5,5,.85);
-
-    backdrop-filter: blur(15px);
-
-    border-bottom: 1px solid #222;
-}
-
-
-.logo {
-    font-family: 'Anton', sans-serif;
-
-    font-size: 22px;
-
-    line-height: .75;
-
-    color: white;
-
-    text-decoration: none;
-}
-
-
-.logo span {
-    display: block;
-
-    color: #e60000;
-}
-
-
-nav {
-    display: flex;
-
-    gap: 35px;
-}
-
-
-nav a {
-    color: #fff;
-
-    text-decoration: none;
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 3px;
-
-    transition: .3s;
-}
-
-
-nav a:hover {
-    color: #e60000;
-}
-
-
-.menu-button {
-    display: none;
-
-    border: 0;
-
-    background: transparent;
-
-    color: white;
-
-    font-size: 25px;
-}
-
-
-/* HERO */
-
-.hero {
-    height: 100vh;
-
-    min-height: 650px;
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    padding: 0 8%;
-
-    overflow: hidden;
-}
-
-
-.hero-background {
-    position: absolute;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            #050505 10%,
-            rgba(5,5,5,.8) 45%,
-            rgba(5,5,5,.2)
-        ),
-        url("images/albums/1 Debut Album.png");
-
-    background-size: cover;
-
-    background-position: center;
-
-    filter: grayscale(40%);
-
-    transform: scale(1.05);
-}
-
-
-.hero-content {
-    position: relative;
-
-    z-index: 2;
-
-    max-width: 1000px;
-}
-
-
-.eyebrow,
-.red-label {
-    color: #e60000;
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 4px;
-}
-
-
-.hero h1 {
-    font-family: 'Anton', sans-serif;
-
-    font-size: clamp(75px, 13vw, 190px);
-
-    line-height: .75;
-
-    letter-spacing: -5px;
-
-    margin: 25px 0;
-}
-
-
-.hero h1 span {
-    display: block;
-
-    color: #e60000;
-}
-
-
-.hero-subtitle {
-    letter-spacing: 8px;
-
-    font-size: 13px;
-
-    font-weight: 800;
-
-    margin-bottom: 35px;
-}
-
-
-.hero-buttons {
-    display: flex;
-
-    gap: 15px;
-}
-
-
-.button {
-    display: inline-block;
-
-    padding: 16px 25px;
-
-    background: #e60000;
-
-    border: 1px solid #e60000;
-
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 2px;
-
-    cursor: pointer;
-
-    transition: .3s;
-}
-
-
-.button:hover {
-    background: white;
-
-    border-color: white;
-
-    color: black;
-
-    transform: translateY(-3px);
-}
-
-
-.button.outline {
-    background: transparent;
-
-    border-color: white;
-}
-
-
-.scroll-indicator {
-    position: absolute;
-
-    bottom: 30px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    color: #777;
-
-    font-size: 8px;
-
-    letter-spacing: 5px;
-}
-
-
-/* GENERAL */
-
-.section {
-    padding: 130px 8%;
-}
-
-
-.section-heading {
-    margin-bottom: 60px;
-}
-
-
-.section-heading h2,
-.split-content h2,
-.lore h2 {
-    font-family: 'Anton', sans-serif;
-
-    font-size: clamp(65px, 9vw, 130px);
-
-    line-height: .8;
-
-    letter-spacing: -3px;
-
-    margin: 20px 0;
-}
-
-
-.section-heading > p:last-child {
-    color: #777;
-
-    max-width: 500px;
-
-    font-size: 13px;
-
-    line-height: 1.7;
-}
-
-
-/* ALBUMS */
-
-.albums-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 35px 22px;
-}
-
-
-.album-card {
-    cursor: pointer;
-}
-
-
-.album-cover {
-    position: relative;
-
-    aspect-ratio: 1;
-
-    overflow: hidden;
-
-    background: #111;
-
-    border: 1px solid #222;
-}
-
-
-.album-cover img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    transition: .5s;
-}
-
-
-.album-card:hover img {
-    transform: scale(1.06);
-}
-
-
-.album-number {
-    position: absolute;
-
-    top: 12px;
-    left: 12px;
-
-    z-index: 2;
-
-    font-size: 9px;
-
-    letter-spacing: 2px;
-
-    color: white;
-
-    background: rgba(0,0,0,.7);
-
-    padding: 6px 8px;
-}
-
-
-.album-hover {
-    position: absolute;
-
-    inset: 0;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    background: rgba(0,0,0,.65);
-
-    opacity: 0;
-
-    transition: .3s;
-}
-
-
-.album-card:hover .album-hover {
-    opacity: 1;
-}
-
-
-.album-play {
-    width: 65px;
-    height: 65px;
-
-    border-radius: 50%;
-
-    background: #e60000;
-
-    border: 2px solid white;
-
-    color: white;
-
-    font-size: 18px;
-}
-
-
-.album-name {
-    font-family: 'Anton', sans-serif;
-
-    font-size: 28px;
-
-    line-height: .9;
-
-    margin-top: 17px;
-}
-
-
-.album-meta {
-    color: #666;
-
-    font-size: 9px;
-
-    letter-spacing: 2px;
-
-    margin-top: 8px;
-}
-
-
-/* SPLIT */
-
-.split-section {
-    min-height: 700px;
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    background: #0d0d0d;
-}
-
-
-.split-image {
-    min-height: 700px;
-}
-
-
-.split-image img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-}
-
-
-.split-content {
-    padding: 10%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-}
-
-
-.split-content > p:not(.red-label) {
-    color: #888;
-
-    line-height: 1.8;
-
-    max-width: 550px;
-
-    margin-bottom: 20px;
-}
-
-
-/* LORE */
-
-.lore {
-    min-height: 700px;
-
-    padding: 10%;
-
-    display: flex;
-
-    align-items: center;
-
-    background:
-        linear-gradient(
-            rgba(0,0,0,.8),
-            rgba(0,0,0,.8)
-        ),
-        url("images/albums/19 Laminhapal.png");
-
-    background-size: cover;
-
-    background-position: center;
-}
-
-
-.lore-content {
-    max-width: 850px;
-}
-
-
-.lore-content > p:not(.red-label) {
-    color: #999;
-
-    max-width: 650px;
-
-    line-height: 1.8;
-
-    margin: 20px 0;
-}
-
-
-/* GALLERY */
-
-.gallery {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 8px;
-}
-
-
-.gallery-placeholder {
-    aspect-ratio: 1;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background: #111;
-
-    border: 1px dashed #333;
-
-    color: #444;
-
-    font-size: 9px;
-
-    letter-spacing: 2px;
-
-    text-align: center;
-}
-
-
-/* FOOTER */
-
-footer {
-    padding: 90px 8% 40px;
-
-    text-align: center;
-
-    border-top: 1px solid #222;
-}
-
-
-.footer-logo {
-    font-family: 'Anton', sans-serif;
-
-    font-size: 60px;
-
-    line-height: .75;
-}
-
-
-.footer-logo span {
-    color: #e60000;
-}
-
-
-footer > p {
-    color: #666;
-
-    font-size: 9px;
-
-    letter-spacing: 4px;
-
-    margin: 30px 0;
-}
-
-
-.socials {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 30px;
-
-    margin: 35px 0;
-}
-
-
-.socials a {
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 9px;
-
-    letter-spacing: 2px;
-
-    font-weight: 900;
-}
-
-
-.socials a:hover {
-    color: #e60000;
-}
-
-
-footer small {
-    color: #444;
-
-    font-size: 8px;
-}
-
-
-/* MODAL */
-
-.modal {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 8000;
-
-    background: rgba(0,0,0,.88);
-
-    backdrop-filter: blur(15px);
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 30px;
-}
-
-
-.modal.active {
-    display: flex;
-}
-
-
-.modal-box {
-    width: min(1000px, 100%);
-
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    background: #0d0d0d;
-
-    border: 1px solid #333;
-
-    padding: 40px;
-}
-
-
-.close {
-    float: right;
-
-    border: 0;
-
-    background: transparent;
-
-    color: white;
-
-    font-size: 35px;
-
-    cursor: pointer;
-}
-
-
-.modal-album {
-    display: grid;
-
-    grid-template-columns: 45% 55%;
-
-    gap: 50px;
-
-    padding: 20px;
-}
-
-
-.modal-album > img {
-    width: 100%;
-
-    aspect-ratio: 1;
-
-    object-fit: cover;
-}
-
-
-.modal-info h2 {
-    font-family: 'Anton', sans-serif;
-
-    font-size: 80px;
-
-    line-height: .8;
-
-    margin: 15px 0 35px;
-}
-
-
-.track {
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 13px 0;
-
-    border-bottom: 1px solid #222;
-
-    cursor: pointer;
-
-    transition: .2s;
-}
-
-
-.track:hover {
-    color: #e60000;
-}
-
-
-.track-number {
-    color: #555;
-
-    width: 25px;
-
-    font-size: 10px;
-}
-
-
-.track-title {
-    flex: 1;
-
-    font-size: 12px;
-
-    font-weight: 700;
-}
-
-
-.no-music {
-    color: #555;
-
-    font-size: 12px;
-
-    padding: 30px 0;
-}
-
-
-/* PLAYER */
-
-.player {
-    position: fixed;
-
-    left: 20px;
-    right: 20px;
-
-    bottom: 20px;
-
-    z-index: 7000;
-
-    display: grid;
-
-    grid-template-columns: 1fr auto 1fr auto;
-
-    align-items: center;
-
-    gap: 25px;
-
-    padding: 12px 18px;
-
-    background: rgba(15,15,15,.96);
-
-    border: 1px solid #333;
-
-    box-shadow: 0 15px 50px rgba(0,0,0,.7);
-}
-
-
-.player.hidden {
-    display: none;
-}
-
-
-.player-info {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-}
-
-
-.player-info img {
-    width: 48px;
-    height: 48px;
-
-    object-fit: cover;
-}
-
-
-.player-info small {
-    display: block;
-
-    color: #e60000;
-
-    font-size: 7px;
-
-    letter-spacing: 2px;
-}
-
-
-.player-info strong {
-    display: block;
-
-    font-size: 11px;
-
-    margin-top: 5px;
-}
-
-
-.player-controls {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-}
-
-
-.player-controls button {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 50%;
-
-    border: 1px solid #555;
-
-    background: transparent;
-
-    color: white;
-
-    cursor: pointer;
-}
-
-
-#playPause {
-    background: #e60000;
-
-    border-color: #e60000;
-}
-
-
-.player-progress {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    font-size: 8px;
-
-    color: #777;
-}
-
-
-#progress {
-    width: 100%;
-}
-
-
-.player-close {
-    background: none;
-
-    border: 0;
-
-    color: #666;
-
-    font-size: 20px;
-
-    cursor: pointer;
-}
-
-
-/* ANIMATION */
-
-@keyframes glitch {
-
-    0% {
-        transform: translate(0);
+/* ==========================================
+   LITERALLY STEPLERS
+   DISCOGRAPHY DATABASE
+========================================== */
+
+
+const albums = [
+
+    {
+        name: "Literally Steplers",
+        cover: "images/albums/1 Debut Album.png",
+        tracks: []
+    },
+
+    {
+        name: "Yâmers",
+        cover: "images/albums/2 Yamers.png",
+        tracks: [
+            "En La Cadeia",
+            "Tem Alguma Coisa Errada",
+            "The Peak",
+            "Tierlist",
+            "Você Vai Pagar Caro",
+            "Yâmers"
+        ]
+    },
+
+    {
+        name: "Stemers",
+        cover: "images/albums/3 Stemers.png",
+        tracks: []
+    },
+
+    {
+        name: "Hell's Aura",
+        cover: "images/albums/4 Hell's Aura.png",
+        tracks: [
+            "Captivity",
+            "Hell's Aura",
+            "Rodrigo",
+            "The Molester Tractor",
+            "Two At Once"
+        ]
+    },
+
+    {
+        name: "The Home",
+        cover: "images/albums/5 The Home.png",
+        tracks: [
+            "Quirathi",
+            "The Yamers Path",
+            "No Cap on Steplers",
+            "Daigoleite",
+            "Write of the Devil",
+            "The Home"
+        ]
+    },
+
+    {
+        name: "Diabolical Dog",
+        cover: "images/albums/6 Diabolical Dog.png",
+        tracks: [
+            "Diabolical Dog",
+            "Goonaldo",
+            "Hell Rodeo",
+            "The Devil's Leash",
+            "The Last Bark",
+            "Tio"
+        ]
+    },
+
+    {
+        name: "Return To The Boat",
+        cover: "images/albums/7 Return To The Boat.png",
+        tracks: [
+            "GvsA 2.0",
+            "In The Boat With The Tchola 2.0",
+            "Lil Bro 2.0",
+            "Literally 2.0",
+            "Sahur 2.0"
+        ]
+    },
+
+    {
+        name: "Steplers",
+        cover: "images/albums/8 Steplers.png",
+        tracks: [
+            "There Him",
+            "Mirror Realm - mlaeR rorriM",
+            "I Can Breath",
+            "PPN",
+            "Steplers",
+            "Lyndon",
+            "Welcome To The Tripplers",
+            "2 Peak",
+            "Deguy Attractor",
+            "Ngovij"
+        ]
+    },
+
+    {
+        name: "Herborine",
+        cover: "images/albums/9 Herborine.png",
+        tracks: [
+            "Eat Eat",
+            "Mbabi",
+            "Bite And Fall",
+            "Herborine",
+            "Enncia",
+            "The Barrier"
+        ]
+    },
+
+    {
+        name: "Armless John",
+        cover: "images/albums/10 Armless John.png",
+        tracks: [
+            "The Cup Chicken",
+            "Upside Down",
+            "Aiming Wrong",
+            "Armless John",
+            "The Door",
+            "The Unborn One"
+        ]
+    },
+
+    {
+        name: "The Cashier",
+        cover: "images/albums/11 The Cashier.png",
+        tracks: [
+            "Waymaker",
+            "Penalman",
+            "The Cashier",
+            "Neilitaum",
+            "Who's This Guy",
+            "Countability"
+        ]
+    },
+
+    {
+        name: "The Guy From Picture",
+        cover: "images/albums/12 The Guy From Picture.png",
+        tracks: [
+            "The Transition",
+            "Green or Purple",
+            "The Guy From Picture",
+            "Not Super Man",
+            "The Gun",
+            "Satanical Brothers"
+        ]
+    },
+
+    {
+        name: "The Tchola",
+        cover: "images/albums/13 Tchola.png",
+        tracks: [
+            "Cappucined",
+            "He Need to Be Fried",
+            "The Tchola",
+            "Mr. Skin",
+            "Unbad",
+            "Tendence"
+        ]
+    },
+
+    {
+        name: "Mausoleum",
+        cover: "images/albums/14 Mausoleum.png",
+        tracks: [
+            "Occultism",
+            "Labirynth",
+            "Mausoleum",
+            "Big Blue",
+            "Laiopépci",
+            "The Last Contact"
+        ]
+    },
+
+    {
+        name: "The Page",
+        cover: "images/albums/15 The Page.png",
+        tracks: [
+            "The Page",
+            "Lildiuty",
+            "The Page",
+            "Whiters",
+            "Emiliano",
+            "Classic"
+        ]
+    },
+
+    {
+        name: "Real South",
+        cover: "images/albums/16 Real South.png",
+        tracks: [
+            "Palms",
+            "Dream",
+            "Real South",
+            "The Message",
+            "The Illusion",
+            "First One"
+        ]
+    },
+
+    {
+        name: "Canada",
+        cover: "images/albums/18 Canada.png",
+        tracks: [
+            "Rent-A-Brun",
+            "The Palit",
+            "Canada",
+            "My Hat",
+            "The Bill",
+            "The Instrumental Man"
+        ]
+    },
+
+    {
+        name: "Laminhapal",
+        cover: "images/albums/19 Laminhapal.png",
+        tracks: [
+            "Derby's District",
+            "Dig And Bowls",
+            "Grabidiqui",
+            "I Will Not Sleep Today",
+            "Laminhapal",
+            "pal",
+            "RD"
+        ]
+    },
+
+    {
+        name: "One Team, One Dream",
+        cover: "images/albums/20 One Team One Dream.png",
+        tracks: [
+            "Big Liter Challenge",
+            "I See, Luke!",
+            "Little Strawberry",
+            "One Team, One Dream",
+            "PeopleS",
+            "The Drop House"
+        ]
+    },
+
+    {
+        name: "Subconcequente",
+        cover: "images/albums/21 Subconcequente.png",
+        tracks: []
+    },
+
+    {
+        name: "Want Want",
+        cover: "images/albums/22 Want Want.png",
+        tracks: []
     }
 
-    20% {
-        transform: translate(-4px, 2px);
-    }
-
-    40% {
-        transform: translate(4px, -2px);
-    }
-
-    60% {
-        transform: translate(-2px, 1px);
-    }
-
-    80% {
-        transform: translate(2px, -1px);
-    }
-
-    100% {
-        transform: translate(0);
-    }
-
-}
+];
 
 
-/* MOBILE */
+/* ==========================================
+   CREATE ALBUM CARDS
+========================================== */
 
-@media(max-width: 900px) {
 
-    .menu-button {
-        display: block;
+const albumsGrid =
+    document.getElementById("albumsGrid");
+
+
+albums.forEach((album, index) => {
+
+    const card =
+        document.createElement("article");
+
+    card.className = "album-card";
+
+    card.innerHTML = `
+
+        <div class="album-cover">
+
+            <img
+                src="${album.cover}"
+                alt="${album.name}">
+
+            <div class="album-number">
+                ${String(index + 1).padStart(2, "0")}
+            </div>
+
+            <div class="album-hover">
+
+                <button class="album-play">
+                    ▶
+                </button>
+
+            </div>
+
+        </div>
+
+        <h3 class="album-name">
+            ${album.name}
+        </h3>
+
+        <p class="album-meta">
+            ${album.tracks.length > 0
+                ? album.tracks.length + " TRACKS"
+                : "NO TRACKS YET"}
+        </p>
+
+    `;
+
+
+    card.addEventListener("click", () => {
+
+        openAlbum(index);
+
+    });
+
+
+    albumsGrid.appendChild(card);
+
+});
+
+
+/* ==========================================
+   ALBUM MODAL
+========================================== */
+
+
+const modal =
+    document.getElementById("albumModal");
+
+const modalCover =
+    document.getElementById("modalCover");
+
+const modalTitle =
+    document.getElementById("modalTitle");
+
+const tracklist =
+    document.getElementById("tracklist");
+
+
+function openAlbum(index) {
+
+    const album = albums[index];
+
+    modalCover.src = album.cover;
+
+    modalTitle.textContent = album.name;
+
+    tracklist.innerHTML = "";
+
+
+    if (album.tracks.length === 0) {
+
+        tracklist.innerHTML = `
+            <div class="no-music">
+                NO MUSIC AVAILABLE YET.
+            </div>
+        `;
+
+    } else {
+
+        album.tracks.forEach((track, trackIndex) => {
+
+            const trackElement =
+                document.createElement("div");
+
+            trackElement.className = "track";
+
+            trackElement.innerHTML = `
+
+                <span class="track-number">
+                    ${String(trackIndex + 1).padStart(2, "0")}
+                </span>
+
+                <span class="track-title">
+                    ${track}
+                </span>
+
+                <span>
+                    ▶
+                </span>
+
+            `;
+
+
+            trackElement.addEventListener(
+                "click",
+                (event) => {
+
+                    event.stopPropagation();
+
+                    playTrack(
+                        index,
+                        trackIndex
+                    );
+
+                }
+            );
+
+
+            tracklist.appendChild(trackElement);
+
+        });
+
     }
 
 
-    nav {
-        position: absolute;
-
-        top: 85px;
-        left: 0;
-
-        width: 100%;
-
-        display: none;
-
-        flex-direction: column;
-
-        gap: 0;
-
-        background: #080808;
-    }
-
-
-    nav.active {
-        display: flex;
-    }
-
-
-    nav a {
-        padding: 20px 30px;
-
-        border-bottom: 1px solid #222;
-    }
-
-
-    .albums-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-
-    .split-section {
-        grid-template-columns: 1fr;
-    }
-
-
-    .split-image {
-        min-height: 500px;
-    }
-
-
-    .gallery {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-
-    .player {
-        grid-template-columns: 1fr auto auto;
-    }
-
-
-    .player-progress {
-        grid-column: 1 / -1;
-    }
+    modal.classList.add("active");
 
 }
 
 
-@media(max-width: 600px) {
+document
+    .getElementById("closeModal")
+    .addEventListener("click", () => {
 
-    .hero {
-        padding: 0 7%;
+        modal.classList.remove("active");
+
+    });
+
+
+modal.addEventListener("click", event => {
+
+    if (event.target === modal) {
+
+        modal.classList.remove("active");
+
     }
 
-
-    .hero h1 {
-        font-size: 65px;
-
-        letter-spacing: -3px;
-    }
+});
 
 
-    .hero-buttons {
-        flex-direction: column;
-
-        align-items: flex-start;
-    }
+/* ==========================================
+   MUSIC PLAYER
+========================================== */
 
 
-    .section {
-        padding: 90px 7%;
-    }
+const audio =
+    document.getElementById("audio");
+
+const player =
+    document.getElementById("player");
+
+const playerCover =
+    document.getElementById("playerCover");
+
+const playerSong =
+    document.getElementById("playerSong");
+
+const playPause =
+    document.getElementById("playPause");
+
+const previous =
+    document.getElementById("previous");
+
+const next =
+    document.getElementById("next");
+
+const progress =
+    document.getElementById("progress");
+
+const currentTime =
+    document.getElementById("currentTime");
+
+const duration =
+    document.getElementById("duration");
 
 
-    .albums-grid {
-        grid-template-columns: 1fr;
-    }
+let currentAlbum = 0;
+
+let currentTrack = 0;
 
 
-    .gallery {
-        grid-template-columns: 1fr;
-    }
+/* ==========================================
+   IMPORTANT:
+   MUSIC FILE PATHS
+========================================== */
 
 
-    .modal-box {
-        padding: 20px;
-    }
+function getMusicPath(album, track) {
 
+    const albumFolder =
+        album.name;
 
-    .modal-album {
-        grid-template-columns: 1fr;
+    const fileName =
+        track + ".mp3";
 
-        gap: 30px;
-    }
-
-
-    .modal-info h2 {
-        font-size: 55px;
-    }
-
-
-    .player {
-        left: 8px;
-        right: 8px;
-        bottom: 8px;
-
-        grid-template-columns: 1fr auto;
-    }
-
-
-    .player-controls {
-        grid-column: 2;
-        grid-row: 1;
-    }
-
-
-    .player-progress {
-        grid-column: 1 / -1;
-        grid-row: 2;
-    }
+    return `music/${albumFolder}/${fileName}`;
 
 }
+
+
+/* ==========================================
+   PLAY TRACK
+========================================== */
+
+
+function playTrack(albumIndex, trackIndex) {
+
+    const album =
+        albums[albumIndex];
+
+    const track =
+        album.tracks[trackIndex];
+
+
+    if (!track) return;
+
+
+    currentAlbum = albumIndex;
+
+    currentTrack = trackIndex;
+
+
+    audio.src =
+        getMusicPath(album, track);
+
+
+    playerCover.src =
+        album.cover;
+
+    playerSong.textContent =
+        track;
+
+
+    player.classList.remove("hidden");
+
+
+    audio.play()
+        .then(() => {
+
+            playPause.textContent = "Ⅱ";
+
+        })
+        .catch(() => {
+
+            playPause.textContent = "▶";
+
+            console.log(
+                "Could not play:",
+                audio.src
+            );
+
+        });
+
+}
+
+
+/* ==========================================
+   PLAY / PAUSE
+========================================== */
+
+
+playPause.addEventListener(
+    "click",
+    () => {
+
+        if (audio.paused) {
+
+            audio.play();
+
+            playPause.textContent = "Ⅱ";
+
+        } else {
+
+            audio.pause();
+
+            playPause.textContent = "▶";
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   NEXT
+========================================== */
+
+
+next.addEventListener(
+    "click",
+    () => {
+
+        const album =
+            albums[currentAlbum];
+
+
+        if (
+            currentTrack <
+            album.tracks.length - 1
+        ) {
+
+            playTrack(
+                currentAlbum,
+                currentTrack + 1
+            );
+
+        } else if (
+            currentAlbum <
+            albums.length - 1
+        ) {
+
+            let nextAlbum =
+                currentAlbum + 1;
+
+
+            while (
+                nextAlbum < albums.length &&
+                albums[nextAlbum].tracks.length === 0
+            ) {
+
+                nextAlbum++;
+
+            }
+
+
+            if (
+                nextAlbum < albums.length
+            ) {
+
+                playTrack(
+                    nextAlbum,
+                    0
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   PREVIOUS
+========================================== */
+
+
+previous.addEventListener(
+    "click",
+    () => {
+
+        const album =
+            albums[currentAlbum];
+
+
+        if (currentTrack > 0) {
+
+            playTrack(
+                currentAlbum,
+                currentTrack - 1
+            );
+
+        } else if (currentAlbum > 0) {
+
+            let previousAlbum =
+                currentAlbum - 1;
+
+
+            while (
+                previousAlbum >= 0 &&
+                albums[previousAlbum].tracks.length === 0
+            ) {
+
+                previousAlbum--;
+
+            }
+
+
+            if (
+                previousAlbum >= 0
+            ) {
+
+                playTrack(
+                    previousAlbum,
+                    albums[previousAlbum].tracks.length - 1
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   AUTO NEXT
+========================================== */
+
+
+audio.addEventListener(
+    "ended",
+    () => {
+
+        next.click();
+
+    }
+);
+
+
+/* ==========================================
+   PROGRESS BAR
+========================================== */
+
+
+audio.addEventListener(
+    "loadedmetadata",
+    () => {
+
+        duration.textContent =
+            formatTime(audio.duration);
+
+    }
+);
+
+
+audio.addEventListener(
+    "timeupdate",
+    () => {
+
+        if (!audio.duration) return;
+
+
+        const percentage =
+            (audio.currentTime /
+                audio.duration) * 100;
+
+
+        progress.value =
+            percentage;
+
+
+        currentTime.textContent =
+            formatTime(audio.currentTime);
+
+    }
+);
+
+
+progress.addEventListener(
+    "input",
+    () => {
+
+        if (!audio.duration) return;
+
+
+        audio.currentTime =
+            (progress.value / 100)
+            * audio.duration;
+
+    }
+);
+
+
+function formatTime(seconds) {
+
+    if (!seconds || isNaN(seconds)) {
+
+        return "0:00";
+
+    }
+
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const secs =
+        Math.floor(seconds % 60)
+        .toString()
+        .padStart(2, "0");
+
+
+    return `${minutes}:${secs}`;
+
+}
+
+
+/* ==========================================
+   CLOSE PLAYER
+========================================== */
+
+
+document
+    .getElementById("closePlayer")
+    .addEventListener("click", () => {
+
+        audio.pause();
+
+        player.classList.add("hidden");
+
+    });
+
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+
+const menuButton =
+    document.getElementById("menuButton");
+
+const navigation =
+    document.getElementById("navigation");
+
+
+menuButton.addEventListener(
+    "click",
+    () => {
+
+        navigation.classList.toggle("active");
+
+    }
+);
+
+
+document.querySelectorAll(
+    "#navigation a"
+).forEach(link => {
+
+    link.addEventListener(
+        "click",
+        () => {
+
+            navigation.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+});
+
+
+/* ==========================================
+   LOADING SCREEN
+========================================== */
+
+
+window.addEventListener(
+    "load",
+    () => {
+
+        setTimeout(() => {
+
+            const loader =
+                document.getElementById("loader");
+
+
+            loader.style.opacity = "0";
+
+
+            setTimeout(() => {
+
+                loader.style.display =
+                    "none";
+
+            }, 600);
+
+        }, 700);
+
+    }
+);
+
+
+/* ==========================================
+   ESC CLOSE
+========================================== */
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Escape") {
+
+            modal.classList.remove("active");
+
+        }
+
+    }
+);
