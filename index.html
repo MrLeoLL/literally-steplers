@@ -8,40 +8,41 @@
     <title>LITERALLY STEPLERS</title>
 
     <meta name="description"
-        content="Official website of Literally Steplers. Music, albums, lore and more.">
+        content="Official website of Literally Steplers.">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- LOADING SCREEN -->
+    <!-- LOADING -->
+
     <div id="loader">
         <div class="loader-logo">LS</div>
-        <div class="loader-text">LOADING...</div>
+        <div class="loader-text">LOADING THE STEPLERS...</div>
     </div>
 
 
-    <!-- NAVIGATION -->
+    <!-- NAVBAR -->
+
     <header class="navbar">
 
-        <div class="nav-logo">
-            LITERALLY<br>
+        <a href="#home" class="logo">
+            LITERALLY
             <span>STEPLERS</span>
-        </div>
+        </a>
 
-        <button class="menu-toggle" id="menuToggle">
+        <button class="menu-button" id="menuButton">
             ☰
         </button>
 
-        <nav id="navMenu">
+        <nav id="navigation">
 
             <a href="#home">HOME</a>
             <a href="#music">MUSIC</a>
-            <a href="#band">THE BAND</a>
+            <a href="#about">ABOUT</a>
             <a href="#lore">LORE</a>
             <a href="#gallery">GALLERY</a>
-            <a href="#news">NEWS</a>
 
         </nav>
 
@@ -49,649 +50,314 @@
 
 
     <!-- HERO -->
-    <main>
 
-        <section id="home" class="hero">
+    <section id="home" class="hero">
 
-            <div class="hero-overlay"></div>
+        <div class="hero-background"></div>
 
-            <div class="hero-content">
+        <div class="hero-content">
 
-                <p class="small-title">
-                    THE OFFICIAL WEBSITE
-                </p>
+            <p class="eyebrow">
+                THE OFFICIAL WEBSITE
+            </p>
 
-                <h1>
-                    LITERALLY<br>
-                    <span>STEPLERS</span>
-                </h1>
+            <h1>
+                LITERALLY
+                <span>STEPLERS</span>
+            </h1>
 
-                <p class="hero-description">
-                    ONE TEAM. ONE DREAM.
-                </p>
+            <p class="hero-subtitle">
+                ONE TEAM. ONE DREAM.
+            </p>
 
-                <div class="hero-buttons">
+            <div class="hero-buttons">
 
-                    <a href="#music" class="button">
-                        LISTEN NOW
-                    </a>
+                <a href="#music" class="button">
+                    EXPLORE MUSIC
+                </a>
 
-                    <a href="#band" class="button button-outline">
-                        ENTER THE WORLD
-                    </a>
+                <a href="#about" class="button outline">
+                    ENTER THE WORLD
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="scroll-indicator">
+            ↓ SCROLL ↓
+        </div>
+
+    </section>
+
+
+    <!-- MUSIC -->
+
+    <section id="music" class="section">
+
+        <div class="section-heading">
+
+            <p class="red-label">
+                01 / DISCOGRAPHY
+            </p>
+
+            <h2>
+                THE MUSIC
+            </h2>
+
+            <p>
+                Every album. Every era. Every questionable decision.
+            </p>
+
+        </div>
+
+
+        <div id="albumsGrid" class="albums-grid"></div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about" class="split-section">
+
+        <div class="split-image">
+            <img src="images/albums/1 Debut Album.png"
+                alt="Literally Steplers">
+        </div>
+
+        <div class="split-content">
+
+            <p class="red-label">
+                02 / THE BAND
+            </p>
+
+            <h2>
+                LITERALLY<br>
+                STEPLERS
+            </h2>
+
+            <p>
+                Literally Steplers is a musical project built around
+                chaos, absurdity, friendship, creativity and an
+                unhealthy amount of questionable ideas.
+            </p>
+
+            <p>
+                From mysterious characters to entire fictional worlds,
+                every album adds another piece to the Literally Steplers
+                universe.
+            </p>
+
+            <a href="#lore" class="button">
+                DISCOVER THE LORE
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- LORE -->
+
+    <section id="lore" class="lore">
+
+        <div class="lore-content">
+
+            <p class="red-label">
+                03 / THE UNIVERSE
+            </p>
+
+            <h2>
+                WELCOME TO<br>
+                THE STEPLERS' WORLD.
+            </h2>
+
+            <p>
+                A universe where anything can become a song,
+                anybody can become a character and every album
+                can open another door.
+            </p>
+
+            <p>
+                Derby's District. The Boat. The Home.
+                The Mausoleum. The Page.
+                Every place has a story.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- GALLERY -->
+
+    <section id="gallery" class="section">
+
+        <div class="section-heading">
+
+            <p class="red-label">
+                04 / VISUAL ARCHIVE
+            </p>
+
+            <h2>
+                GALLERY
+            </h2>
+
+        </div>
+
+        <div class="gallery">
+
+            <div class="gallery-placeholder">
+                ADD YOUR PHOTOS HERE
+            </div>
+
+            <div class="gallery-placeholder">
+                ADD YOUR PHOTOS HERE
+            </div>
+
+            <div class="gallery-placeholder">
+                ADD YOUR PHOTOS HERE
+            </div>
+
+            <div class="gallery-placeholder">
+                ADD YOUR PHOTOS HERE
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-logo">
+            LITERALLY
+            <span>STEPLERS</span>
+        </div>
+
+        <p>
+            ONE TEAM. ONE DREAM.
+        </p>
+
+        <div class="socials">
+
+            <!-- TROQUE OS # PELOS LINKS -->
+
+            <a href="#" target="_blank">YOUTUBE</a>
+            <a href="#" target="_blank">SPOTIFY</a>
+            <a href="#" target="_blank">INSTAGRAM</a>
+            <a href="#" target="_blank">X</a>
+
+        </div>
+
+        <small>
+            © 2026 LITERALLY STEPLERS
+        </small>
+
+    </footer>
+
+
+    <!-- ALBUM MODAL -->
+
+    <div id="albumModal" class="modal">
+
+        <div class="modal-box">
+
+            <button id="closeModal" class="close">
+                ×
+            </button>
+
+            <div class="modal-album">
+
+                <img id="modalCover" src="" alt="Album cover">
+
+                <div class="modal-info">
+
+                    <p class="red-label">
+                        LITERALLY STEPLERS
+                    </p>
+
+                    <h2 id="modalTitle">
+                        ALBUM
+                    </h2>
+
+                    <div id="tracklist"></div>
 
                 </div>
 
             </div>
 
-            <div class="scroll-down">
-                ↓ SCROLL TO ENTER ↓
-            </div>
+        </div>
 
-        </section>
-
-
-        <!-- MUSIC -->
-        <section id="music" class="section music-section">
-
-            <div class="section-header">
-
-                <p class="section-number">01 / MUSIC</p>
-
-                <h2>
-                    DISCOGRAPHY
-                </h2>
-
-                <p>
-                    A collection of noise, chaos, dreams and questionable decisions.
-                </p>
-
-            </div>
-
-
-            <div class="albums-grid">
-
-
-                <!-- ALBUM 1 -->
-                <article class="album-card">
-
-                    <div class="album-cover">
-                        <img src="images/albums/one-team-one-dream.jpg"
-                            alt="One Team One Dream">
-
-                        <div class="album-overlay">
-                            <button
-                                class="play-button"
-                                onclick="playAlbum('One Team, One Dream')">
-                                ▶
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="album-info">
-
-                        <span class="album-year">
-                            STUDIO ALBUM
-                        </span>
-
-                        <h3>
-                            ONE TEAM,<br>
-                            ONE DREAM
-                        </h3>
-
-                        <p>
-                            Literally Steplers
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ALBUM 2 -->
-                <article class="album-card">
-
-                    <div class="album-cover">
-
-                        <img src="images/albums/blueborne.jpg"
-                            alt="Blueborne">
-
-                        <div class="album-overlay">
-                            <button
-                                class="play-button"
-                                onclick="playAlbum('Blueborne')">
-                                ▶
-                            </button>
-                        </div>
-
-                    </div>
-
-                    <div class="album-info">
-
-                        <span class="album-year">
-                            ALBUM
-                        </span>
-
-                        <h3>
-                            BLUEBORNE
-                        </h3>
-
-                        <p>
-                            Literally Steplers
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ALBUM 3 -->
-                <article class="album-card">
-
-                    <div class="album-cover">
-
-                        <img src="images/albums/sleeping-horses.jpg"
-                            alt="Sleeping Horses">
-
-                        <div class="album-overlay">
-
-                            <button
-                                class="play-button"
-                                onclick="playAlbum('Sleeping Horses')">
-                                ▶
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    <div class="album-info">
-
-                        <span class="album-year">
-                            ALBUM
-                        </span>
-
-                        <h3>
-                            SLEEPING<br>
-                            HORSES
-                        </h3>
-
-                        <p>
-                            Literally Steplers
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ALBUM 4 -->
-                <article class="album-card">
-
-                    <div class="album-cover">
-
-                        <img src="images/albums/laminhapal.jpg"
-                            alt="LAMINHAPAL">
-
-                        <div class="album-overlay">
-
-                            <button
-                                class="play-button"
-                                onclick="playAlbum('LAMINHAPAL')">
-                                ▶
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    <div class="album-info">
-
-                        <span class="album-year">
-                            STUDIO ALBUM
-                        </span>
-
-                        <h3>
-                            LAMINHAPAL
-                        </h3>
-
-                        <p>
-                            Derby's District
-                        </p>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- CURRENT RELEASE -->
-        <section class="featured">
-
-            <div class="featured-image">
-
-                <img src="images/albums/one-team-one-dream.jpg"
-                    alt="Latest release">
-
-            </div>
-
-            <div class="featured-content">
-
-                <p class="section-number">
-                    CURRENT RELEASE
-                </p>
-
-                <h2>
-                    ONE TEAM,<br>
-                    ONE DREAM
-                </h2>
-
-                <p>
-                    The nineteenth official studio album from Literally Steplers.
-                    A chaotic journey through Derby's District, Blue & White territory,
-                    corruption, crime and conflict.
-                </p>
-
-                <button class="button" onclick="openTracklist()">
-                    VIEW TRACKLIST
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- BAND -->
-        <section id="band" class="section band-section">
-
-            <div class="section-header">
-
-                <p class="section-number">
-                    02 / THE BAND
-                </p>
-
-                <h2>
-                    THE STEPLERS
-                </h2>
-
-                <p>
-                    Nobody knows exactly what they're doing.
-                    Somehow, they keep making music.
-                </p>
-
-            </div>
-
-
-            <div class="members-grid">
-
-                <article class="member">
-
-                    <div class="member-image">
-
-                        <img src="images/members/member1.jpg"
-                            alt="Literally Steplers member">
-
-                    </div>
-
-                    <div class="member-info">
-
-                        <span>
-                            001
-                        </span>
-
-                        <h3>
-                            THE LITERALLY
-                        </h3>
-
-                        <p>
-                            VOCALS / CHAOS
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="member">
-
-                    <div class="member-image">
-
-                        <img src="images/members/member2.jpg"
-                            alt="Literally Steplers member">
-
-                    </div>
-
-                    <div class="member-info">
-
-                        <span>
-                            002
-                        </span>
-
-                        <h3>
-                            THE STEPLER
-                        </h3>
-
-                        <p>
-                            PRODUCTION / NOISE
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="member">
-
-                    <div class="member-image">
-
-                        <img src="images/members/member3.jpg"
-                            alt="Literally Steplers member">
-
-                    </div>
-
-                    <div class="member-info">
-
-                        <span>
-                            003
-                        </span>
-
-                        <h3>
-                            THE UNKNOWN
-                        </h3>
-
-                        <p>
-                            EVERYTHING ELSE
-                        </p>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- LORE -->
-        <section id="lore" class="lore-section">
-
-            <div class="lore-content">
-
-                <p class="section-number">
-                    03 / THE WORLD
-                </p>
-
-                <h2>
-                    WELCOME TO<br>
-                    DERBY'S DISTRICT.
-                </h2>
-
-                <p>
-                    A place where music, crime, corruption, friendship
-                    and complete nonsense collide.
-                </p>
-
-                <p>
-                    The Literally Steplers universe has never followed
-                    the rules. Every album expands the world.
-                    Every song adds another piece to the story.
-                </p>
-
-                <a href="#music" class="button">
-                    EXPLORE THE MUSIC
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <!-- GALLERY -->
-        <section id="gallery" class="section gallery-section">
-
-            <div class="section-header">
-
-                <p class="section-number">
-                    04 / GALLERY
-                </p>
-
-                <h2>
-                    VISUAL ARCHIVE
-                </h2>
-
-            </div>
-
-
-            <div class="gallery-grid">
-
-                <img src="images/gallery/photo1.jpg"
-                    alt="Literally Steplers">
-
-                <img src="images/gallery/photo2.jpg"
-                    alt="Literally Steplers">
-
-                <img src="images/gallery/photo3.jpg"
-                    alt="Literally Steplers">
-
-                <img src="images/gallery/photo4.jpg"
-                    alt="Literally Steplers">
-
-                <img src="images/gallery/photo5.jpg"
-                    alt="Literally Steplers">
-
-                <img src="images/gallery/photo6.jpg"
-                    alt="Literally Steplers">
-
-            </div>
-
-        </section>
-
-
-        <!-- NEWS -->
-        <section id="news" class="section news-section">
-
-            <div class="section-header">
-
-                <p class="section-number">
-                    05 / NEWS
-                </p>
-
-                <h2>
-                    LATEST TRANSMISSIONS
-                </h2>
-
-            </div>
-
-
-            <div class="news-list">
-
-                <article class="news-item">
-
-                    <span>
-                        2026
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            ONE TEAM, ONE DREAM
-                        </h3>
-
-                        <p>
-                            The latest Literally Steplers studio album
-                            enters the world.
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="news-item">
-
-                    <span>
-                        2026
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            BLUEBORNE
-                        </h3>
-
-                        <p>
-                            Another chapter has been added to the universe.
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="news-item">
-
-                    <span>
-                        2026
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            THE STEPLERS ARE BACK
-                        </h3>
-
-                        <p>
-                            Unfortunately.
-                        </p>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- FOOTER -->
-        <footer>
-
-            <div class="footer-logo">
-                LITERALLY<br>
-                <span>STEPLERS</span>
-            </div>
-
-            <p>
-                ONE TEAM. ONE DREAM.
-            </p>
-
-            <div class="socials">
-
-                <a href="#" target="_blank">
-                    YOUTUBE
-                </a>
-
-                <a href="#" target="_blank">
-                    SPOTIFY
-                </a>
-
-                <a href="#" target="_blank">
-                    INSTAGRAM
-                </a>
-
-                <a href="#" target="_blank">
-                    X
-                </a>
-
-            </div>
-
-            <p class="copyright">
-                © 2026 LITERALLY STEPLERS. ALL RIGHTS RESERVED.
-            </p>
-
-        </footer>
-
-    </main>
+    </div>
 
 
     <!-- MUSIC PLAYER -->
-    <div id="musicPlayer" class="music-player">
 
-        <div>
+    <div id="player" class="player hidden">
 
-            <span class="playing-label">
-                NOW PLAYING
-            </span>
+        <div class="player-info">
 
-            <strong id="currentSong">
-                LITERALLY STEPLERS
-            </strong>
+            <img id="playerCover" src="" alt="">
+
+            <div>
+
+                <small>NOW PLAYING</small>
+
+                <strong id="playerSong">
+                    Literally Steplers
+                </strong>
+
+            </div>
 
         </div>
 
-        <button onclick="togglePlayer()">
-            ▶
+        <div class="player-controls">
+
+            <button id="previous">
+                ⏮
+            </button>
+
+            <button id="playPause">
+                ▶
+            </button>
+
+            <button id="next">
+                ⏭
+            </button>
+
+        </div>
+
+        <div class="player-progress">
+
+            <span id="currentTime">
+                0:00
+            </span>
+
+            <input
+                type="range"
+                id="progress"
+                min="0"
+                max="100"
+                value="0">
+
+            <span id="duration">
+                0:00
+            </span>
+
+        </div>
+
+        <button id="closePlayer" class="player-close">
+            ×
         </button>
 
     </div>
 
 
-    <!-- TRACKLIST MODAL -->
-    <div id="trackModal" class="modal">
-
-        <div class="modal-content">
-
-            <button class="close-modal"
-                onclick="closeTracklist()">
-                ×
-            </button>
-
-            <p class="section-number">
-                ONE TEAM, ONE DREAM
-            </p>
-
-            <h2>
-                TRACKLIST
-            </h2>
-
-            <ol>
-
-                <li>PeopleS</li>
-                <li>Big Liter Challenge</li>
-                <li>One Team, One Dream</li>
-                <li>Little Strawberry</li>
-                <li>The Drop House</li>
-                <li>I See, Luke!</li>
-
-                <li>Literally Larpers</li>
-                <li>Anigamatronic</li>
-                <li>Subconcequente</li>
-                <li>Take the The Off</li>
-                <li>Let's Go Bill!</li>
-                <li>Big Wall of The Dead</li>
-
-                <li>Auto Focus 2004</li>
-                <li>Sleeping Horses</li>
-                <li>Horses From the Rain</li>
-
-                <li>The Vision</li>
-                <li>Blueborne</li>
-
-                <li>Gueitar</li>
-                <li>The Hole</li>
-                <li>The Hoe</li>
-                <li>Elevator's Hell</li>
-                <li>Sat In Grease</li>
-                <li>The Connection</li>
-
-            </ol>
-
-        </div>
-
-    </div>
+    <audio id="audio"></audio>
 
 
     <script src="script.js"></script>
