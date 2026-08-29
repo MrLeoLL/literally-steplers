@@ -1,367 +1,805 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>LITERALLY STEPLERS</title>
+    <title>Literally Steplers</title>
 
-    <meta name="description"
-        content="Official website of Literally Steplers.">
+    <style>
 
-    <link rel="stylesheet" href="style.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #050505;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        header {
+            height: 80px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            position: sticky;
+            top: 0;
+            background: rgba(5,5,5,0.95);
+            z-index: 10;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 120px 7% 100px;
+            border-bottom: 1px solid #181818;
+        }
+
+        .small-title {
+            color: #777;
+            font-size: 12px;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(50px, 9vw, 120px);
+            line-height: 0.85;
+            letter-spacing: -5px;
+            max-width: 900px;
+        }
+
+        .hero p {
+            color: #999;
+            max-width: 650px;
+            margin-top: 35px;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* ALBUMS */
+
+        .albums-section {
+            padding: 100px 7%;
+        }
+
+        .section-title {
+            margin-bottom: 60px;
+        }
+
+        .section-title span {
+            color: #666;
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+
+        .section-title h2 {
+            font-size: 45px;
+            margin-top: 10px;
+        }
+
+        .albums {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #222;
+            border: 1px solid #222;
+        }
+
+        .album {
+            background: #080808;
+            min-height: 230px;
+            padding: 30px;
+            cursor: pointer;
+            transition: 0.25s;
+            position: relative;
+        }
+
+        .album:hover {
+            background: #111;
+        }
+
+        .album-number {
+            color: #555;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        .album h3 {
+            margin-top: 45px;
+            font-size: 25px;
+            text-transform: uppercase;
+        }
+
+        .album .year {
+            color: #666;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .album::after {
+            content: "+";
+            position: absolute;
+            right: 25px;
+            bottom: 22px;
+            color: #555;
+            font-size: 25px;
+        }
+
+        /* TRACKLIST */
+
+        .tracks {
+            display: none;
+            margin-top: 25px;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+        }
+
+        .album.active {
+            grid-column: span 1;
+        }
+
+        .album.active .tracks {
+            display: block;
+        }
+
+        .album.active::after {
+            content: "−";
+        }
+
+        .track {
+            display: flex;
+            gap: 15px;
+            padding: 9px 0;
+            border-bottom: 1px solid #171717;
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .track-number {
+            color: #555;
+            min-width: 20px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid #222;
+            padding: 50px 7%;
+            color: #555;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            .albums {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 0 5%;
+            }
+
+            nav a {
+                margin-left: 15px;
+                font-size: 10px;
+            }
+
+            .hero {
+                padding: 80px 5%;
+            }
+
+            .albums-section {
+                padding: 70px 5%;
+            }
+
+            .albums {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 60px;
+            }
+
+        }
+
+    </style>
 </head>
 
 <body>
 
-    <!-- LOADING -->
+<header>
 
-    <div id="loader">
-        <div class="loader-logo">LS</div>
-        <div class="loader-text">LOADING THE STEPLERS...</div>
+    <a href="#" class="logo">LITERALLY STEPLERS</a>
+
+    <nav>
+        <a href="#home">HOME</a>
+        <a href="#music">MUSIC</a>
+    </nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<section class="hero" id="home">
+
+    <div class="small-title">01 / THE BAND</div>
+
+    <h1>
+        LITERALLY<br>
+        STEPLERS
+    </h1>
+
+    <p>
+        Literally Steplers is a musical project built around chaos,
+        absurdity, friendship, creativity and an unhealthy amount
+        of questionable ideas.
+    </p>
+
+</section>
+
+
+<!-- MUSIC -->
+
+<section class="albums-section" id="music">
+
+    <div class="section-title">
+
+        <span>02 / DISCOGRAPHY</span>
+
+        <h2>ALBUMS</h2>
+
     </div>
 
 
-    <!-- NAVBAR -->
+    <div class="albums">
 
-    <header class="navbar">
 
-        <a href="#home" class="logo">
-            LITERALLY
-            <span>STEPLERS</span>
-        </a>
+        <!-- 01 -->
 
-        <button class="menu-button" id="menuButton">
-            ☰
-        </button>
+        <div class="album">
 
-        <nav id="navigation">
+            <div class="album-number">01</div>
 
-            <a href="#home">HOME</a>
-            <a href="#music">MUSIC</a>
-            <a href="#about">ABOUT</a>
-            <a href="#lore">LORE</a>
-            <a href="#gallery">GALLERY</a>
+            <h3>Debut Album</h3>
 
-        </nav>
+            <div class="tracks">
 
-    </header>
+                <div class="track">
+                    <span class="track-number">01</span>
+                    <span>God VS Animatronic</span>
+                </div>
 
+                <div class="track">
+                    <span class="track-number">02</span>
+                    <span>In the Boat With the Tchola</span>
+                </div>
 
-    <!-- HERO -->
+                <div class="track">
+                    <span class="track-number">03</span>
+                    <span>Lil Bro</span>
+                </div>
 
-    <section id="home" class="hero">
+                <div class="track">
+                    <span class="track-number">04</span>
+                    <span>Literally</span>
+                </div>
 
-        <div class="hero-background"></div>
-
-        <div class="hero-content">
-
-            <p class="eyebrow">
-                THE OFFICIAL WEBSITE
-            </p>
-
-            <h1>
-                LITERALLY
-                <span>STEPLERS</span>
-            </h1>
-
-            <p class="hero-subtitle">
-                ONE TEAM. ONE DREAM.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#music" class="button">
-                    EXPLORE MUSIC
-                </a>
-
-                <a href="#about" class="button outline">
-                    ENTER THE WORLD
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="scroll-indicator">
-            ↓ SCROLL ↓
-        </div>
-
-    </section>
-
-
-    <!-- MUSIC -->
-
-    <section id="music" class="section">
-
-        <div class="section-heading">
-
-            <p class="red-label">
-                01 / DISCOGRAPHY
-            </p>
-
-            <h2>
-                THE MUSIC
-            </h2>
-
-            <p>
-                Every album. Every era. Every questionable decision.
-            </p>
-
-        </div>
-
-
-        <div id="albumsGrid" class="albums-grid"></div>
-
-    </section>
-
-
-    <!-- ABOUT -->
-
-    <section id="about" class="split-section">
-
-        <div class="split-image">
-            <img src="images/albums/1 Debut Album.png"
-                alt="Literally Steplers">
-        </div>
-
-        <div class="split-content">
-
-            <p class="red-label">
-                02 / THE BAND
-            </p>
-
-            <h2>
-                LITERALLY<br>
-                STEPLERS
-            </h2>
-
-            <p>
-                Literally Steplers is a musical project built around
-                chaos, absurdity, friendship, creativity and an
-                unhealthy amount of questionable ideas.
-            </p>
-
-            <p>
-                From mysterious characters to entire fictional worlds,
-                every album adds another piece to the Literally Steplers
-                universe.
-            </p>
-
-            <a href="#lore" class="button">
-                DISCOVER THE LORE
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- LORE -->
-
-    <section id="lore" class="lore">
-
-        <div class="lore-content">
-
-            <p class="red-label">
-                03 / THE UNIVERSE
-            </p>
-
-            <h2>
-                WELCOME TO<br>
-                THE STEPLERS' WORLD.
-            </h2>
-
-            <p>
-                A universe where anything can become a song,
-                anybody can become a character and every album
-                can open another door.
-            </p>
-
-            <p>
-                Derby's District. The Boat. The Home.
-                The Mausoleum. The Page.
-                Every place has a story.
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <!-- GALLERY -->
-
-    <section id="gallery" class="section">
-
-        <div class="section-heading">
-
-            <p class="red-label">
-                04 / VISUAL ARCHIVE
-            </p>
-
-            <h2>
-                GALLERY
-            </h2>
-
-        </div>
-
-        <div class="gallery">
-
-            <div class="gallery-placeholder">
-                ADD YOUR PHOTOS HERE
-            </div>
-
-            <div class="gallery-placeholder">
-                ADD YOUR PHOTOS HERE
-            </div>
-
-            <div class="gallery-placeholder">
-                ADD YOUR PHOTOS HERE
-            </div>
-
-            <div class="gallery-placeholder">
-                ADD YOUR PHOTOS HERE
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <div class="footer-logo">
-            LITERALLY
-            <span>STEPLERS</span>
-        </div>
-
-        <p>
-            ONE TEAM. ONE DREAM.
-        </p>
-
-        <div class="socials">
-
-            <!-- TROQUE OS # PELOS LINKS -->
-
-            <a href="#" target="_blank">YOUTUBE</a>
-            <a href="#" target="_blank">SPOTIFY</a>
-            <a href="#" target="_blank">INSTAGRAM</a>
-            <a href="#" target="_blank">X</a>
-
-        </div>
-
-        <small>
-            © 2026 LITERALLY STEPLERS
-        </small>
-
-    </footer>
-
-
-    <!-- ALBUM MODAL -->
-
-    <div id="albumModal" class="modal">
-
-        <div class="modal-box">
-
-            <button id="closeModal" class="close">
-                ×
-            </button>
-
-            <div class="modal-album">
-
-                <img id="modalCover" src="" alt="Album cover">
-
-                <div class="modal-info">
-
-                    <p class="red-label">
-                        LITERALLY STEPLERS
-                    </p>
-
-                    <h2 id="modalTitle">
-                        ALBUM
-                    </h2>
-
-                    <div id="tracklist"></div>
-
+                <div class="track">
+                    <span class="track-number">05</span>
+                    <span>Tung Sahur</span>
                 </div>
 
             </div>
 
         </div>
 
-    </div>
 
+        <!-- 02 -->
 
-    <!-- MUSIC PLAYER -->
+        <div class="album">
 
-    <div id="player" class="player hidden">
+            <div class="album-number">02</div>
 
-        <div class="player-info">
+            <h3>Yâmers</h3>
 
-            <img id="playerCover" src="" alt="">
+            <div class="tracks">
 
-            <div>
-
-                <small>NOW PLAYING</small>
-
-                <strong id="playerSong">
-                    Literally Steplers
-                </strong>
+                <div class="track"><span class="track-number">01</span><span>En La Cadeia</span></div>
+                <div class="track"><span class="track-number">02</span><span>Tem Alguma Coisa Errada</span></div>
+                <div class="track"><span class="track-number">03</span><span>The Peak</span></div>
+                <div class="track"><span class="track-number">04</span><span>Tierlist</span></div>
+                <div class="track"><span class="track-number">05</span><span>Você Vai Pagar Caro</span></div>
+                <div class="track"><span class="track-number">06</span><span>Yâmers</span></div>
 
             </div>
 
         </div>
 
-        <div class="player-controls">
 
-            <button id="previous">
-                ⏮
-            </button>
+        <!-- 03 -->
 
-            <button id="playPause">
-                ▶
-            </button>
+        <div class="album">
 
-            <button id="next">
-                ⏭
-            </button>
+            <div class="album-number">03</div>
 
-        </div>
+            <h3>Stemers</h3>
 
-        <div class="player-progress">
+            <div class="tracks">
 
-            <span id="currentTime">
-                0:00
-            </span>
+                <div class="track"><span class="track-number">01</span><span>7 Minutes</span></div>
+                <div class="track"><span class="track-number">02</span><span>Ear Monster</span></div>
+                <div class="track"><span class="track-number">03</span><span>Niganin</span></div>
+                <div class="track"><span class="track-number">04</span><span>Stemers</span></div>
+                <div class="track"><span class="track-number">05</span><span>The</span></div>
+                <div class="track"><span class="track-number">06</span><span>Tumbulas</span></div>
 
-            <input
-                type="range"
-                id="progress"
-                min="0"
-                max="100"
-                value="0">
-
-            <span id="duration">
-                0:00
-            </span>
+            </div>
 
         </div>
 
-        <button id="closePlayer" class="player-close">
-            ×
-        </button>
+
+        <!-- 04 -->
+
+        <div class="album">
+
+            <div class="album-number">04</div>
+
+            <h3>Hell's Aura</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Captivity</span></div>
+                <div class="track"><span class="track-number">02</span><span>Hell's Aura</span></div>
+                <div class="track"><span class="track-number">03</span><span>Rodrigo</span></div>
+                <div class="track"><span class="track-number">04</span><span>The Molester Tractor</span></div>
+                <div class="track"><span class="track-number">05</span><span>Two At Once</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 05 -->
+
+        <div class="album">
+
+            <div class="album-number">05</div>
+
+            <h3>The Home</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Quirathi</span></div>
+                <div class="track"><span class="track-number">02</span><span>The Yamers Path</span></div>
+                <div class="track"><span class="track-number">03</span><span>No Cap on Steplers</span></div>
+                <div class="track"><span class="track-number">04</span><span>Daigoleite</span></div>
+                <div class="track"><span class="track-number">05</span><span>Write of the Devil</span></div>
+                <div class="track"><span class="track-number">06</span><span>The Home</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 06 -->
+
+        <div class="album">
+
+            <div class="album-number">06</div>
+
+            <h3>Diabolical Dog</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Diabolical Dog</span></div>
+                <div class="track"><span class="track-number">02</span><span>Goonaldo</span></div>
+                <div class="track"><span class="track-number">03</span><span>Hell Rodeo</span></div>
+                <div class="track"><span class="track-number">04</span><span>The Devil's Leash</span></div>
+                <div class="track"><span class="track-number">05</span><span>The Last Bark</span></div>
+                <div class="track"><span class="track-number">06</span><span>Tio</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 07 -->
+
+        <div class="album">
+
+            <div class="album-number">07</div>
+
+            <h3>Return To The Boat</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>GvsA 2.0</span></div>
+                <div class="track"><span class="track-number">02</span><span>In The Boat With The Tchola 2.0</span></div>
+                <div class="track"><span class="track-number">03</span><span>Lil Bro 2.0</span></div>
+                <div class="track"><span class="track-number">04</span><span>Literally 2.0</span></div>
+                <div class="track"><span class="track-number">05</span><span>Sahur 2.0</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 08 -->
+
+        <div class="album">
+
+            <div class="album-number">08</div>
+
+            <h3>Steplers</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>There Him</span></div>
+                <div class="track"><span class="track-number">02</span><span>Mirror Realm _ mlaeR rorriM</span></div>
+                <div class="track"><span class="track-number">03</span><span>I Can Breath</span></div>
+                <div class="track"><span class="track-number">04</span><span>PPN</span></div>
+                <div class="track"><span class="track-number">05</span><span>Steplers</span></div>
+                <div class="track"><span class="track-number">06</span><span>Lyndon</span></div>
+                <div class="track"><span class="track-number">07</span><span>Welcome To The Tripplers</span></div>
+                <div class="track"><span class="track-number">08</span><span>2 Peak</span></div>
+                <div class="track"><span class="track-number">09</span><span>Deguy Attractor</span></div>
+                <div class="track"><span class="track-number">10</span><span>Ngovij</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 09 -->
+
+        <div class="album">
+
+            <div class="album-number">09</div>
+
+            <h3>Herborine</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Eat Eat</span></div>
+                <div class="track"><span class="track-number">02</span><span>Mbabi</span></div>
+                <div class="track"><span class="track-number">03</span><span>Bite And Fall</span></div>
+                <div class="track"><span class="track-number">04</span><span>Herborine</span></div>
+                <div class="track"><span class="track-number">05</span><span>Enncia</span></div>
+                <div class="track"><span class="track-number">06</span><span>The Barrier</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 10 -->
+
+        <div class="album">
+
+            <div class="album-number">10</div>
+
+            <h3>Armless John</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>The Cup Chicken</span></div>
+                <div class="track"><span class="track-number">02</span><span>Upside Down</span></div>
+                <div class="track"><span class="track-number">03</span><span>Aiming Wrong</span></div>
+                <div class="track"><span class="track-number">04</span><span>Armless John</span></div>
+                <div class="track"><span class="track-number">05</span><span>The Door</span></div>
+                <div class="track"><span class="track-number">06</span><span>The Unborn One</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 11 -->
+
+        <div class="album">
+
+            <div class="album-number">11</div>
+
+            <h3>The Cashier</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Waymaker</span></div>
+                <div class="track"><span class="track-number">02</span><span>Penalman</span></div>
+                <div class="track"><span class="track-number">03</span><span>The Cashier</span></div>
+                <div class="track"><span class="track-number">04</span><span>Neilitaum</span></div>
+                <div class="track"><span class="track-number">05</span><span>Who's This Guy</span></div>
+                <div class="track"><span class="track-number">06</span><span>Countability</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 12 -->
+
+        <div class="album">
+
+            <div class="album-number">12</div>
+
+            <h3>The Guy From Picture</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>The Transition</span></div>
+                <div class="track"><span class="track-number">02</span><span>Green or Purple</span></div>
+                <div class="track"><span class="track-number">03</span><span>The Guy From Picture</span></div>
+                <div class="track"><span class="track-number">04</span><span>Not Super Man</span></div>
+                <div class="track"><span class="track-number">05</span><span>The Gun</span></div>
+                <div class="track"><span class="track-number">06</span><span>Satanical Brothers</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 13 -->
+
+        <div class="album">
+
+            <div class="album-number">13</div>
+
+            <h3>The Tchola</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Cappucined</span></div>
+                <div class="track"><span class="track-number">02</span><span>He Need to Be Fried</span></div>
+                <div class="track"><span class="track-number">03</span><span>The Tchola</span></div>
+                <div class="track"><span class="track-number">04</span><span>Mr. Skin</span></div>
+                <div class="track"><span class="track-number">05</span><span>Unbad</span></div>
+                <div class="track"><span class="track-number">06</span><span>Tendence</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 14 -->
+
+        <div class="album">
+
+            <div class="album-number">14</div>
+
+            <h3>Mausoleum</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Occultism</span></div>
+                <div class="track"><span class="track-number">02</span><span>Labirynth</span></div>
+                <div class="track"><span class="track-number">03</span><span>Mausoleum</span></div>
+                <div class="track"><span class="track-number">04</span><span>Big Blue</span></div>
+                <div class="track"><span class="track-number">05</span><span>Laiopépci</span></div>
+                <div class="track"><span class="track-number">06</span><span>The Last Contact</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 15 -->
+
+        <div class="album">
+
+            <div class="album-number">15</div>
+
+            <h3>The Page</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>The Page</span></div>
+                <div class="track"><span class="track-number">02</span><span>Lildiuty</span></div>
+                <div class="track"><span class="track-number">03</span><span>The Page</span></div>
+                <div class="track"><span class="track-number">04</span><span>Whiters</span></div>
+                <div class="track"><span class="track-number">05</span><span>Emiliano</span></div>
+                <div class="track"><span class="track-number">06</span><span>Classic</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 16 -->
+
+        <div class="album">
+
+            <div class="album-number">16</div>
+
+            <h3>Real South</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Palms</span></div>
+                <div class="track"><span class="track-number">02</span><span>Dream</span></div>
+                <div class="track"><span class="track-number">03</span><span>Real South</span></div>
+                <div class="track"><span class="track-number">04</span><span>The Message</span></div>
+                <div class="track"><span class="track-number">05</span><span>The Illusion</span></div>
+                <div class="track"><span class="track-number">06</span><span>First One</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 17 -->
+
+        <div class="album">
+
+            <div class="album-number">17</div>
+
+            <h3>Canada</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Rent-A-Brun</span></div>
+                <div class="track"><span class="track-number">02</span><span>The Palit</span></div>
+                <div class="track"><span class="track-number">03</span><span>Canada</span></div>
+                <div class="track"><span class="track-number">04</span><span>My Hat</span></div>
+                <div class="track"><span class="track-number">05</span><span>The Bill</span></div>
+                <div class="track"><span class="track-number">06</span><span>The Instrumental Man</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 18 -->
+
+        <div class="album">
+
+            <div class="album-number">18</div>
+
+            <h3>Laminhapal</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Derby's District</span></div>
+                <div class="track"><span class="track-number">02</span><span>Dig And Bowls</span></div>
+                <div class="track"><span class="track-number">03</span><span>Grabidiqui</span></div>
+                <div class="track"><span class="track-number">04</span><span>I Will Not Sleep Today</span></div>
+                <div class="track"><span class="track-number">05</span><span>Laminhapal</span></div>
+                <div class="track"><span class="track-number">06</span><span>pal</span></div>
+                <div class="track"><span class="track-number">07</span><span>RD</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 19 -->
+
+        <div class="album">
+
+            <div class="album-number">19</div>
+
+            <h3>One Team, One Dream</h3>
+
+            <div class="tracks">
+
+                <div class="track"><span class="track-number">01</span><span>Big Liter Challenge</span></div>
+                <div class="track"><span class="track-number">02</span><span>I See, Luke!</span></div>
+                <div class="track"><span class="track-number">03</span><span>Little Strawberry</span></div>
+                <div class="track"><span class="track-number">04</span><span>One Team, One Dream</span></div>
+                <div class="track"><span class="track-number">05</span><span>PeopleS</span></div>
+                <div class="track"><span class="track-number">06</span><span>The Drop House</span></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 20 -->
+
+        <div class="album">
+
+            <div class="album-number">20</div>
+
+            <h3>Subconcequente</h3>
+
+            <div class="tracks">
+
+                <div class="track">
+                    <span class="track-number">—</span>
+                    <span>No tracks yet.</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 21 -->
+
+        <div class="album">
+
+            <div class="album-number">21</div>
+
+            <h3>Want Want</h3>
+
+            <div class="tracks">
+
+                <div class="track">
+                    <span class="track-number">—</span>
+                    <span>No tracks yet.</span>
+                </div>
+
+            </div>
+
+        </div>
+
 
     </div>
 
+</section>
 
-    <audio id="audio"></audio>
+
+<footer>
+
+    LITERALLY STEPLERS © 2026
+
+</footer>
 
 
-    <script src="script.js"></script>
+<script>
+
+    const albums = document.querySelectorAll(".album");
+
+    albums.forEach(album => {
+
+        album.addEventListener("click", () => {
+
+            album.classList.toggle("active");
+
+        });
+
+    });
+
+</script>
 
 </body>
-
 </html>
