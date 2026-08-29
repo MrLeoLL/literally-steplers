@@ -68,7 +68,7 @@ body::after {
 
     font-size: 110px;
 
-    color: #e60000;
+    color: #c8b38a;
 
     animation: glitch .8s infinite;
 }
@@ -128,7 +128,7 @@ body::after {
 .logo span {
     display: block;
 
-    color: #e60000;
+    color: #c8b38a;
 }
 
 
@@ -155,7 +155,7 @@ nav a {
 
 
 nav a:hover {
-    color: #e60000;
+    color: #c8b38a;
 }
 
 
@@ -226,7 +226,7 @@ nav a:hover {
 
 .eyebrow,
 .red-label {
-    color: #e60000;
+    color: #c8b38a;
 
     font-size: 10px;
 
@@ -252,7 +252,7 @@ nav a:hover {
 .hero h1 span {
     display: block;
 
-    color: #e60000;
+    color: #c8b38a;
 }
 
 
@@ -279,9 +279,9 @@ nav a:hover {
 
     padding: 16px 25px;
 
-    background: #e60000;
+    background: #c8b38a;
 
-    border: 1px solid #e60000;
+    border: 1px solid #c8b38a;
 
     color: white;
 
@@ -466,7 +466,7 @@ nav a:hover {
 
     border-radius: 50%;
 
-    background: #e60000;
+    background: #c8b38a;
 
     border: 2px solid white;
 
@@ -641,7 +641,7 @@ footer {
 
 
 .footer-logo span {
-    color: #e60000;
+    color: #c8b38a;
 }
 
 
@@ -681,7 +681,7 @@ footer > p {
 
 
 .socials a:hover {
-    color: #e60000;
+    color: #c8b38a;
 }
 
 
@@ -798,7 +798,7 @@ footer small {
 
 
 .track:hover {
-    color: #e60000;
+    color: #c8b38a;
 }
 
 
@@ -884,7 +884,7 @@ footer small {
 .player-info small {
     display: block;
 
-    color: #e60000;
+    color: #c8b38a;
 
     font-size: 7px;
 
@@ -927,9 +927,9 @@ footer small {
 
 
 #playPause {
-    background: #e60000;
+    background: #c8b38a;
 
-    border-color: #e60000;
+    border-color: #c8b38a;
 }
 
 
