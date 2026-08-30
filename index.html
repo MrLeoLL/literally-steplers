@@ -158,6 +158,99 @@ footer strong{color:#777}
 @keyframes introAppear{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes introLine{from{width:0}to{width:180px}}
 
+
+/* ===== THE HOME / ANGELICAL TRANSITION ===== */
+#homeTransition{
+    position:fixed;
+    inset:0;
+    z-index:20000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    pointer-events:none;
+    opacity:0;
+    visibility:hidden;
+    background:
+        linear-gradient(rgba(255,250,244,.12),rgba(255,250,244,.12)),
+        #f4eee7;
+}
+#homeTransition.active{
+    visibility:visible;
+    animation:homeScene 4.2s cubic-bezier(.2,.75,.2,1) forwards;
+}
+#homeTransition::before{
+    content:"";
+    position:absolute;
+    inset:-15%;
+    background-image:url("images/home-paradise.png");
+    background-size:cover;
+    background-position:center;
+    filter:brightness(1.08) saturate(.72);
+    transform:scale(1.12);
+    opacity:0;
+    animation:none;
+}
+#homeTransition.active::before{
+    animation:homeImage 4.2s cubic-bezier(.16,.8,.2,1) forwards;
+}
+.home-glow{
+    position:absolute;
+    width:55vw;
+    height:55vw;
+    max-width:850px;
+    max-height:850px;
+    border-radius:50%;
+    background:rgba(255,255,255,.9);
+    filter:blur(90px);
+    opacity:0;
+}
+#homeTransition.active .home-glow{
+    animation:homeGlow 4.2s ease forwards;
+}
+.home-title{
+    position:relative;
+    z-index:2;
+    color:#fff;
+    text-align:center;
+    font-size:clamp(42px,9vw,120px);
+    font-weight:900;
+    letter-spacing:12px;
+    text-shadow:0 4px 35px rgba(255,255,255,.9),0 2px 15px rgba(0,0,0,.2);
+    opacity:0;
+    transform:translateY(80px) scale(.9);
+}
+#homeTransition.active .home-title{
+    animation:homeTitle 4.2s cubic-bezier(.16,.8,.2,1) forwards;
+}
+@keyframes homeScene{
+    0%{opacity:0}
+    12%{opacity:1}
+    78%{opacity:1}
+    100%{opacity:0;visibility:hidden}
+}
+@keyframes homeImage{
+    0%{opacity:0;transform:scale(1.18) translateY(5%)}
+    18%{opacity:1}
+    65%{opacity:1;transform:scale(1.02) translateY(-2%)}
+    100%{opacity:0;transform:scale(1.08) translateY(-8%)}
+}
+@keyframes homeGlow{
+    0%{opacity:0;transform:scale(.5)}
+    25%{opacity:.75;transform:scale(1)}
+    70%{opacity:.28;transform:scale(1.25)}
+    100%{opacity:0;transform:scale(1.5)}
+}
+@keyframes homeTitle{
+    0%{opacity:0;transform:translateY(80px) scale(.9);filter:blur(12px)}
+    22%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+    68%{opacity:1;transform:translateY(-15px) scale(1.03)}
+    100%{opacity:0;transform:translateY(-80px) scale(1.08);filter:blur(8px)}
+}
+@media(max-width:600px){
+    .home-title{letter-spacing:6px}
+}
+
 @media(max-width:900px){
 .albums{grid-template-columns:repeat(2,1fr)}
 }
@@ -213,6 +306,18 @@ nav a{margin-left:12px;font-size:9px}
 
 <body>
 
+<!-- THE HOME / ANGELICAL TRANSITION -->
+<div id="homeTransition" aria-hidden="true">
+    <div class="home-glow"></div>
+    <div class="home-title">THE HOME</div>
+</div>
+
+<!-- Put your audio file at: audio/angelical.mp3 -->
+<audio id="angelicalAudio" preload="auto">
+    <source src="audio/angelical.mp3" type="audio/mpeg">
+</audio>
+
+
 <div id="intro">
 <div class="intro-content">
 <div class="intro-small">THE OFFICIAL WEBSITE</div>
@@ -225,7 +330,7 @@ nav a{margin-left:12px;font-size:9px}
 <header>
 <a href="#home" class="logo">LITERALLY <span>STEPLERS</span></a>
 <nav>
-<a href="#home">HOME</a>
+<a href="#home" id="homeNav">HOME</a>
 <a href="#music">MUSIC</a>
 <a href="#streaming">STREAMING</a>
 </nav>
@@ -546,16 +651,16 @@ LITERALLY STEPLERS © 2026<br>
 
 <script>
 function enterSite(){
-document.getElementById("intro").classList.add("hidden");
+    document.getElementById("intro").classList.add("hidden");
 }
 
 const albums=document.querySelectorAll(".album");
 
 albums.forEach(album=>{
-album.addEventListener("click",function(event){
-if(event.target.closest(".youtube")) return;
-this.classList.toggle("active");
-});
+    album.addEventListener("click",function(event){
+        if(event.target.closest(".youtube")) return;
+        this.classList.toggle("active");
+    });
 });
 
 function openCover(event, src, title){
@@ -565,13 +670,46 @@ function openCover(event, src, title){
     document.getElementById("modalTitle").textContent = title.replace(" cover","");
     document.getElementById("coverModal").classList.add("open");
 }
+
 function closeCover(){
     document.getElementById("coverModal").classList.remove("open");
 }
+
 document.addEventListener("keydown", function(e){
     if(e.key === "Escape") closeCover();
 });
 
+/* ===== HOME / ANGELICAL EFFECT ===== */
+const homeNav = document.getElementById("homeNav");
+const homeTransition = document.getElementById("homeTransition");
+const angelicalAudio = document.getElementById("angelicalAudio");
+
+homeNav.addEventListener("click", function(event){
+    event.preventDefault();
+
+    // Start the angelical sound from the user's click.
+    angelicalAudio.currentTime = 0;
+    angelicalAudio.play().catch(() => {
+        // Browser blocked playback; the visual effect still works.
+    });
+
+    // Restart the CSS animation cleanly every time HOME is clicked.
+    homeTransition.classList.remove("active");
+    void homeTransition.offsetWidth;
+    homeTransition.classList.add("active");
+
+    // Return to the normal site after the short cinematic transition.
+    setTimeout(() => {
+        document.getElementById("home").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }, 250);
+
+    setTimeout(() => {
+        homeTransition.classList.remove("active");
+    }, 4300);
+});
 </script>
 
 </body>
