@@ -192,6 +192,10 @@ footer strong{color:#777}
 @keyframes homeTitle{0%{opacity:0;transform:translateY(100px) scale(.72);filter:blur(14px)}18%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}30%{transform:translateY(0) scale(1.03)}68%{opacity:1;transform:translateY(-12px) scale(1.05)}100%{opacity:0;transform:translateY(-100px) scale(1.16);filter:blur(10px)}}
 @media(max-width:600px){.home-title{letter-spacing:6px;text-indent:6px}.home-ring{width:75vw;height:75vw}.home-ring.r2{width:52vw;height:52vw}}
 
+
+/* ===== OPTIONS POPUP ===== */
+.options-modal{position:fixed;inset:0;z-index:21000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);opacity:0;transition:opacity .25s ease}.options-modal.open{display:flex;opacity:1}.options-panel{width:min(92vw,520px);background:linear-gradient(145deg,#111,#070707);border:1px solid #2a2a2a;box-shadow:0 30px 100px rgba(0,0,0,.7);transform:translateY(18px) scale(.97);transition:transform .25s ease}.options-modal.open .options-panel{transform:translateY(0) scale(1)}.options-header{display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid #222}.options-header h2{font-size:22px;letter-spacing:5px}.options-close{background:none;border:0;color:#777;font-size:30px;cursor:pointer;line-height:1;transition:.2s}.options-close:hover{color:#fff}.options-content{padding:12px 28px 28px}.option-row{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:24px 0;border-bottom:1px solid #1d1d1d}.option-row:last-child{border-bottom:0}.option-name{font-size:16px;font-weight:900;letter-spacing:2px}.option-description{margin-top:7px;color:#666;font-size:12px;line-height:1.5}.effects-toggle{min-width:108px;border:1px solid #444;background:#111;color:#777;padding:11px 16px;font-size:11px;font-weight:bold;letter-spacing:3px;cursor:pointer;transition:.25s}.effects-toggle.on{color:#fff;border-color:#c8b38a;background:#c8b38a}.effects-toggle:hover{border-color:#fff;color:#fff}.effects-toggle.on:hover{background:#fff;color:#000}
+
 @media(max-width:900px){
 .albums{grid-template-columns:repeat(2,1fr)}
 }
@@ -262,7 +266,7 @@ nav a{margin-left:12px;font-size:9px}
 
 <!-- Put your audio file at: audio/angelical.mp3 -->
 <audio id="angelicalAudio" preload="auto">
-    <source src="audio/angelical1.mp3" type="audio/mpeg">
+    <source src="audio/angelical.mp3" type="audio/mpeg">
 </audio>
 
 
@@ -281,6 +285,7 @@ nav a{margin-left:12px;font-size:9px}
 <a href="#home" id="homeNav">HOME</a>
 <a href="#music">MUSIC</a>
 <a href="#streaming">STREAMING</a>
+<a href="#" id="optionsNav">OPTIONS</a>
 </nav>
 </header>
 
@@ -592,6 +597,10 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
   <div id="modalTitle"></div>
 </div>
 
+
+<!-- OPTIONS -->
+<div id="optionsModal" class="options-modal" aria-hidden="true"><div class="options-panel" role="dialog" aria-modal="true" aria-labelledby="optionsTitle"><div class="options-header"><h2 id="optionsTitle">OPTIONS</h2><button class="options-close" id="optionsClose" aria-label="Close options">&times;</button></div><div class="options-content"><div class="option-row"><div><div class="option-name">EFFECTS</div><div class="option-description">Enable or disable the angelical The Home effect.</div></div><button id="effectsToggle" class="effects-toggle on" type="button">ON</button></div></div></div></div>
+
 <footer>
 LITERALLY STEPLERS © 2026<br>
 <strong>Copyright © MrLeoLL &amp; Rizinperro</strong>
@@ -627,37 +636,25 @@ document.addEventListener("keydown", function(e){
     if(e.key === "Escape") closeCover();
 });
 
-/* ===== HOME / ANGELICAL EFFECT ===== */
-const homeNav = document.getElementById("homeNav");
-const homeTransition = document.getElementById("homeTransition");
-const angelicalAudio = document.getElementById("angelicalAudio");
-
-homeNav.addEventListener("click", function(event){
-    event.preventDefault();
-
-    // Start the angelical sound from the user's click.
-    angelicalAudio.currentTime = 0;
-    angelicalAudio.play().catch(() => {
-        // Browser blocked playback; the visual effect still works.
-    });
-
-    // Restart the CSS animation cleanly every time HOME is clicked.
-    homeTransition.classList.remove("active");
-    void homeTransition.offsetWidth;
-    homeTransition.classList.add("active");
-
-    // Return to the normal site after the short cinematic transition.
-    setTimeout(() => {
-        document.getElementById("home").scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }, 250);
-
-    setTimeout(() => {
-        homeTransition.classList.remove("active");
-    }, 6000);
-});
+/* ===== OPTIONS + HOME / ANGELICAL EFFECT ===== */
+const homeNav=document.getElementById("homeNav");
+const homeTransition=document.getElementById("homeTransition");
+const angelicalAudio=document.getElementById("angelicalAudio");
+const optionsNav=document.getElementById("optionsNav");
+const optionsModal=document.getElementById("optionsModal");
+const optionsClose=document.getElementById("optionsClose");
+const effectsToggle=document.getElementById("effectsToggle");
+let effectsEnabled=localStorage.getItem("literallySteplersEffects")!=="off";
+function updateEffectsToggle(){effectsToggle.textContent=effectsEnabled?"ON":"OFF";effectsToggle.classList.toggle("on",effectsEnabled)}
+function openOptions(){updateEffectsToggle();optionsModal.classList.add("open");optionsModal.setAttribute("aria-hidden","false")}
+function closeOptions(){optionsModal.classList.remove("open");optionsModal.setAttribute("aria-hidden","true")}
+updateEffectsToggle();
+optionsNav.addEventListener("click",function(event){event.preventDefault();openOptions()});
+optionsClose.addEventListener("click",closeOptions);
+optionsModal.addEventListener("click",function(event){if(event.target===optionsModal)closeOptions()});
+effectsToggle.addEventListener("click",function(){effectsEnabled=!effectsEnabled;localStorage.setItem("literallySteplersEffects",effectsEnabled?"on":"off");updateEffectsToggle()});
+homeNav.addEventListener("click",function(event){event.preventDefault();if(!effectsEnabled){document.getElementById("home").scrollIntoView({behavior:"smooth",block:"start"});return}angelicalAudio.currentTime=0;angelicalAudio.play().catch(()=>{});homeTransition.classList.remove("active");void homeTransition.offsetWidth;homeTransition.classList.add("active");setTimeout(()=>{document.getElementById("home").scrollIntoView({behavior:"smooth",block:"start"})},250);setTimeout(()=>{homeTransition.classList.remove("active")},6000)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeCover();closeOptions()}});
 </script>
 
 </body>
