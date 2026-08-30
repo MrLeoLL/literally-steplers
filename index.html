@@ -246,7 +246,277 @@ nav a{margin-left:12px;font-size:9px}
     line-height:1;
 }
 
+
+/* ===== MAIN HERO TITLE: THEME-AWARE ===== */
+body .intro-title{
+  color:var(--custom-body)!important;
+  -webkit-text-fill-color:var(--custom-body)!important;
+  background:none!important;
+  background-image:none!important;
+  text-shadow:none!important;
+}
+body .intro-title .gold,
+body .intro-title .gold-text,
+body .intro-title .title-gold{
+  color:var(--custom-accent)!important;
+  -webkit-text-fill-color:var(--custom-accent)!important;
+  background:none!important;
+}
+body .intro-title .white,
+body .intro-title .white-text,
+body .intro-title .title-white{
+  color:var(--custom-body)!important;
+  -webkit-text-fill-color:var(--custom-body)!important;
+  background:none!important;
+}
+body[data-theme="hells-aura"] .intro-title{
+  color:#fff!important;
+  -webkit-text-fill-color:#fff!important;
+}
+body[data-theme="hells-aura"] .intro-title .gold,
+body[data-theme="hells-aura"] .intro-title .gold-text,
+body[data-theme="hells-aura"] .intro-title .title-gold{
+  color:#d00000!important;
+  -webkit-text-fill-color:#d00000!important;
+}
+body[data-theme="stemers"] .intro-title .gold,
+body[data-theme="stemers"] .intro-title .gold-text,
+body[data-theme="stemers"] .intro-title .title-gold{
+  color:#d4af37!important;
+  -webkit-text-fill-color:#d4af37!important;
+}
+body[data-theme="diabolical-dog"] .intro-title .gold,
+body[data-theme="diabolical-dog"] .intro-title .gold-text,
+body[data-theme="diabolical-dog"] .intro-title .title-gold{
+  color:#ef5350!important;
+  -webkit-text-fill-color:#ef5350!important;
+}
+body[data-theme="the-home"] .intro-title,
+body[data-theme="the-home"] .intro-title .white,
+body[data-theme="the-home"] .intro-title .white-text,
+body[data-theme="the-home"] .intro-title .title-white{
+  color:#000!important;
+  -webkit-text-fill-color:#000!important;
+}
+body[data-theme="the-home"] .intro-title .gold,
+body[data-theme="the-home"] .intro-title .gold-text,
+body[data-theme="the-home"] .intro-title .title-gold{
+  color:#b28a18!important;
+  -webkit-text-fill-color:#b28a18!important;
+}
+body[data-theme="steplers"] .intro-title .gold,
+body[data-theme="steplers"] .intro-title .gold-text,
+body[data-theme="steplers"] .intro-title .title-gold{
+  color:#ff1493!important;
+  -webkit-text-fill-color:#ff1493!important;
+}
+
 </style>
+
+<style id="custom-theme-system">
+/* Theme layer — preserves the original site while recoloring its existing elements */
+:root{
+  --custom-accent:#c8b38a; --custom-accent2:#fff; --custom-bg:#050505;
+  --custom-panel:#090909; --custom-text:#fff; --custom-muted:#999; --custom-border:#292929;
+  --custom-heading:#fff; --custom-body:#fff; --custom-subtle:#aaa; --custom-link:#fff;
+}
+body{background:var(--custom-bg)!important;color:var(--custom-body)!important}
+header{background:var(--custom-bg)!important;color:var(--custom-body)!important}
+
+/* Broad text coverage */
+body h1,body h2,body h3,body h4,body h5,body h6,
+body p,body span,body div,body li,body label,
+body .logo,body nav a,body a,body button{
+  color:var(--custom-body);
+}
+body .logo span, body .red, body .section-number,
+body .album-number, body .platform-label{
+  color:var(--custom-accent);
+}
+body .hero h1,body .section-title{color:var(--custom-heading)}
+body .hero p,body .streaming-intro{color:var(--custom-muted)}
+body footer{color:var(--custom-subtle)}
+body a:hover{color:var(--custom-accent)}
+body .album,body .platform-card,body .music-card{
+  background:var(--custom-panel)!important;
+  color:var(--custom-body)!important;
+}
+body .album h3,body .album p,body .track,
+body .channel,body .platform-card h3,body .platform-card p{
+  color:var(--custom-body);
+}
+body .album::before{background:linear-gradient(90deg,var(--custom-accent),#fff,var(--custom-accent2))}
+body .channel{border-bottom-color:var(--custom-accent)}
+body .channel:hover{color:var(--custom-accent)!important}
+
+/* Options */
+.theme-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.theme-button{
+  display:block;width:100%;min-height:70px;padding:12px;text-align:left;
+  border:1px solid #333;background:#111;color:#fff!important;cursor:pointer;
+  transition:.2s;font-family:inherit
+}
+.theme-button:hover{border-color:var(--custom-accent);transform:translateY(-1px)}
+.theme-button.active{border-color:var(--custom-accent);box-shadow:0 0 0 1px var(--custom-accent)}
+.theme-swatch{display:flex;height:6px;margin-bottom:9px}
+.theme-swatch i{flex:1}
+.theme-button strong{display:block;font-size:11px;letter-spacing:1.5px;color:inherit!important}
+.theme-button span{display:block;margin-top:4px;color:#999!important;font-size:9px}
+
+/* ===== HELL'S AURA ===== */
+body[data-theme="hells-aura"]{
+  --custom-accent:#d00000; --custom-accent2:#fff; --custom-bg:#090303;
+  --custom-panel:#170606; --custom-text:#fff; --custom-heading:#fff;
+  --custom-body:#fff; --custom-muted:#f0baba; --custom-subtle:#ddd; --custom-link:#fff;
+}
+body[data-theme="hells-aura"] .hero h1,
+body[data-theme="hells-aura"] .section-title,
+body[data-theme="hells-aura"] .album h3,
+body[data-theme="hells-aura"] .platform-card h3,
+body[data-theme="hells-aura"] .channel{color:#fff!important}
+body[data-theme="hells-aura"] .hero p,
+body[data-theme="hells-aura"] .album p,
+body[data-theme="hells-aura"] .track,
+body[data-theme="hells-aura"] .platform-card p{color:#f0baba!important}
+
+/* ===== STEMERS ===== */
+body[data-theme="stemers"]{
+  --custom-accent:#d4af37; --custom-accent2:#fff; --custom-bg:#080604;
+  --custom-panel:#150d05; --custom-text:#fff; --custom-heading:#fff;
+  --custom-body:#fff; --custom-muted:#ead9a3; --custom-subtle:#ddd; --custom-link:#fff;
+}
+
+/* ===== DIABOLICAL DOG ===== */
+body[data-theme="diabolical-dog"]{
+  --custom-accent:#ef5350; --custom-accent2:#fff; --custom-bg:#090202;
+  --custom-panel:#170505; --custom-text:#fff; --custom-heading:#fff;
+  --custom-body:#fff; --custom-muted:#ffb5b5; --custom-subtle:#eee; --custom-link:#fff;
+}
+
+/* ===== STEPLERS ===== */
+body[data-theme="steplers"]{
+  --custom-accent:#ff1493; --custom-accent2:#d4af37; --custom-bg:#090508;
+  --custom-panel:#160811; --custom-text:#fff; --custom-heading:#fff;
+  --custom-body:#fff; --custom-muted:#ffc0df; --custom-subtle:#eee; --custom-link:#fff;
+}
+
+/* ===== THE HOME — LIGHT THEME ===== */
+body[data-theme="the-home"]{
+  --custom-accent:#b28a18; --custom-accent2:#fff; --custom-bg:#fff;
+  --custom-panel:#fff; --custom-text:#000; --custom-heading:#000;
+  --custom-body:#000; --custom-muted:#333; --custom-subtle:#333; --custom-link:#000;
+}
+body[data-theme="the-home"] header{background:#fff!important}
+body[data-theme="the-home"] h1,
+body[data-theme="the-home"] h2,
+body[data-theme="the-home"] h3,
+body[data-theme="the-home"] h4,
+body[data-theme="the-home"] h5,
+body[data-theme="the-home"] h6,
+body[data-theme="the-home"] p,
+body[data-theme="the-home"] span,
+body[data-theme="the-home"] div,
+body[data-theme="the-home"] li,
+body[data-theme="the-home"] label,
+body[data-theme="the-home"] .logo,
+body[data-theme="the-home"] nav a,
+body[data-theme="the-home"] a,
+body[data-theme="the-home"] .hero h1,
+body[data-theme="the-home"] .hero p,
+body[data-theme="the-home"] .section-title,
+body[data-theme="the-home"] .album h3,
+body[data-theme="the-home"] .album p,
+body[data-theme="the-home"] .track,
+body[data-theme="the-home"] .channel,
+body[data-theme="the-home"] .platform-card h3,
+body[data-theme="the-home"] .platform-card p,
+body[data-theme="the-home"] footer{
+  color:#000!important;
+}
+body[data-theme="the-home"] .logo span,
+body[data-theme="the-home"] .red,
+body[data-theme="the-home"] .section-number,
+body[data-theme="the-home"] .album-number,
+body[data-theme="the-home"] .platform-label{
+  color:#b28a18!important;
+}
+body[data-theme="the-home"] .album,
+body[data-theme="the-home"] .platform-card,
+body[data-theme="the-home"] .music-card{
+  background:#fff!important;color:#000!important;
+  border-color:#ddd!important;
+}
+body[data-theme="the-home"] .hero-button{
+  color:#fff!important;
+}
+body[data-theme="the-home"] .hero-button.secondary{
+  color:#000!important;
+  border-color:#bbb!important;
+}
+body[data-theme="the-home"] .youtube{
+  color:#fff!important;
+}
+body[data-theme="the-home"] .theme-button{
+  background:#fff;color:#000!important;border-color:#ccc;
+}
+body[data-theme="the-home"] .theme-button strong{color:#000!important}
+body[data-theme="the-home"] .theme-button span{color:#555!important}
+body[data-theme="the-home"] .options-panel{color:#fff!important}
+
+/* Gold/white identity remains visible through accents, highlights and controls */
+body .hero-button,body .youtube{background:var(--custom-accent)}
+body .hero-button:hover,body .youtube:hover{background:#fff!important;color:#000!important}
+body .platform-link{color:var(--custom-body)}
+body .platform-link:hover{background:#fff;color:#000!important}
+@media(max-width:600px){.theme-options{grid-template-columns:1fr}}
+</style>
+
+
+<style id="intro-title-theme-fix">
+.intro-title .intro-word-main{
+  color:#fff!important;
+  -webkit-text-fill-color:#fff!important;
+  background:none!important;
+  background-image:none!important;
+}
+.intro-title .intro-word-accent{
+  color:#c8b38a!important;
+  -webkit-text-fill-color:#c8b38a!important;
+  background:none!important;
+  background-image:none!important;
+}
+body[data-theme="hells-aura"] .intro-title .intro-word-main{
+  color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+body[data-theme="hells-aura"] .intro-title .intro-word-accent{
+  color:#d00000!important;-webkit-text-fill-color:#d00000!important;
+}
+body[data-theme="stemers"] .intro-title .intro-word-main{
+  color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+body[data-theme="stemers"] .intro-title .intro-word-accent{
+  color:#d4af37!important;-webkit-text-fill-color:#d4af37!important;
+}
+body[data-theme="diabolical-dog"] .intro-title .intro-word-main{
+  color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+body[data-theme="diabolical-dog"] .intro-title .intro-word-accent{
+  color:#ef5350!important;-webkit-text-fill-color:#ef5350!important;
+}
+body[data-theme="the-home"] .intro-title .intro-word-main{
+  color:#000!important;-webkit-text-fill-color:#000!important;
+}
+body[data-theme="the-home"] .intro-title .intro-word-accent{
+  color:#b28a18!important;-webkit-text-fill-color:#b28a18!important;
+}
+body[data-theme="steplers"] .intro-title .intro-word-main{
+  color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+body[data-theme="steplers"] .intro-title .intro-word-accent{
+  color:#ff1493!important;-webkit-text-fill-color:#ff1493!important;
+}
+</style>
+
 </head>
 
 <body>
@@ -264,7 +534,7 @@ nav a{margin-left:12px;font-size:9px}
     <div class="home-title">THE HOME</div>
 </div>
 
-<!-- Put your audio file at: audio/angelical.mp3 -->
+<!-- Put your audio file at: audio/angelical1.mp3 -->
 <audio id="angelicalAudio" preload="auto">
     <source src="audio/angelical1.mp3" type="audio/mpeg">
 </audio>
@@ -273,7 +543,7 @@ nav a{margin-left:12px;font-size:9px}
 <div id="intro">
 <div class="intro-content">
 <div class="intro-small">THE OFFICIAL WEBSITE</div>
-<div class="intro-title">LITERALLY<br>STEPLERS</div>
+<div class="intro-title"><span class="intro-word-main">LITERALLY</span><br><span class="intro-word-accent">STEPLERS</span></div>
 <div class="intro-line"></div>
 <button class="enter-button" onclick="enterSite()">ENTER</button>
 </div>
@@ -599,7 +869,38 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 
 <!-- OPTIONS -->
-<div id="optionsModal" class="options-modal" aria-hidden="true"><div class="options-panel" role="dialog" aria-modal="true" aria-labelledby="optionsTitle"><div class="options-header"><h2 id="optionsTitle">OPTIONS</h2><button class="options-close" id="optionsClose" aria-label="Close options">&times;</button></div><div class="options-content"><div class="option-row"><div><div class="option-name">EFFECTS</div><div class="option-description">Enable or disable the angelical The Home effect.</div></div><button id="effectsToggle" class="effects-toggle on" type="button">ON</button></div></div></div></div>
+<div id="optionsModal" class="options-modal" aria-hidden="true"><div class="options-panel" role="dialog" aria-modal="true" aria-labelledby="optionsTitle"><div class="options-header"><h2 id="optionsTitle">OPTIONS</h2><button class="options-close" id="optionsClose" aria-label="Close options">&times;</button></div><div class="options-content">
+<div class="option-row" style="display:block">
+  <div class="option-name">SITE THEME</div>
+  <div class="option-description">Choose the visual theme of the site.</div>
+  <div class="theme-options">
+    <button class="theme-button" type="button" data-theme="debut">
+      <div class="theme-swatch"><i style="background:#c8b38a"></i><i style="background:#fff"></i></div>
+      <strong>DEBUT ALBUM</strong><span>Original theme</span>
+    </button>
+    <button class="theme-button" type="button" data-theme="hells-aura">
+      <div class="theme-swatch"><i style="background:#b30000"></i><i style="background:#fff"></i></div>
+      <strong>HELL'S AURA</strong><span>Red &amp; white</span>
+    </button>
+    <button class="theme-button" type="button" data-theme="stemers">
+      <div class="theme-swatch"><i style="background:#d4af37"></i><i style="background:#8b0000"></i></div>
+      <strong>STEMERS</strong><span>Gold &amp; red</span>
+    </button>
+    <button class="theme-button" type="button" data-theme="diabolical-dog">
+      <div class="theme-swatch"><i style="background:#8b0000"></i><i style="background:#ef5350"></i></div>
+      <strong>DIABOLICAL DOG</strong><span>Dark red &amp; light red</span>
+    </button>
+    <button class="theme-button" type="button" data-theme="the-home">
+      <div class="theme-swatch"><i style="background:#fff"></i><i style="background:#d4af37"></i></div>
+      <strong>THE HOME</strong><span>White &amp; gold</span>
+    </button>
+    <button class="theme-button" type="button" data-theme="steplers">
+      <div class="theme-swatch"><i style="background:#d4af37"></i><i style="background:#ff1493"></i></div>
+      <strong>STEPLERS</strong><span>Gold &amp; neon pink</span>
+    </button>
+  </div>
+</div>
+<div class="option-row"><div><div class="option-name">EFFECTS</div><div class="option-description">Enable or disable the angelical The Home effect.</div></div><button id="effectsToggle" class="effects-toggle on" type="button">ON</button></div></div></div></div>
 
 <footer>
 LITERALLY STEPLERS © 2026<br>
@@ -655,6 +956,49 @@ optionsModal.addEventListener("click",function(event){if(event.target===optionsM
 effectsToggle.addEventListener("click",function(){effectsEnabled=!effectsEnabled;localStorage.setItem("literallySteplersEffects",effectsEnabled?"on":"off");updateEffectsToggle()});
 homeNav.addEventListener("click",function(event){event.preventDefault();if(!effectsEnabled){document.getElementById("home").scrollIntoView({behavior:"smooth",block:"start"});return}angelicalAudio.currentTime=0;angelicalAudio.play().catch(()=>{});homeTransition.classList.remove("active");void homeTransition.offsetWidth;homeTransition.classList.add("active");setTimeout(()=>{document.getElementById("home").scrollIntoView({behavior:"smooth",block:"start"})},250);setTimeout(()=>{homeTransition.classList.remove("active")},6000)});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeCover();closeOptions()}});
+</script>
+
+
+<script id="custom-theme-js">
+(function(){
+  const presets={
+    debut:{accent:"#c8b38a",accent2:"#fff",bg:"#050505",panel:"#090909",text:"#fff",muted:"#999",border:"#292929",light:false},
+    "hells-aura":{accent:"#d00000",accent2:"#fff",bg:"#090303",panel:"#120606",text:"#fff",muted:"#aaa",border:"#351313",light:false},
+    stemers:{accent:"#d4af37",accent2:"#fff",bg:"#080604",panel:"#120b05",text:"#fff",muted:"#aaa",border:"#38290d",light:false},
+    "diabolical-dog":{accent:"#ef5350",accent2:"#fff",bg:"#090202",panel:"#160505",text:"#fff",muted:"#aaa",border:"#421313",light:false},
+    "the-home":{accent:"#d4af37",accent2:"#fff",bg:"#fff",panel:"#fff",text:"#000",muted:"#555",border:"#ddd",light:true},
+    steplers:{accent:"#ff1493",accent2:"#d4af37",bg:"#090508",panel:"#160811",text:"#fff",muted:"#aaa",border:"#46132f",light:false}
+  };
+  function applyTheme(name){
+    const t=presets[name]||presets.debut, r=document.documentElement;
+    r.style.setProperty("--custom-accent",t.accent);
+    r.style.setProperty("--custom-accent2",t.accent2);
+    r.style.setProperty("--custom-bg",t.bg);
+    r.style.setProperty("--custom-panel",t.panel);
+    r.style.setProperty("--custom-text",t.text);
+    r.style.setProperty("--custom-muted",t.muted);
+    r.style.setProperty("--custom-border",t.border);
+    document.body.classList.toggle("theme-light",!!t.light);
+    document.body.dataset.theme=name;
+    const titleMain=document.querySelector(".intro-word-main");
+    const titleAccent=document.querySelector(".intro-word-accent");
+    if(titleMain && titleAccent){
+      titleMain.style.color=t.light?"#000":"#fff";
+      titleMain.style.webkitTextFillColor=t.light?"#000":"#fff";
+      titleAccent.style.color=t.accent;
+      titleAccent.style.webkitTextFillColor=t.accent;
+    }
+    document.querySelectorAll(".theme-button").forEach(b=>b.classList.toggle("active",b.dataset.theme===name));
+    try{localStorage.setItem("literallySteplersTheme",name)}catch(e){}
+  }
+  let saved="debut";
+  try{saved=localStorage.getItem("literallySteplersTheme")||"debut"}catch(e){}
+  applyTheme(saved);
+  document.addEventListener("click",function(e){
+    const b=e.target.closest(".theme-button");
+    if(b) applyTheme(b.dataset.theme);
+  });
+})();
 </script>
 
 </body>
