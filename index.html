@@ -1942,6 +1942,63 @@ body[data-era-light="true"] .lore-inline-status{
 }
 </style>
 
+
+<style id="era-lock-visual-refresh-style">
+.era-card.locked{
+  opacity:.42!important;
+  filter:grayscale(.72) saturate(.25) brightness(.72)!important;
+  cursor:not-allowed!important;
+  border-color:#242424!important;
+  box-shadow:none!important;
+}
+.era-card.locked img{
+  filter:grayscale(.75) saturate(.2) brightness(.68)!important;
+}
+.era-card.locked:hover{
+  transform:none!important;
+  border-color:#2a2a2a!important;
+  box-shadow:none!important;
+}
+.era-card.locked::after{
+  transform:scaleX(0)!important;
+}
+.era-card.locked .era-card-active{
+  display:none!important;
+}
+.era-lock-overlay{
+  position:absolute!important;
+  inset:7px 7px auto!important;
+  z-index:6!important;
+  min-height:30px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:7px 8px!important;
+  background:rgba(0,0,0,.88)!important;
+  border:1px solid #333!important;
+  color:#aaa!important;
+  font-size:7px!important;
+  font-weight:900!important;
+  line-height:1.35!important;
+  letter-spacing:1.3px!important;
+  text-align:center!important;
+  backdrop-filter:blur(5px)!important;
+}
+</style>
+
+
+<style id="guess-instant-blur-fix">
+#guessCover{
+  transition:none!important;
+  animation:none!important;
+  will-change:filter;
+}
+.guess-cover-frame img{
+  transition:none!important;
+  animation:none!important;
+}
+</style>
+
 </head>
 
 <body>
@@ -2633,7 +2690,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
   <div class="site-version-inner">
     <div class="site-version-main">
       <span class="site-version-label">SITE VERSION</span>
-      <strong>1.41</strong>
+      <strong>1.43</strong>
     </div>
 
     <button class="site-version-toggle" id="siteVersionToggle" type="button">
@@ -2642,7 +2699,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
     <div class="site-version-history" id="siteVersionHistory">
       <div class="version-history-head">
-        <span>VERSION 1.41</span>
+        <span>VERSION 1.43</span>
         <span>CURRENT BUILD</span>
       </div>
 
@@ -2688,6 +2745,8 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>39</b><span>LORE page added</span></div>
         <div class="version-update"><b>40</b><span>All supported languages updated for the latest interface</span></div>
         <div class="version-update"><b>41</b><span>Complete localization for games, achievements, Era Themes, Profile and Options</span></div>
+        <div class="version-update"><b>42</b><span>Locked Era Themes now display correctly before selection</span></div>
+        <div class="version-update"><b>43</b><span>Guess cover blur and achievement refresh bugs fixed</span></div>
       </div>
     </div>
   </div>
@@ -3785,7 +3844,7 @@ function toast(a){
 function unlock(id){
   if(s.unlocked[id])return;
   const a=ach(id); if(!a)return;
-  s.unlocked[id]=Date.now(); save(); toast(a); render(); refreshEraLocks();
+  s.unlocked[id]=Date.now(); save(); toast(a); render(); refreshEraLocks(); window.dispatchEvent(new CustomEvent("steplersAchievementChanged"));
 }
 function themeDisplayName(slug){
   const map={"debut-album":"Debut Album","yamers":"Yâmers","stemers":"Stemers","hell-s-aura":"Hell's Aura","the-home":"The Home","diabolical-dog":"Diabolical Dog","return-to-the-boat":"Return To The Boat","steplers":"Steplers","herborine":"Herborine","armless-john":"Armless John","the-cashier":"The Cashier","the-guy-from-picture":"The Guy From Picture","the-tchola":"The Tchola","mausoleum":"Mausoleum","the-page":"The Page","real-south":"Real South","canada":"Canada","laminhapal":"Laminhapal","one-team-one-dream":"One Team, One Dream"};
@@ -4126,7 +4185,13 @@ function renderGuess(){
   const item=guessRun[gIndex], cover=document.getElementById("guessCover"), opts=document.getElementById("guessOptions");
   document.getElementById("guessRound").textContent=String(gIndex+1).padStart(2,"0")+" / 05";
   document.getElementById("guessFeedback").textContent="";document.getElementById("guessNext").style.display="none";
-  cover.src=item.img;cover.style.filter="blur(24px) brightness(.72)";
+  cover.style.visibility="hidden";
+  cover.style.filter="blur(24px) brightness(.72)";
+  cover.src=item.img;
+  // Force the fully blurred state before the image becomes visible.
+  requestAnimationFrame(()=>{
+    cover.style.visibility="visible";
+  });
   const distract=shuffle(albumPool.filter(a=>a.name!==item.name)).slice(0,3).map(a=>a.name), choices=shuffle([item.name,...distract]);
   opts.innerHTML=choices.map(c=>`<button class="guess-option" type="button">${c}</button>`).join("");
   opts.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>answerGuess(b.textContent,b)));
@@ -4299,6 +4364,7 @@ renderProfile();
     save();
     toast(def.name,def.hint);
     renderIntoAchievements();
+    window.dispatchEvent(new CustomEvent("steplersAchievementChanged"));
     try{
       if(typeof renderProfile==="function") renderProfile();
     }catch(e){}
@@ -4765,6 +4831,151 @@ window.addEventListener("load",()=>setTimeout(applyAll,80));
 // Dynamic systems rerender cards and stats; keep them translated.
 const targets=["achievementsGrid","eraPickerGrid","profileModal","guessModal"].map(id=>document.getElementById(id)).filter(Boolean);
 targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe(target,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:["class"]}));
+})();
+</script>
+
+
+<script id="era-lock-visual-refresh-fix">
+(function(){
+  const openBtn=document.getElementById("eraPickerOpen");
+  const modal=document.getElementById("eraPickerModal");
+
+  function refreshLocksNow(){
+    try{
+      if(window.steplersAchievements && typeof window.steplersAchievements.refreshEraLocks==="function"){
+        window.steplersAchievements.refreshEraLocks();
+      }
+
+      if(window.steplersAchievements && typeof window.steplersAchievements.updatePreviewLock==="function"){
+        window.steplersAchievements.updatePreviewLock();
+      }
+
+      // Defensive visual pass in case the achievement renderer hasn't painted yet.
+      document.querySelectorAll(".era-card").forEach(function(card){
+        const era=card.dataset.eraTheme;
+        if(!era || !window.steplersAchievements || typeof window.steplersAchievements.isThemeUnlocked!=="function") return;
+
+        const locked=!window.steplersAchievements.isThemeUnlocked(era);
+        card.classList.toggle("locked",locked);
+
+        let overlay=card.querySelector(".era-lock-overlay");
+
+        if(locked){
+          if(!overlay){
+            overlay=document.createElement("div");
+            overlay.className="era-lock-overlay";
+            overlay.textContent="LOCKED";
+            card.appendChild(overlay);
+          }
+        }else if(overlay){
+          overlay.remove();
+        }
+      });
+    }catch(e){}
+  }
+
+  if(openBtn){
+    openBtn.addEventListener("click",function(){
+      // First pass immediately, then once more after the original picker builds its cards.
+      refreshLocksNow();
+      setTimeout(refreshLocksNow,0);
+      setTimeout(refreshLocksNow,30);
+    },true);
+  }
+
+  // If the modal is opened by any other code path, refresh as soon as its class changes.
+  if(modal){
+    new MutationObserver(function(){
+      if(modal.classList.contains("open")){
+        refreshLocksNow();
+        setTimeout(refreshLocksNow,0);
+      }
+    }).observe(modal,{attributes:true,attributeFilter:["class"]});
+  }
+
+  // Initial pass for already-rendered cards.
+  window.addEventListener("load",function(){
+    setTimeout(refreshLocksNow,50);
+  });
+})();
+</script>
+
+
+<script id="achievement-toast-lifecycle-fix">
+(function(){
+  let toastTimer=null;
+
+  function forceHideToast(){
+    const toast=document.getElementById("achievementToast");
+    if(!toast)return;
+    toast.classList.remove("show");
+    toast.style.removeProperty("opacity");
+    toast.style.removeProperty("transform");
+  }
+
+  function scheduleToastHide(){
+    if(toastTimer)clearTimeout(toastTimer);
+    toastTimer=setTimeout(forceHideToast,4200);
+  }
+
+  const toast=document.getElementById("achievementToast");
+  if(toast){
+    new MutationObserver(function(){
+      if(toast.classList.contains("show")){
+        scheduleToastHide();
+      }
+    }).observe(toast,{attributes:true,attributeFilter:["class"]});
+
+    toast.addEventListener("animationend",scheduleToastHide);
+    toast.addEventListener("transitionend",function(e){
+      if(e.propertyName==="transform" && toast.classList.contains("show")){
+        scheduleToastHide();
+      }
+    });
+  }
+
+  window.addEventListener("blur",function(){
+    // Avoid a toast being left hanging if the tab loses focus mid-animation.
+    if(toast && toast.classList.contains("show"))scheduleToastHide();
+  });
+
+  window.steplersForceHideAchievementToast=forceHideToast;
+})();
+</script>
+
+
+<script id="achievement-immediate-ui-refresh">
+(function(){
+  function refreshAchievementUI(){
+    try{
+      if(window.steplersAchievements){
+        if(typeof window.steplersAchievements.refreshEraLocks==="function"){
+          window.steplersAchievements.refreshEraLocks();
+        }
+        if(typeof window.steplersAchievements.updatePreviewLock==="function"){
+          window.steplersAchievements.updatePreviewLock();
+        }
+      }
+
+      // Re-render base achievement grid if the original renderer is accessible.
+      if(typeof render==="function") render();
+      if(typeof renderIntoAchievements==="function") renderIntoAchievements();
+      if(typeof renderProfile==="function") renderProfile();
+
+      if(window.applyCompleteLanguage) window.applyCompleteLanguage();
+      if(window.applyV139Language) window.applyV139Language();
+    }catch(e){}
+  }
+
+  window.addEventListener("steplersAchievementChanged",function(){
+    refreshAchievementUI();
+    setTimeout(refreshAchievementUI,0);
+    setTimeout(refreshAchievementUI,60);
+  });
+
+  // Also refresh whenever the Achievements/Profile panels are opened.
+  document.getElementById("achievementsOpen")?.addEventListener("click",()=>setTimeout(refreshAchievementUI,0));
+  document.getElementById("profileOpen")?.addEventListener("click",()=>setTimeout(refreshAchievementUI,0));
 })();
 </script>
 
