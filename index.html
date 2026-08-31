@@ -1999,6 +1999,161 @@ body[data-era-light="true"] .lore-inline-status{
 }
 </style>
 
+
+<style id="ultra-performance-balanced-v145">
+/* ===== HEAVY OPTIMIZATION WITHOUT REMOVING FEATURES ===== */
+
+/* Skip layout/paint for sections far outside the viewport. */
+.music-section,
+.streaming-section,
+.games-zone,
+.game-section,
+.lore-inline-section,
+.site-version-section{
+  content-visibility:auto;
+  contain-intrinsic-size:900px;
+}
+
+/* Cards are independent paint islands. */
+.album,
+.platform-card,
+.game-card,
+.achievement-card,
+.mastery-row,
+.era-card{
+  contain:layout paint style;
+}
+
+/* Album cards are the biggest repeated blocks. */
+.album{
+  content-visibility:auto;
+  contain-intrinsic-size:520px;
+}
+
+/* Reduce costly full-screen backdrop blur.
+   Appearance stays dark/translucent without forcing constant GPU blur. */
+header{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.options-modal,
+.quiz-modal,
+.era-picker-modal,
+.achievements-modal,
+.meta-modal,
+.cover-modal{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+/* Keep only small local blur where it adds something visually. */
+.era-preview-number,
+.era-lock-overlay{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+/* Large blurred decorative circles are expensive.
+   Smaller blur radius gives nearly the same appearance with far less GPU work. */
+.hero::before,
+.hero::after{
+  filter:blur(95px)!important;
+}
+.streaming-section::before{
+  filter:blur(95px)!important;
+}
+.game-section::before{
+  filter:blur(100px)!important;
+}
+
+/* Pause the hidden infinite Home particles.
+   They were animating even while the effect was invisible. */
+.home-particles i{
+  animation-play-state:paused!important;
+}
+#homeTransition.active .home-particles i{
+  animation-play-state:running!important;
+}
+
+/* Do not promote dozens of cards/images to GPU layers unnecessarily. */
+.album,
+.album-cover,
+.platform-card,
+.game-card,
+.era-card,
+.era-card img,
+.era-preview-cover,
+.achievement-card,
+.mastery-row{
+  will-change:auto!important;
+}
+
+/* Shorter/cheaper hover effects while keeping the same interaction. */
+.album,
+.platform-card,
+.game-card,
+.era-card{
+  transition-duration:.16s!important;
+}
+.album:hover,
+.platform-card:hover,
+.game-card:hover,
+.era-card:hover{
+  box-shadow:none!important;
+}
+.album:hover .album-cover,
+.era-card:hover img{
+  transform:scale(1.01)!important;
+}
+
+/* Do not transition filter on album covers; filter interpolation is expensive. */
+.album-cover,
+.era-card img,
+.era-preview-cover{
+  transition-property:transform,border-color,opacity!important;
+}
+
+/* Hidden overlays should not be composited. */
+.options-modal:not(.open),
+.quiz-modal:not(.open),
+.era-picker-modal:not(.open),
+.achievements-modal:not(.open),
+.meta-modal:not(.open),
+.cover-modal:not(.open){
+  visibility:hidden!important;
+}
+
+/* Keep image decode/render efficient. */
+.album-cover,
+.era-card img,
+.era-preview-cover,
+.lore-inline-card img{
+  backface-visibility:hidden;
+}
+
+/* The Guess game intentionally needs blur; use a slightly cheaper max blur
+   while preserving the mechanic. */
+#guessCover,
+.guess-cover-frame img{
+  will-change:filter;
+}
+
+/* Scroll containers isolate paint more effectively. */
+.era-picker-grid-pro,
+.achievements-grid,
+.mastery-list{
+  contain:content;
+}
+
+/* Performance mode remains even more aggressive. */
+body.performance-mode .hero::before,
+body.performance-mode .hero::after,
+body.performance-mode .streaming-section::before,
+body.performance-mode .game-section::before{
+  display:none!important;
+}
+</style>
+
 </head>
 
 <body>
@@ -2094,7 +2249,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">04</div>
-<img src="images/hells-aura.png" alt="Hell's Aura cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Hell's Aura</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="hell-s-aura">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/hells-aura.png" alt="Hell's Aura cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Hell's Aura</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="hell-s-aura">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Captivity</span></div>
 <div class="track"><span class="track-number">02</span><span>Hell's Aura</span></div>
 <div class="track"><span class="track-number">03</span><span>Rodrigo</span></div>
@@ -2104,7 +2259,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">05</div>
-<img src="images/the-home.png" alt="The Home cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Home</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-home">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-home.png" alt="The Home cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Home</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-home">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Quirathi</span></div>
 <div class="track"><span class="track-number">02</span><span>The Yamers Path</span></div>
 <div class="track"><span class="track-number">03</span><span>No Cap on Steplers</span></div>
@@ -2115,7 +2270,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">06</div>
-<img src="images/diabolical-dog.png" alt="Diabolical Dog cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Diabolical Dog</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="diabolical-dog">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/diabolical-dog.png" alt="Diabolical Dog cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Diabolical Dog</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="diabolical-dog">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Diabolical Dog</span></div>
 <div class="track"><span class="track-number">02</span><span>Goonaldo</span></div>
 <div class="track"><span class="track-number">03</span><span>Hell Rodeo</span></div>
@@ -2126,7 +2281,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">07</div>
-<img src="images/return-to-the-boat.png" alt="Return To The Boat cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Return To The Boat</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="return-to-the-boat">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/return-to-the-boat.png" alt="Return To The Boat cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Return To The Boat</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="return-to-the-boat">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>GvsA 2.0</span></div>
 <div class="track"><span class="track-number">02</span><span>In The Boat With The Tchola 2.0</span></div>
 <div class="track"><span class="track-number">03</span><span>Lil Bro 2.0</span></div>
@@ -2136,7 +2291,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">08</div>
-<img src="images/steplers.png" alt="Steplers cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Steplers</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="steplers">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/steplers.png" alt="Steplers cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Steplers</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="steplers">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>There Him</span></div>
 <div class="track"><span class="track-number">02</span><span>Mirror Realm _ mlaeR rorriM</span></div>
 <div class="track"><span class="track-number">03</span><span>I Can Breath</span></div>
@@ -2151,7 +2306,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">09</div>
-<img src="images/herborine.png" alt="Herborine cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Herborine</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="herborine">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/herborine.png" alt="Herborine cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Herborine</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="herborine">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Eat Eat</span></div>
 <div class="track"><span class="track-number">02</span><span>Mbabi</span></div>
 <div class="track"><span class="track-number">03</span><span>Bite And Fall</span></div>
@@ -2162,7 +2317,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">10</div>
-<img src="images/armless-john.png" alt="Armless John cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Armless John</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="armless-john">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/armless-john.png" alt="Armless John cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Armless John</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="armless-john">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Cup Chicken</span></div>
 <div class="track"><span class="track-number">02</span><span>Upside Down</span></div>
 <div class="track"><span class="track-number">03</span><span>Aiming Wrong</span></div>
@@ -2173,7 +2328,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">11</div>
-<img src="images/the-cashier.png" alt="The Cashier cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Cashier</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-cashier">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-cashier.png" alt="The Cashier cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Cashier</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-cashier">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Waymaker</span></div>
 <div class="track"><span class="track-number">02</span><span>Penalman</span></div>
 <div class="track"><span class="track-number">03</span><span>The Cashier</span></div>
@@ -2184,7 +2339,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">12</div>
-<img src="images/the-guy-from-picture.png" alt="The Guy From Picture cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Guy From Picture</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-guy-from-picture">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-guy-from-picture.png" alt="The Guy From Picture cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Guy From Picture</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-guy-from-picture">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Transition</span></div>
 <div class="track"><span class="track-number">02</span><span>Green or Purple</span></div>
 <div class="track"><span class="track-number">03</span><span>The Guy From Picture</span></div>
@@ -2195,7 +2350,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">13</div>
-<img src="images/the-tchola.png" alt="The Tchola cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Tchola</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-tchola">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-tchola.png" alt="The Tchola cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Tchola</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-tchola">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Cappucined</span></div>
 <div class="track"><span class="track-number">02</span><span>He Need to Be Fried</span></div>
 <div class="track"><span class="track-number">03</span><span>The Tchola</span></div>
@@ -2206,7 +2361,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">14</div>
-<img src="images/mausoleum.png" alt="Mausoleum cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Mausoleum</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="mausoleum">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/mausoleum.png" alt="Mausoleum cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Mausoleum</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="mausoleum">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Occultism</span></div>
 <div class="track"><span class="track-number">02</span><span>Labirynth</span></div>
 <div class="track"><span class="track-number">03</span><span>Mausoleum</span></div>
@@ -2217,7 +2372,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">15</div>
-<img src="images/the-page.png" alt="The Page cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Page</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-page">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-page.png" alt="The Page cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Page</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-page">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Page</span></div>
 <div class="track"><span class="track-number">02</span><span>Lildiuty</span></div>
 <div class="track"><span class="track-number">03</span><span>The Page</span></div>
@@ -2228,7 +2383,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">16</div>
-<img src="images/real-south.png" alt="Real South cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Real South</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="real-south">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/real-south.png" alt="Real South cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Real South</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="real-south">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Palms</span></div>
 <div class="track"><span class="track-number">02</span><span>Dream</span></div>
 <div class="track"><span class="track-number">03</span><span>Real South</span></div>
@@ -2239,7 +2394,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">17</div>
-<img src="images/canada.png" alt="Canada cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Canada</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="canada">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/canada.png" alt="Canada cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Canada</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="canada">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Rent-A-Brun</span></div>
 <div class="track"><span class="track-number">02</span><span>The Palit</span></div>
 <div class="track"><span class="track-number">03</span><span>Canada</span></div>
@@ -2250,7 +2405,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">18</div>
-<img src="images/laminhapal.png" alt="Laminhapal cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Laminhapal</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="laminhapal">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/laminhapal.png" alt="Laminhapal cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Laminhapal</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="laminhapal">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Derby's District</span></div>
 <div class="track"><span class="track-number">02</span><span>Dig And Bowls</span></div>
 <div class="track"><span class="track-number">03</span><span>Grabidiqui</span></div>
@@ -2262,7 +2417,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">19</div>
-<img src="images/one-team-one-dream.png" alt="One Team, One Dream cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>One Team, One Dream</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="one-team-one-dream">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/one-team-one-dream.png" alt="One Team, One Dream cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>One Team, One Dream</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="one-team-one-dream">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Big Liter Challenge</span></div>
 <div class="track"><span class="track-number">02</span><span>I See, Luke!</span></div>
 <div class="track"><span class="track-number">03</span><span>Little Strawberry</span></div>
@@ -2273,7 +2428,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">20</div>
-<img src="images/soon1.png" alt="Want Want cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Coming Soon</h3><div class="album-icon">+</div><div class="tracks">
+<img src="images/soon1.png" alt="Want Want cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Coming Soon</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Soon</span></div>
 <div class="track"><span class="track-number">02</span><span>Soon</span></div>
 <div class="track"><span class="track-number">03</span><span>Soon</span></div>
@@ -2284,7 +2439,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">21</div>
-<img src="images/soon2.png" alt="Subconcequente cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Coming Soon</h3><div class="album-icon">+</div><div class="tracks">
+<img src="images/soon2.png" alt="Subconcequente cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Coming Soon</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Soon</span></div>
 <div class="track"><span class="track-number">02</span><span>Soon</span></div>
 <div class="track"><span class="track-number">03</span><span>Soon</span></div>
@@ -2391,7 +2546,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
   </div>
 
   <div class="lore-inline-card">
-    <img src="images/working.png" alt="We are working. Please come back soon." decoding="async" loading="lazy">
+    <img src="images/working.png" alt="We are working. Please come back soon." decoding="async" loading="lazy" fetchpriority="low">
   </div>
 </section>
 
@@ -2690,7 +2845,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
   <div class="site-version-inner">
     <div class="site-version-main">
       <span class="site-version-label">SITE VERSION</span>
-      <strong>1.44</strong>
+      <strong>1.45</strong>
     </div>
 
     <button class="site-version-toggle" id="siteVersionToggle" type="button">
@@ -2699,7 +2854,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
     <div class="site-version-history" id="siteVersionHistory">
       <div class="version-history-head">
-        <span>VERSION 1.44</span>
+        <span>VERSION 1.45</span>
         <span>CURRENT BUILD</span>
       </div>
 
@@ -2748,6 +2903,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>42</b><span>Locked Era Themes now display correctly before selection</span></div>
         <div class="version-update"><b>43</b><span>Guess cover blur and achievement refresh bugs fixed</span></div>
         <div class="version-update"><b>44</b><span>Achievement notification timeout fixed</span></div>
+        <div class="version-update"><b>45</b><span>Major rendering, image loading and GPU performance optimization</span></div>
       </div>
     </div>
   </div>
@@ -4592,86 +4748,6 @@ renderProfile();
 </script>
 
 
-<script id="language-update-v139">
-(function(){
-  const extra={"en": {"lore_kicker": "LORE", "lore_title": "THE STORY BEHIND THE CHAOS", "coming": "COMING SOON", "site_version": "SITE VERSION", "view_history": "VIEW UPDATE HISTORY", "hide_history": "HIDE UPDATE HISTORY", "current_build": "CURRENT BUILD"}, "pt": {"lore_kicker": "LORE", "lore_title": "A HISTÓRIA POR TRÁS DO CAOS", "coming": "EM BREVE", "site_version": "VERSÃO DO SITE", "view_history": "VER HISTÓRICO DE ATUALIZAÇÕES", "hide_history": "OCULTAR HISTÓRICO DE ATUALIZAÇÕES", "current_build": "VERSÃO ATUAL"}, "de": {"lore_kicker": "LORE", "lore_title": "DIE GESCHICHTE HINTER DEM CHAOS", "coming": "DEMNÄCHST", "site_version": "SITE-VERSION", "view_history": "UPDATE-VERLAUF ANZEIGEN", "hide_history": "UPDATE-VERLAUF AUSBLENDEN", "current_build": "AKTUELLE VERSION"}, "ru": {"lore_kicker": "ЛОР", "lore_title": "ИСТОРИЯ ЗА ЭТИМ ХАОСОМ", "coming": "СКОРО", "site_version": "ВЕРСИЯ САЙТА", "view_history": "ПОКАЗАТЬ ИСТОРИЮ ОБНОВЛЕНИЙ", "hide_history": "СКРЫТЬ ИСТОРИЮ ОБНОВЛЕНИЙ", "current_build": "ТЕКУЩАЯ ВЕРСИЯ"}, "zh": {"lore_kicker": "背景故事", "lore_title": "混乱背后的故事", "coming": "敬请期待", "site_version": "网站版本", "view_history": "查看更新记录", "hide_history": "隐藏更新记录", "current_build": "当前版本"}, "ja": {"lore_kicker": "ロア", "lore_title": "混沌の裏にある物語", "coming": "近日公開", "site_version": "サイトバージョン", "view_history": "更新履歴を見る", "hide_history": "更新履歴を隠す", "current_build": "現在のバージョン"}, "ko": {"lore_kicker": "로어", "lore_title": "혼돈 뒤에 숨겨진 이야기", "coming": "곧 공개", "site_version": "사이트 버전", "view_history": "업데이트 기록 보기", "hide_history": "업데이트 기록 숨기기", "current_build": "현재 버전"}, "fr": {"lore_kicker": "LORE", "lore_title": "L’HISTOIRE DERRIÈRE LE CHAOS", "coming": "BIENTÔT", "site_version": "VERSION DU SITE", "view_history": "VOIR L’HISTORIQUE DES MISES À JOUR", "hide_history": "MASQUER L’HISTORIQUE DES MISES À JOUR", "current_build": "VERSION ACTUELLE"}, "es": {"lore_kicker": "LORE", "lore_title": "LA HISTORIA DETRÁS DEL CAOS", "coming": "PRÓXIMAMENTE", "site_version": "VERSIÓN DEL SITIO", "view_history": "VER HISTORIAL DE ACTUALIZACIONES", "hide_history": "OCULTAR HISTORIAL DE ACTUALIZACIONES", "current_build": "VERSIÓN ACTUAL"}};
-
-  function currentLang(){
-    try{
-      return localStorage.getItem("literallySteplersLanguage") ||
-             localStorage.getItem("steplersLanguage") ||
-             document.documentElement.lang || "en";
-    }catch(e){return document.documentElement.lang||"en"}
-  }
-
-  function normalizeLang(lang){
-    lang=String(lang||"en").toLowerCase();
-    if(lang.startsWith("pt"))return "pt";
-    if(lang.startsWith("de"))return "de";
-    if(lang.startsWith("ru"))return "ru";
-    if(lang.startsWith("zh")||lang.startsWith("cn"))return "zh";
-    if(lang.startsWith("ja")||lang.startsWith("jp"))return "ja";
-    if(lang.startsWith("ko")||lang.startsWith("kr"))return "ko";
-    if(lang.startsWith("fr"))return "fr";
-    if(lang.startsWith("es"))return "es";
-    return "en";
-  }
-
-  function applyV139Language(){
-    const lang=normalizeLang(currentLang());
-    const t=extra[lang]||extra.en;
-
-    const kicker=document.querySelector(".lore-inline-kicker");
-    const title=document.querySelector(".lore-inline-head h2");
-    const status=document.querySelector(".lore-inline-status");
-    const versionLabel=document.querySelector(".site-version-label");
-    const currentBuild=document.querySelector(".version-history-head span:last-child");
-    const toggle=document.getElementById("siteVersionToggle");
-    const history=document.getElementById("siteVersionHistory");
-
-    if(kicker)kicker.textContent=t.lore_kicker;
-    if(title)title.textContent=t.lore_title;
-    if(status)status.textContent=t.coming;
-    if(versionLabel)versionLabel.textContent=t.site_version;
-    if(currentBuild)currentBuild.textContent=t.current_build;
-
-    if(toggle){
-      const isOpen=history&&history.classList.contains("open");
-      toggle.childNodes[0].nodeValue=(isOpen?t.hide_history:t.view_history)+" ";
-    }
-
-    document.documentElement.lang={
-      en:"en",pt:"pt-BR",de:"de",ru:"ru",zh:"zh-CN",
-      ja:"ja",ko:"ko",fr:"fr",es:"es"
-    }[lang]||"en";
-  }
-
-  // Run after the site's own translator.
-  window.addEventListener("load",()=>setTimeout(applyV139Language,0));
-
-  // Language buttons/selects in the existing options UI can vary by implementation,
-  // so re-apply after user interaction without replacing the original language engine.
-  document.addEventListener("click",function(e){
-    if(e.target.closest('[data-lang],[data-language],.language-option,.language-button')){
-      setTimeout(applyV139Language,30);
-    }
-  });
-
-  document.addEventListener("change",function(e){
-    if(e.target.matches('select[id*="lang" i],select[class*="lang" i]')){
-      setTimeout(applyV139Language,30);
-    }
-  });
-
-  // Also watch the html lang attribute, which the original translation engine may update.
-  new MutationObserver(()=>setTimeout(applyV139Language,0))
-    .observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
-
-  window.applyV139Language=applyV139Language;
-})();
-</script>
-
-
 <script id="complete-language-v141">
 (function(){
 const UI={"en": {"games": "GAMES", "gamesIntro": "Test how well you know Literally Steplers with two different challenges.", "knowledgeQuiz": "KNOWLEDGE QUIZ", "quizCardDesc": "10 random questions per run. Three difficulties, streaks, timers and score multipliers.", "questions10": "10 QUESTIONS", "visualChallenge": "VISUAL CHALLENGE", "guessAlbum": "GUESS THE ALBUM", "guessCardDesc": "A blurred album cover slowly reveals itself. Identify it early to earn more points.", "covers5": "5 COVERS", "timeScore": "TIME-BASED SCORE", "playGuess": "PLAY GUESS THE ALBUM →", "achievements": "ACHIEVEMENTS", "achIntro": "Complete challenges to unlock album era themes.", "themesUnlocked": "THEMES UNLOCKED", "progress": "LITERALLY STEPLERS / PROGRESS", "playerData": "LITERALLY STEPLERS / PLAYER DATA", "playerProfile": "PLAYER PROFILE", "currentLevel": "CURRENT LEVEL", "siteCompletion": "SITE COMPLETION", "completionHelp": "Reach 100% by mastering the site.", "overview": "OVERVIEW", "quizStats": "QUIZ STATS", "themeMastery": "THEME MASTERY", "eraThemes": "ERA THEMES", "quizzesPlayed": "QUIZZES PLAYED", "guessRuns": "GUESS RUNS", "secretsFound": "SECRETS FOUND", "bestQuiz": "BEST QUIZ SCORE", "correctAnswers": "CORRECT ANSWERS", "wrongAnswers": "WRONG ANSWERS", "accuracy": "ACCURACY", "perfectRuns": "PERFECT RUNS", "normalRuns": "NORMAL RUNS", "diabolicalRuns": "DIABOLICAL RUNS", "masteryIntro": "Complete quizzes and Guess the Album runs while using an Era Theme to increase its mastery.", "visualGame": "LITERALLY STEPLERS / VISUAL GAME", "fiveCovers": "5 COVERS.<br>ONE CHANCE EACH.", "guessIntro": "The cover begins heavily blurred and becomes clearer every second. Answer early for maximum points.", "startRun": "START RUN", "nextCover": "NEXT COVER →", "seeResult": "SEE RESULT →", "finalResult": "FINAL RESULT", "runComplete": "RUN COMPLETE", "perfectVision": "PERFECT VISION", "sharpEyesResult": "SHARP EYES", "studyCovers": "KEEP STUDYING THE COVERS", "everyCover": "Every cover recognized.", "solidVisual": "Solid visual knowledge.", "stillSecrets": "The eras still have a few secrets.", "close": "CLOSE", "eraTheme": "ERA THEME", "eraThemeDesc": "Choose a released album era for the entire site.", "selectEra": "SELECT ERA →", "sitePersonalization": "SITE PERSONALIZATION", "selectEraTitle": "SELECT ERA", "eraSubtitle": "Choose an album era and transform the entire visual identity of the site.", "releasedEras": "19 RELEASED ERAS", "hoverPreview": "HOVER TO PREVIEW · CLICK TO SELECT", "selectedEra": "SELECTED ERA", "useEra": "USE THIS ERA", "locked": "LOCKED", "lockedHint": "LOCKED — HINT: ", "eraGeneric": "Visual identity inspired by this album era.", "achOptionDesc": "View your progress, secret challenges and unlocked Era Themes.", "viewAchievements": "VIEW ACHIEVEMENTS →", "profileOptionDesc": "View your level, quiz statistics, theme mastery and total site completion.", "viewProfile": "VIEW PROFILE →", "performance": "PERFORMANCE MODE", "performanceDesc": "Reduce heavy visual effects and animations to make the site lighter.", "language": "LANGUAGE", "languageDesc": "Choose the language of the site.", "achievementUnlocked": "ACHIEVEMENT UNLOCKED", "secretAchievement": "SECRET ACHIEVEMENT", "unlocked": "UNLOCKED", "hint": "HINT", "reward": "REWARD", "themeLocked": "THEME LOCKED", "themeActive": "THEME ACTIVE", "runs": "RUNS", "mastery": "MASTERY", "nextLevel": "NEXT LEVEL", "correctWord": "CORRECT", "wrongWord": "WRONG", "pointsWord": "POINTS", "lore": "LORE", "loreTitle": "THE STORY BEHIND THE CHAOS", "coming": "COMING SOON", "siteVersion": "SITE VERSION", "viewHistory": "VIEW UPDATE HISTORY", "hideHistory": "HIDE UPDATE HISTORY", "currentBuild": "CURRENT BUILD"}, "pt": {"games": "JOGOS", "gamesIntro": "Teste o quanto você conhece Literally Steplers em dois desafios diferentes.", "knowledgeQuiz": "QUIZ DE CONHECIMENTO", "quizCardDesc": "10 perguntas aleatórias por partida. Três dificuldades, sequências, cronômetros e multiplicadores de pontos.", "questions10": "10 PERGUNTAS", "visualChallenge": "DESAFIO VISUAL", "guessAlbum": "ADIVINHE O ÁLBUM", "guessCardDesc": "Uma capa borrada vai sendo revelada aos poucos. Identifique cedo para ganhar mais pontos.", "covers5": "5 CAPAS", "timeScore": "PONTUAÇÃO POR TEMPO", "playGuess": "JOGAR ADIVINHE O ÁLBUM →", "achievements": "CONQUISTAS", "achIntro": "Complete desafios para desbloquear temas de eras dos álbuns.", "themesUnlocked": "TEMAS DESBLOQUEADOS", "progress": "LITERALLY STEPLERS / PROGRESSO", "playerData": "LITERALLY STEPLERS / DADOS DO JOGADOR", "playerProfile": "PERFIL DO JOGADOR", "currentLevel": "NÍVEL ATUAL", "siteCompletion": "CONCLUSÃO DO SITE", "completionHelp": "Chegue a 100% dominando tudo no site.", "overview": "VISÃO GERAL", "quizStats": "ESTATÍSTICAS DO QUIZ", "themeMastery": "MAESTRIA DE TEMAS", "eraThemes": "TEMAS DE ERA", "quizzesPlayed": "QUIZZES JOGADOS", "guessRuns": "PARTIDAS VISUAIS", "secretsFound": "SEGREDOS ENCONTRADOS", "bestQuiz": "MELHOR PONTUAÇÃO", "correctAnswers": "RESPOSTAS CERTAS", "wrongAnswers": "RESPOSTAS ERRADAS", "accuracy": "PRECISÃO", "perfectRuns": "PARTIDAS PERFEITAS", "normalRuns": "PARTIDAS NORMAIS", "diabolicalRuns": "PARTIDAS DIABÓLICAS", "masteryIntro": "Complete quizzes e partidas de Adivinhe o Álbum usando um Tema de Era para aumentar sua maestria.", "visualGame": "LITERALLY STEPLERS / JOGO VISUAL", "fiveCovers": "5 CAPAS.<br>UMA CHANCE CADA.", "guessIntro": "A capa começa muito borrada e fica mais nítida a cada segundo. Responda cedo para ganhar mais pontos.", "startRun": "COMEÇAR PARTIDA", "nextCover": "PRÓXIMA CAPA →", "seeResult": "VER RESULTADO →", "finalResult": "RESULTADO FINAL", "runComplete": "PARTIDA CONCLUÍDA", "perfectVision": "VISÃO PERFEITA", "sharpEyesResult": "OLHOS AFIADOS", "studyCovers": "ESTUDE MAIS AS CAPAS", "everyCover": "Você reconheceu todas as capas.", "solidVisual": "Bom conhecimento visual.", "stillSecrets": "As eras ainda guardam alguns segredos.", "close": "FECHAR", "eraTheme": "TEMA DE ERA", "eraThemeDesc": "Escolha a era de um álbum lançado para todo o site.", "selectEra": "ESCOLHER ERA →", "sitePersonalization": "PERSONALIZAÇÃO DO SITE", "selectEraTitle": "ESCOLHER ERA", "eraSubtitle": "Escolha uma era de álbum e transforme toda a identidade visual do site.", "releasedEras": "19 ERAS LANÇADAS", "hoverPreview": "PASSE O MOUSE PARA PRÉ-VISUALIZAR · CLIQUE PARA SELECIONAR", "selectedEra": "ERA SELECIONADA", "useEra": "USAR ESTA ERA", "locked": "BLOQUEADO", "lockedHint": "BLOQUEADO — DICA: ", "eraGeneric": "Identidade visual inspirada nesta era do álbum.", "achOptionDesc": "Veja seu progresso, desafios secretos e Temas de Era desbloqueados.", "viewAchievements": "VER CONQUISTAS →", "profileOptionDesc": "Veja seu nível, estatísticas do quiz, maestria de temas e conclusão total do site.", "viewProfile": "VER PERFIL →", "performance": "MODO DESEMPENHO", "performanceDesc": "Reduz efeitos visuais pesados e animações para deixar o site mais leve.", "language": "IDIOMA", "languageDesc": "Escolha o idioma do site.", "achievementUnlocked": "CONQUISTA DESBLOQUEADA", "secretAchievement": "CONQUISTA SECRETA", "unlocked": "DESBLOQUEADA", "hint": "DICA", "reward": "RECOMPENSA", "themeLocked": "TEMA BLOQUEADO", "themeActive": "TEMA ATIVO", "runs": "PARTIDAS", "mastery": "MAESTRIA", "nextLevel": "PRÓXIMO NÍVEL", "correctWord": "CERTO", "wrongWord": "ERRADO", "pointsWord": "PONTOS", "lore": "LORE", "loreTitle": "A HISTÓRIA POR TRÁS DO CAOS", "coming": "EM BREVE", "siteVersion": "VERSÃO DO SITE", "viewHistory": "VER HISTÓRICO DE ATUALIZAÇÕES", "hideHistory": "OCULTAR HISTÓRICO", "currentBuild": "VERSÃO ATUAL"}, "de": {"games": "SPIELE", "gamesIntro": "Teste dein Wissen über Literally Steplers mit zwei unterschiedlichen Herausforderungen.", "knowledgeQuiz": "WISSENSQUIZ", "quizCardDesc": "10 zufällige Fragen pro Runde. Drei Schwierigkeitsgrade, Serien, Timer und Punktemultiplikatoren.", "questions10": "10 FRAGEN", "visualChallenge": "VISUELLE HERAUSFORDERUNG", "guessAlbum": "ERRATE DAS ALBUM", "guessCardDesc": "Ein verschwommenes Albumcover wird langsam sichtbar. Erkenne es früh für mehr Punkte.", "covers5": "5 COVER", "timeScore": "ZEITBASIERTE PUNKTE", "playGuess": "ALBUM ERRATEN →", "achievements": "ERFOLGE", "achIntro": "Schließe Herausforderungen ab, um Album-Ära-Themen freizuschalten.", "themesUnlocked": "THEMEN FREIGESCHALTET", "progress": "LITERALLY STEPLERS / FORTSCHRITT", "playerData": "LITERALLY STEPLERS / SPIELERDATEN", "playerProfile": "SPIELERPROFIL", "currentLevel": "AKTUELLES LEVEL", "siteCompletion": "SEITENFORTSCHRITT", "completionHelp": "Erreiche 100 %, indem du die Website meisterst.", "overview": "ÜBERSICHT", "quizStats": "QUIZ-STATISTIKEN", "themeMastery": "THEMEN-MEISTERSCHAFT", "eraThemes": "ÄRA-THEMEN", "quizzesPlayed": "QUIZZES GESPIELT", "guessRuns": "VISUELLE RUNDEN", "secretsFound": "GEHEIMNISSE GEFUNDEN", "bestQuiz": "BESTER QUIZ-SCORE", "correctAnswers": "RICHTIGE ANTWORTEN", "wrongAnswers": "FALSCHE ANTWORTEN", "accuracy": "GENAUIGKEIT", "perfectRuns": "PERFEKTE RUNDEN", "normalRuns": "NORMALE RUNDEN", "diabolicalRuns": "DIABOLISCHE RUNDEN", "masteryIntro": "Spiele Quiz- und Albumraten-Runden mit einem Ära-Thema, um dessen Meisterschaft zu erhöhen.", "visualGame": "LITERALLY STEPLERS / VISUELLES SPIEL", "fiveCovers": "5 COVER.<br>JE EINE CHANCE.", "guessIntro": "Das Cover beginnt stark verschwommen und wird jede Sekunde klarer. Antworte früh für maximale Punkte.", "startRun": "RUNDE STARTEN", "nextCover": "NÄCHSTES COVER →", "seeResult": "ERGEBNIS ANZEIGEN →", "finalResult": "ENDERGEBNIS", "runComplete": "RUNDE BEENDET", "perfectVision": "PERFEKTE SICHT", "sharpEyesResult": "SCHARFE AUGEN", "studyCovers": "COVER WEITER LERNEN", "everyCover": "Jedes Cover erkannt.", "solidVisual": "Starkes visuelles Wissen.", "stillSecrets": "Die Ären haben noch einige Geheimnisse.", "close": "SCHLIESSEN", "eraTheme": "ÄRA-THEMA", "eraThemeDesc": "Wähle eine veröffentlichte Album-Ära für die gesamte Website.", "selectEra": "ÄRA WÄHLEN →", "sitePersonalization": "WEBSITE-PERSONALISIERUNG", "selectEraTitle": "ÄRA WÄHLEN", "eraSubtitle": "Wähle eine Album-Ära und ändere die gesamte visuelle Identität der Website.", "releasedEras": "19 VERÖFFENTLICHTE ÄREN", "hoverPreview": "ZUM VORSCHAUEN HOVER · ZUM AUSWÄHLEN KLICKEN", "selectedEra": "AUSGEWÄHLTE ÄRA", "useEra": "DIESE ÄRA VERWENDEN", "locked": "GESPERRT", "lockedHint": "GESPERRT — HINWEIS: ", "eraGeneric": "Visuelle Identität, inspiriert von dieser Album-Ära.", "achOptionDesc": "Sieh deinen Fortschritt, geheime Herausforderungen und freigeschaltete Ära-Themen.", "viewAchievements": "ERFOLGE ANZEIGEN →", "profileOptionDesc": "Sieh Level, Quiz-Statistiken, Themen-Meisterschaft und Gesamtfortschritt.", "viewProfile": "PROFIL ANZEIGEN →", "performance": "LEISTUNGSMODUS", "performanceDesc": "Reduziert aufwendige visuelle Effekte und Animationen.", "language": "SPRACHE", "languageDesc": "Wähle die Sprache der Website.", "achievementUnlocked": "ERFOLG FREIGESCHALTET", "secretAchievement": "GEHEIMER ERFOLG", "unlocked": "FREIGESCHALTET", "hint": "HINWEIS", "reward": "BELOHNUNG", "themeLocked": "THEMA GESPERRT", "themeActive": "THEMA AKTIV", "runs": "RUNDEN", "mastery": "MEISTERSCHAFT", "nextLevel": "NÄCHSTES LEVEL", "correctWord": "RICHTIG", "wrongWord": "FALSCH", "pointsWord": "PUNKTE", "lore": "LORE", "loreTitle": "DIE GESCHICHTE HINTER DEM CHAOS", "coming": "DEMNÄCHST", "siteVersion": "SITE-VERSION", "viewHistory": "UPDATE-VERLAUF ANZEIGEN", "hideHistory": "UPDATE-VERLAUF AUSBLENDEN", "currentBuild": "AKTUELLE VERSION"}, "ru": {"games": "ИГРЫ", "gamesIntro": "Проверьте, насколько хорошо вы знаете Literally Steplers, в двух разных испытаниях.", "knowledgeQuiz": "ВИКТОРИНА", "quizCardDesc": "10 случайных вопросов за игру. Три сложности, серии, таймеры и множители очков.", "questions10": "10 ВОПРОСОВ", "visualChallenge": "ВИЗУАЛЬНОЕ ИСПЫТАНИЕ", "guessAlbum": "УГАДАЙ АЛЬБОМ", "guessCardDesc": "Размытая обложка постепенно становится четче. Угадайте раньше — получите больше очков.", "covers5": "5 ОБЛОЖЕК", "timeScore": "ОЧКИ ЗА СКОРОСТЬ", "playGuess": "ИГРАТЬ В УГАДАЙ АЛЬБОМ →", "achievements": "ДОСТИЖЕНИЯ", "achIntro": "Выполняйте испытания, чтобы открывать темы альбомных эпох.", "themesUnlocked": "ТЕМ ОТКРЫТО", "progress": "LITERALLY STEPLERS / ПРОГРЕСС", "playerData": "LITERALLY STEPLERS / ДАННЫЕ ИГРОКА", "playerProfile": "ПРОФИЛЬ ИГРОКА", "currentLevel": "ТЕКУЩИЙ УРОВЕНЬ", "siteCompletion": "ПРОХОЖДЕНИЕ САЙТА", "completionHelp": "Достигните 100%, освоив весь сайт.", "overview": "ОБЗОР", "quizStats": "СТАТИСТИКА ВИКТОРИНЫ", "themeMastery": "МАСТЕРСТВО ТЕМ", "eraThemes": "ТЕМЫ ЭПОХ", "quizzesPlayed": "ВИКТОРИН СЫГРАНО", "guessRuns": "ВИЗУАЛЬНЫХ ИГР", "secretsFound": "СЕКРЕТОВ НАЙДЕНО", "bestQuiz": "ЛУЧШИЙ СЧЕТ", "correctAnswers": "ПРАВИЛЬНЫЕ ОТВЕТЫ", "wrongAnswers": "ОШИБКИ", "accuracy": "ТОЧНОСТЬ", "perfectRuns": "ИДЕАЛЬНЫЕ ИГРЫ", "normalRuns": "ОБЫЧНЫЕ ИГРЫ", "diabolicalRuns": "ДЬЯВОЛЬСКИЕ ИГРЫ", "masteryIntro": "Проходите викторины и «Угадай альбом» с активной темой эпохи, чтобы повышать её мастерство.", "visualGame": "LITERALLY STEPLERS / ВИЗУАЛЬНАЯ ИГРА", "fiveCovers": "5 ОБЛОЖЕК.<br>ПО ОДНОЙ ПОПЫТКЕ.", "guessIntro": "Обложка начинается сильно размытой и становится четче каждую секунду. Отвечайте быстрее ради максимума очков.", "startRun": "НАЧАТЬ ИГРУ", "nextCover": "СЛЕДУЮЩАЯ ОБЛОЖКА →", "seeResult": "ПОКАЗАТЬ РЕЗУЛЬТАТ →", "finalResult": "ИТОГ", "runComplete": "ИГРА ЗАВЕРШЕНА", "perfectVision": "ИДЕАЛЬНОЕ ЗРЕНИЕ", "sharpEyesResult": "ОСТРЫЙ ГЛАЗ", "studyCovers": "ИЗУЧИТЕ ОБЛОЖКИ", "everyCover": "Все обложки распознаны.", "solidVisual": "Хорошее визуальное знание.", "stillSecrets": "У эпох всё ещё есть секреты.", "close": "ЗАКРЫТЬ", "eraTheme": "ТЕМА ЭПОХИ", "eraThemeDesc": "Выберите эпоху выпущенного альбома для всего сайта.", "selectEra": "ВЫБРАТЬ ЭПОХУ →", "sitePersonalization": "ПЕРСОНАЛИЗАЦИЯ САЙТА", "selectEraTitle": "ВЫБРАТЬ ЭПОХУ", "eraSubtitle": "Выберите эпоху альбома и измените весь визуальный стиль сайта.", "releasedEras": "19 ВЫПУЩЕННЫХ ЭПОХ", "hoverPreview": "НАВЕДИТЕ ДЛЯ ПРОСМОТРА · НАЖМИТЕ ДЛЯ ВЫБОРА", "selectedEra": "ВЫБРАННАЯ ЭПОХА", "useEra": "ИСПОЛЬЗОВАТЬ ЭТУ ЭПОХУ", "locked": "ЗАБЛОКИРОВАНО", "lockedHint": "ЗАБЛОКИРОВАНО — ПОДСКАЗКА: ", "eraGeneric": "Визуальный стиль, вдохновлённый этой эпохой альбома.", "achOptionDesc": "Смотрите прогресс, секретные испытания и открытые темы эпох.", "viewAchievements": "ПОКАЗАТЬ ДОСТИЖЕНИЯ →", "profileOptionDesc": "Смотрите уровень, статистику, мастерство тем и общий прогресс сайта.", "viewProfile": "ПОКАЗАТЬ ПРОФИЛЬ →", "performance": "РЕЖИМ ПРОИЗВОДИТЕЛЬНОСТИ", "performanceDesc": "Уменьшает тяжёлые визуальные эффекты и анимации.", "language": "ЯЗЫК", "languageDesc": "Выберите язык сайта.", "achievementUnlocked": "ДОСТИЖЕНИЕ ОТКРЫТО", "secretAchievement": "СЕКРЕТНОЕ ДОСТИЖЕНИЕ", "unlocked": "ОТКРЫТО", "hint": "ПОДСКАЗКА", "reward": "НАГРАДА", "themeLocked": "ТЕМА ЗАБЛОКИРОВАНА", "themeActive": "ТЕМА АКТИВНА", "runs": "ИГР", "mastery": "МАСТЕРСТВО", "nextLevel": "СЛЕДУЮЩИЙ УРОВЕНЬ", "correctWord": "ВЕРНО", "wrongWord": "НЕВЕРНО", "pointsWord": "ОЧКИ", "lore": "ЛОР", "loreTitle": "ИСТОРИЯ ЗА ЭТИМ ХАОСОМ", "coming": "СКОРО", "siteVersion": "ВЕРСИЯ САЙТА", "viewHistory": "ПОКАЗАТЬ ИСТОРИЮ ОБНОВЛЕНИЙ", "hideHistory": "СКРЫТЬ ИСТОРИЮ", "currentBuild": "ТЕКУЩАЯ ВЕРСИЯ"}, "zh": {"games": "游戏", "gamesIntro": "通过两种不同挑战测试你对 Literally Steplers 的了解。", "knowledgeQuiz": "知识问答", "quizCardDesc": "每局 10 道随机题。三种难度、连胜、计时和分数倍率。", "questions10": "10 道题", "visualChallenge": "视觉挑战", "guessAlbum": "猜专辑", "guessCardDesc": "模糊的专辑封面会逐渐清晰。越早认出，得分越高。", "covers5": "5 张封面", "timeScore": "按时间计分", "playGuess": "开始猜专辑 →", "achievements": "成就", "achIntro": "完成挑战以解锁专辑时代主题。", "themesUnlocked": "已解锁主题", "progress": "LITERALLY STEPLERS / 进度", "playerData": "LITERALLY STEPLERS / 玩家数据", "playerProfile": "玩家档案", "currentLevel": "当前等级", "siteCompletion": "网站完成度", "completionHelp": "掌握网站内容以达到 100%。", "overview": "总览", "quizStats": "问答统计", "themeMastery": "主题熟练度", "eraThemes": "时代主题", "quizzesPlayed": "问答局数", "guessRuns": "猜专辑局数", "secretsFound": "发现秘密", "bestQuiz": "最高问答分数", "correctAnswers": "正确答案", "wrongAnswers": "错误答案", "accuracy": "正确率", "perfectRuns": "完美局", "normalRuns": "普通局", "diabolicalRuns": "恶魔局", "masteryIntro": "使用某个时代主题完成问答或猜专辑游戏，即可提升该主题的熟练度。", "visualGame": "LITERALLY STEPLERS / 视觉游戏", "fiveCovers": "5 张封面。<br>每张一次机会。", "guessIntro": "封面一开始非常模糊，并会每秒变得更清晰。越早作答，分数越高。", "startRun": "开始", "nextCover": "下一张封面 →", "seeResult": "查看结果 →", "finalResult": "最终结果", "runComplete": "本局完成", "perfectVision": "完美视野", "sharpEyesResult": "火眼金睛", "studyCovers": "继续熟悉封面", "everyCover": "所有封面都认出来了。", "solidVisual": "视觉记忆不错。", "stillSecrets": "这些时代仍有一些秘密。", "close": "关闭", "eraTheme": "时代主题", "eraThemeDesc": "为整个网站选择一个已发行专辑时代。", "selectEra": "选择时代 →", "sitePersonalization": "网站个性化", "selectEraTitle": "选择时代", "eraSubtitle": "选择一个专辑时代并改变整个网站的视觉风格。", "releasedEras": "19 个已发行时代", "hoverPreview": "悬停预览 · 点击选择", "selectedEra": "已选时代", "useEra": "使用此时代", "locked": "已锁定", "lockedHint": "已锁定 — 提示：", "eraGeneric": "受该专辑时代启发的视觉风格。", "achOptionDesc": "查看你的进度、秘密挑战和已解锁时代主题。", "viewAchievements": "查看成就 →", "profileOptionDesc": "查看等级、问答统计、主题熟练度和网站总完成度。", "viewProfile": "查看档案 →", "performance": "性能模式", "performanceDesc": "减少较重的视觉效果和动画，让网站运行更轻快。", "language": "语言", "languageDesc": "选择网站语言。", "achievementUnlocked": "成就已解锁", "secretAchievement": "秘密成就", "unlocked": "已解锁", "hint": "提示", "reward": "奖励", "themeLocked": "主题已锁定", "themeActive": "主题已启用", "runs": "局", "mastery": "熟练度", "nextLevel": "下一级", "correctWord": "正确", "wrongWord": "错误", "pointsWord": "分", "lore": "背景故事", "loreTitle": "混乱背后的故事", "coming": "敬请期待", "siteVersion": "网站版本", "viewHistory": "查看更新记录", "hideHistory": "隐藏更新记录", "currentBuild": "当前版本"}, "ja": {"games": "ゲーム", "gamesIntro": "2つの異なるチャレンジで Literally Steplers の知識を試そう。", "knowledgeQuiz": "知識クイズ", "quizCardDesc": "1回10問のランダム問題。3段階の難易度、連続正解、タイマー、スコア倍率。", "questions10": "10問", "visualChallenge": "ビジュアルチャレンジ", "guessAlbum": "アルバムを当てろ", "guessCardDesc": "ぼやけたアルバムカバーが徐々に鮮明になります。早く当てるほど高得点。", "covers5": "5枚のカバー", "timeScore": "時間スコア", "playGuess": "アルバム当てをプレイ →", "achievements": "実績", "achIntro": "チャレンジを達成してアルバム時代テーマをアンロック。", "themesUnlocked": "アンロック済みテーマ", "progress": "LITERALLY STEPLERS / 進行状況", "playerData": "LITERALLY STEPLERS / プレイヤーデータ", "playerProfile": "プレイヤープロフィール", "currentLevel": "現在のレベル", "siteCompletion": "サイト達成率", "completionHelp": "サイトを極めて100%を目指そう。", "overview": "概要", "quizStats": "クイズ統計", "themeMastery": "テーマ熟練度", "eraThemes": "時代テーマ", "quizzesPlayed": "クイズ回数", "guessRuns": "アルバム当て回数", "secretsFound": "発見した秘密", "bestQuiz": "クイズ最高スコア", "correctAnswers": "正解数", "wrongAnswers": "不正解数", "accuracy": "正答率", "perfectRuns": "パーフェクト回数", "normalRuns": "NORMAL回数", "diabolicalRuns": "DIABOLICAL回数", "masteryIntro": "時代テーマを使用した状態でクイズやアルバム当てをプレイすると、そのテーマの熟練度が上がります。", "visualGame": "LITERALLY STEPLERS / ビジュアルゲーム", "fiveCovers": "5枚のカバー。<br>各1回のチャンス。", "guessIntro": "カバーは強くぼやけた状態から始まり、毎秒鮮明になります。早く答えるほど高得点です。", "startRun": "開始", "nextCover": "次のカバー →", "seeResult": "結果を見る →", "finalResult": "最終結果", "runComplete": "プレイ完了", "perfectVision": "パーフェクトビジョン", "sharpEyesResult": "鋭い目", "studyCovers": "カバーをもっと覚えよう", "everyCover": "すべてのカバーを認識しました。", "solidVisual": "かなりのビジュアル知識です。", "stillSecrets": "まだ時代には秘密が残っています。", "close": "閉じる", "eraTheme": "時代テーマ", "eraThemeDesc": "リリース済みアルバムの時代をサイト全体のテーマにします。", "selectEra": "時代を選択 →", "sitePersonalization": "サイトカスタマイズ", "selectEraTitle": "時代を選択", "eraSubtitle": "アルバムの時代を選び、サイト全体のビジュアルを変えます。", "releasedEras": "リリース済み19時代", "hoverPreview": "ホバーでプレビュー · クリックで選択", "selectedEra": "選択中の時代", "useEra": "この時代を使う", "locked": "ロック中", "lockedHint": "ロック中 — ヒント：", "eraGeneric": "このアルバム時代に着想を得たビジュアルテーマ。", "achOptionDesc": "進行状況、秘密チャレンジ、アンロック済み時代テーマを確認。", "viewAchievements": "実績を見る →", "profileOptionDesc": "レベル、クイズ統計、テーマ熟練度、サイト達成率を確認。", "viewProfile": "プロフィールを見る →", "performance": "パフォーマンスモード", "performanceDesc": "重い視覚効果やアニメーションを減らしてサイトを軽くします。", "language": "言語", "languageDesc": "サイト言語を選択します。", "achievementUnlocked": "実績解除", "secretAchievement": "秘密の実績", "unlocked": "解除済み", "hint": "ヒント", "reward": "報酬", "themeLocked": "テーマはロック中", "themeActive": "テーマ適用済み", "runs": "回", "mastery": "熟練度", "nextLevel": "次のレベル", "correctWord": "正解", "wrongWord": "不正解", "pointsWord": "ポイント", "lore": "ロア", "loreTitle": "混沌の裏にある物語", "coming": "近日公開", "siteVersion": "サイトバージョン", "viewHistory": "更新履歴を見る", "hideHistory": "更新履歴を隠す", "currentBuild": "現在のバージョン"}, "ko": {"games": "게임", "gamesIntro": "두 가지 다른 도전으로 Literally Steplers에 대한 지식을 시험해 보세요.", "knowledgeQuiz": "지식 퀴즈", "quizCardDesc": "한 판에 무작위 10문제. 세 가지 난이도, 연속 정답, 타이머, 점수 배율.", "questions10": "10문제", "visualChallenge": "비주얼 챌린지", "guessAlbum": "앨범 맞히기", "guessCardDesc": "흐릿한 앨범 커버가 점점 선명해집니다. 빨리 맞힐수록 더 많은 점수를 얻습니다.", "covers5": "커버 5장", "timeScore": "시간 기반 점수", "playGuess": "앨범 맞히기 플레이 →", "achievements": "업적", "achIntro": "도전을 완료해 앨범 시대 테마를 잠금 해제하세요.", "themesUnlocked": "잠금 해제된 테마", "progress": "LITERALLY STEPLERS / 진행도", "playerData": "LITERALLY STEPLERS / 플레이어 데이터", "playerProfile": "플레이어 프로필", "currentLevel": "현재 레벨", "siteCompletion": "사이트 달성도", "completionHelp": "사이트를 마스터해 100%를 달성하세요.", "overview": "개요", "quizStats": "퀴즈 통계", "themeMastery": "테마 숙련도", "eraThemes": "시대 테마", "quizzesPlayed": "퀴즈 플레이", "guessRuns": "앨범 맞히기 플레이", "secretsFound": "발견한 비밀", "bestQuiz": "최고 퀴즈 점수", "correctAnswers": "정답", "wrongAnswers": "오답", "accuracy": "정확도", "perfectRuns": "퍼펙트 플레이", "normalRuns": "NORMAL 플레이", "diabolicalRuns": "DIABOLICAL 플레이", "masteryIntro": "시대 테마를 사용한 채 퀴즈나 앨범 맞히기를 완료하면 해당 테마의 숙련도가 올라갑니다.", "visualGame": "LITERALLY STEPLERS / 비주얼 게임", "fiveCovers": "커버 5장.<br>각각 한 번의 기회.", "guessIntro": "커버는 매우 흐릿하게 시작해 매초 선명해집니다. 빨리 답할수록 더 높은 점수를 얻습니다.", "startRun": "시작", "nextCover": "다음 커버 →", "seeResult": "결과 보기 →", "finalResult": "최종 결과", "runComplete": "플레이 완료", "perfectVision": "완벽한 시야", "sharpEyesResult": "매의 눈", "studyCovers": "커버를 더 공부하세요", "everyCover": "모든 커버를 알아봤습니다.", "solidVisual": "탄탄한 비주얼 지식입니다.", "stillSecrets": "시대에는 아직 몇 가지 비밀이 남아 있습니다.", "close": "닫기", "eraTheme": "시대 테마", "eraThemeDesc": "발매된 앨범 시대를 사이트 전체 테마로 선택하세요.", "selectEra": "시대 선택 →", "sitePersonalization": "사이트 꾸미기", "selectEraTitle": "시대 선택", "eraSubtitle": "앨범 시대를 선택해 사이트 전체 비주얼을 바꾸세요.", "releasedEras": "발매된 19개 시대", "hoverPreview": "마우스를 올려 미리보기 · 클릭하여 선택", "selectedEra": "선택된 시대", "useEra": "이 시대 사용", "locked": "잠김", "lockedHint": "잠김 — 힌트: ", "eraGeneric": "이 앨범 시대에서 영감을 받은 비주얼 테마.", "achOptionDesc": "진행도, 비밀 도전, 잠금 해제된 시대 테마를 확인하세요.", "viewAchievements": "업적 보기 →", "profileOptionDesc": "레벨, 퀴즈 통계, 테마 숙련도, 사이트 달성도를 확인하세요.", "viewProfile": "프로필 보기 →", "performance": "성능 모드", "performanceDesc": "무거운 시각 효과와 애니메이션을 줄여 사이트를 가볍게 합니다.", "language": "언어", "languageDesc": "사이트 언어를 선택하세요.", "achievementUnlocked": "업적 달성", "secretAchievement": "비밀 업적", "unlocked": "잠금 해제", "hint": "힌트", "reward": "보상", "themeLocked": "테마 잠김", "themeActive": "테마 적용됨", "runs": "회", "mastery": "숙련도", "nextLevel": "다음 레벨", "correctWord": "정답", "wrongWord": "오답", "pointsWord": "점수", "lore": "로어", "loreTitle": "혼돈 뒤에 숨겨진 이야기", "coming": "곧 공개", "siteVersion": "사이트 버전", "viewHistory": "업데이트 기록 보기", "hideHistory": "업데이트 기록 숨기기", "currentBuild": "현재 버전"}, "fr": {"games": "JEUX", "gamesIntro": "Teste tes connaissances sur Literally Steplers avec deux défis différents.", "knowledgeQuiz": "QUIZ DE CONNAISSANCES", "quizCardDesc": "10 questions aléatoires par partie. Trois difficultés, séries, chronos et multiplicateurs de score.", "questions10": "10 QUESTIONS", "visualChallenge": "DÉFI VISUEL", "guessAlbum": "DEVINE L’ALBUM", "guessCardDesc": "Une pochette floutée se révèle peu à peu. Identifie-la tôt pour gagner plus de points.", "covers5": "5 POCHETTES", "timeScore": "SCORE SELON LE TEMPS", "playGuess": "JOUER À DEVINE L’ALBUM →", "achievements": "SUCCÈS", "achIntro": "Relève des défis pour débloquer des thèmes d’ères d’albums.", "themesUnlocked": "THÈMES DÉBLOQUÉS", "progress": "LITERALLY STEPLERS / PROGRESSION", "playerData": "LITERALLY STEPLERS / DONNÉES JOUEUR", "playerProfile": "PROFIL JOUEUR", "currentLevel": "NIVEAU ACTUEL", "siteCompletion": "PROGRESSION DU SITE", "completionHelp": "Atteins 100 % en maîtrisant le site.", "overview": "APERÇU", "quizStats": "STATS DU QUIZ", "themeMastery": "MAÎTRISE DES THÈMES", "eraThemes": "THÈMES D’ÈRE", "quizzesPlayed": "QUIZ JOUÉS", "guessRuns": "PARTIES VISUELLES", "secretsFound": "SECRETS TROUVÉS", "bestQuiz": "MEILLEUR SCORE", "correctAnswers": "BONNES RÉPONSES", "wrongAnswers": "MAUVAISES RÉPONSES", "accuracy": "PRÉCISION", "perfectRuns": "PARTIES PARFAITES", "normalRuns": "PARTIES NORMALES", "diabolicalRuns": "PARTIES DIABOLIQUES", "masteryIntro": "Termine des quiz et des parties Devine l’album avec un thème d’ère actif pour augmenter sa maîtrise.", "visualGame": "LITERALLY STEPLERS / JEU VISUEL", "fiveCovers": "5 POCHETTES.<br>UNE CHANCE CHACUNE.", "guessIntro": "La pochette commence très floue et devient plus nette chaque seconde. Réponds tôt pour un maximum de points.", "startRun": "COMMENCER", "nextCover": "POCHETTE SUIVANTE →", "seeResult": "VOIR LE RÉSULTAT →", "finalResult": "RÉSULTAT FINAL", "runComplete": "PARTIE TERMINÉE", "perfectVision": "VISION PARFAITE", "sharpEyesResult": "ŒIL DE LYNX", "studyCovers": "RÉVISE LES POCHETTES", "everyCover": "Toutes les pochettes reconnues.", "solidVisual": "Bonne connaissance visuelle.", "stillSecrets": "Les ères cachent encore quelques secrets.", "close": "FERMER", "eraTheme": "THÈME D’ÈRE", "eraThemeDesc": "Choisis l’ère d’un album sorti pour tout le site.", "selectEra": "CHOISIR UNE ÈRE →", "sitePersonalization": "PERSONNALISATION DU SITE", "selectEraTitle": "CHOISIR UNE ÈRE", "eraSubtitle": "Choisis une ère d’album et transforme toute l’identité visuelle du site.", "releasedEras": "19 ÈRES PUBLIÉES", "hoverPreview": "SURVOLEZ POUR PRÉVISUALISER · CLIQUEZ POUR SÉLECTIONNER", "selectedEra": "ÈRE SÉLECTIONNÉE", "useEra": "UTILISER CETTE ÈRE", "locked": "VERROUILLÉ", "lockedHint": "VERROUILLÉ — INDICE : ", "eraGeneric": "Identité visuelle inspirée de cette ère d’album.", "achOptionDesc": "Consulte ta progression, les défis secrets et les thèmes d’ère débloqués.", "viewAchievements": "VOIR LES SUCCÈS →", "profileOptionDesc": "Consulte ton niveau, les stats du quiz, la maîtrise des thèmes et la progression totale.", "viewProfile": "VOIR LE PROFIL →", "performance": "MODE PERFORMANCE", "performanceDesc": "Réduit les effets visuels lourds et les animations pour alléger le site.", "language": "LANGUE", "languageDesc": "Choisissez la langue du site.", "achievementUnlocked": "SUCCÈS DÉBLOQUÉ", "secretAchievement": "SUCCÈS SECRET", "unlocked": "DÉBLOQUÉ", "hint": "INDICE", "reward": "RÉCOMPENSE", "themeLocked": "THÈME VERROUILLÉ", "themeActive": "THÈME ACTIF", "runs": "PARTIES", "mastery": "MAÎTRISE", "nextLevel": "NIVEAU SUIVANT", "correctWord": "BONNE RÉPONSE", "wrongWord": "MAUVAISE RÉPONSE", "pointsWord": "POINTS", "lore": "LORE", "loreTitle": "L’HISTOIRE DERRIÈRE LE CHAOS", "coming": "BIENTÔT", "siteVersion": "VERSION DU SITE", "viewHistory": "VOIR L’HISTORIQUE DES MISES À JOUR", "hideHistory": "MASQUER L’HISTORIQUE", "currentBuild": "VERSION ACTUELLE"}, "es": {"games": "JUEGOS", "gamesIntro": "Pon a prueba cuánto conoces Literally Steplers con dos desafíos diferentes.", "knowledgeQuiz": "QUIZ DE CONOCIMIENTO", "quizCardDesc": "10 preguntas aleatorias por partida. Tres dificultades, rachas, temporizadores y multiplicadores de puntuación.", "questions10": "10 PREGUNTAS", "visualChallenge": "DESAFÍO VISUAL", "guessAlbum": "ADIVINA EL ÁLBUM", "guessCardDesc": "Una portada borrosa se revela poco a poco. Identifícala pronto para ganar más puntos.", "covers5": "5 PORTADAS", "timeScore": "PUNTUACIÓN POR TIEMPO", "playGuess": "JUGAR ADIVINA EL ÁLBUM →", "achievements": "LOGROS", "achIntro": "Completa desafíos para desbloquear temas de eras de álbumes.", "themesUnlocked": "TEMAS DESBLOQUEADOS", "progress": "LITERALLY STEPLERS / PROGRESO", "playerData": "LITERALLY STEPLERS / DATOS DEL JUGADOR", "playerProfile": "PERFIL DEL JUGADOR", "currentLevel": "NIVEL ACTUAL", "siteCompletion": "PROGRESO DEL SITIO", "completionHelp": "Alcanza el 100 % dominando el sitio.", "overview": "RESUMEN", "quizStats": "ESTADÍSTICAS DEL QUIZ", "themeMastery": "DOMINIO DE TEMAS", "eraThemes": "TEMAS DE ERA", "quizzesPlayed": "QUIZZES JUGADOS", "guessRuns": "PARTIDAS VISUALES", "secretsFound": "SECRETOS ENCONTRADOS", "bestQuiz": "MEJOR PUNTUACIÓN", "correctAnswers": "RESPUESTAS CORRECTAS", "wrongAnswers": "RESPUESTAS INCORRECTAS", "accuracy": "PRECISIÓN", "perfectRuns": "PARTIDAS PERFECTAS", "normalRuns": "PARTIDAS NORMALES", "diabolicalRuns": "PARTIDAS DIABÓLICAS", "masteryIntro": "Completa quizzes y partidas de Adivina el álbum usando un Tema de Era para aumentar su dominio.", "visualGame": "LITERALLY STEPLERS / JUEGO VISUAL", "fiveCovers": "5 PORTADAS.<br>UNA OPORTUNIDAD CADA UNA.", "guessIntro": "La portada empieza muy borrosa y se vuelve más clara cada segundo. Responde pronto para obtener el máximo de puntos.", "startRun": "INICIAR PARTIDA", "nextCover": "SIGUIENTE PORTADA →", "seeResult": "VER RESULTADO →", "finalResult": "RESULTADO FINAL", "runComplete": "PARTIDA COMPLETADA", "perfectVision": "VISIÓN PERFECTA", "sharpEyesResult": "OJOS AFILADOS", "studyCovers": "ESTUDIA MÁS LAS PORTADAS", "everyCover": "Reconociste todas las portadas.", "solidVisual": "Buen conocimiento visual.", "stillSecrets": "Las eras todavía guardan algunos secretos.", "close": "CERRAR", "eraTheme": "TEMA DE ERA", "eraThemeDesc": "Elige la era de un álbum publicado para todo el sitio.", "selectEra": "ELEGIR ERA →", "sitePersonalization": "PERSONALIZACIÓN DEL SITIO", "selectEraTitle": "ELEGIR ERA", "eraSubtitle": "Elige una era de álbum y transforma toda la identidad visual del sitio.", "releasedEras": "19 ERAS PUBLICADAS", "hoverPreview": "PASA EL CURSOR PARA PREVISUALIZAR · HAZ CLIC PARA SELECCIONAR", "selectedEra": "ERA SELECCIONADA", "useEra": "USAR ESTA ERA", "locked": "BLOQUEADO", "lockedHint": "BLOQUEADO — PISTA: ", "eraGeneric": "Identidad visual inspirada en esta era del álbum.", "achOptionDesc": "Consulta tu progreso, desafíos secretos y Temas de Era desbloqueados.", "viewAchievements": "VER LOGROS →", "profileOptionDesc": "Consulta tu nivel, estadísticas del quiz, dominio de temas y progreso total del sitio.", "viewProfile": "VER PERFIL →", "performance": "MODO RENDIMIENTO", "performanceDesc": "Reduce los efectos visuales pesados y las animaciones para hacer el sitio más ligero.", "language": "IDIOMA", "languageDesc": "Elige el idioma del sitio.", "achievementUnlocked": "LOGRO DESBLOQUEADO", "secretAchievement": "LOGRO SECRETO", "unlocked": "DESBLOQUEADO", "hint": "PISTA", "reward": "RECOMPENSA", "themeLocked": "TEMA BLOQUEADO", "themeActive": "TEMA ACTIVO", "runs": "PARTIDAS", "mastery": "DOMINIO", "nextLevel": "SIGUIENTE NIVEL", "correctWord": "CORRECTO", "wrongWord": "INCORRECTO", "pointsWord": "PUNTOS", "lore": "LORE", "loreTitle": "LA HISTORIA DETRÁS DEL CAOS", "coming": "PRÓXIMAMENTE", "siteVersion": "VERSIÓN DEL SITIO", "viewHistory": "VER HISTORIAL DE ACTUALIZACIONES", "hideHistory": "OCULTAR HISTORIAL", "currentBuild": "VERSIÓN ACTUAL"}};
@@ -5047,6 +5123,21 @@ targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe
   },500);
 
   window.hideAchievementToast = hideAchievementToast;
+})();
+</script>
+
+
+<script id="idle-optimization-v145">
+(function(){
+  const idle=window.requestIdleCallback || function(cb){return setTimeout(cb,120)};
+  window.addEventListener("load",function(){
+    idle(function(){
+      try{
+        if(window.steplersAchievements?.refreshEraLocks) window.steplersAchievements.refreshEraLocks();
+        if(window.applyCompleteLanguage) window.applyCompleteLanguage();
+      }catch(e){}
+    });
+  },{once:true});
 })();
 </script>
 
