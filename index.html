@@ -2690,7 +2690,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
   <div class="site-version-inner">
     <div class="site-version-main">
       <span class="site-version-label">SITE VERSION</span>
-      <strong>1.43</strong>
+      <strong>1.44</strong>
     </div>
 
     <button class="site-version-toggle" id="siteVersionToggle" type="button">
@@ -2699,7 +2699,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
     <div class="site-version-history" id="siteVersionHistory">
       <div class="version-history-head">
-        <span>VERSION 1.43</span>
+        <span>VERSION 1.44</span>
         <span>CURRENT BUILD</span>
       </div>
 
@@ -2747,6 +2747,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>41</b><span>Complete localization for games, achievements, Era Themes, Profile and Options</span></div>
         <div class="version-update"><b>42</b><span>Locked Era Themes now display correctly before selection</span></div>
         <div class="version-update"><b>43</b><span>Guess cover blur and achievement refresh bugs fixed</span></div>
+        <div class="version-update"><b>44</b><span>Achievement notification timeout fixed</span></div>
       </div>
     </div>
   </div>
@@ -4901,47 +4902,7 @@ targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe
 </script>
 
 
-<script id="achievement-toast-lifecycle-fix">
-(function(){
-  let toastTimer=null;
 
-  function forceHideToast(){
-    const toast=document.getElementById("achievementToast");
-    if(!toast)return;
-    toast.classList.remove("show");
-    toast.style.removeProperty("opacity");
-    toast.style.removeProperty("transform");
-  }
-
-  function scheduleToastHide(){
-    if(toastTimer)clearTimeout(toastTimer);
-    toastTimer=setTimeout(forceHideToast,4200);
-  }
-
-  const toast=document.getElementById("achievementToast");
-  if(toast){
-    new MutationObserver(function(){
-      if(toast.classList.contains("show")){
-        scheduleToastHide();
-      }
-    }).observe(toast,{attributes:true,attributeFilter:["class"]});
-
-    toast.addEventListener("animationend",scheduleToastHide);
-    toast.addEventListener("transitionend",function(e){
-      if(e.propertyName==="transform" && toast.classList.contains("show")){
-        scheduleToastHide();
-      }
-    });
-  }
-
-  window.addEventListener("blur",function(){
-    // Avoid a toast being left hanging if the tab loses focus mid-animation.
-    if(toast && toast.classList.contains("show"))scheduleToastHide();
-  });
-
-  window.steplersForceHideAchievementToast=forceHideToast;
-})();
-</script>
 
 
 <script id="achievement-immediate-ui-refresh">
@@ -4976,6 +4937,116 @@ targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe
   // Also refresh whenever the Achievements/Profile panels are opened.
   document.getElementById("achievementsOpen")?.addEventListener("click",()=>setTimeout(refreshAchievementUI,0));
   document.getElementById("profileOpen")?.addEventListener("click",()=>setTimeout(refreshAchievementUI,0));
+})();
+</script>
+
+
+<style id="achievement-toast-hard-hide-style">
+#achievementToast{
+  transition:opacity .25s ease, transform .25s ease!important;
+}
+#achievementToast.toast-force-hidden{
+  opacity:0!important;
+  transform:translateY(18px)!important;
+  pointer-events:none!important;
+  visibility:hidden!important;
+}
+</style>
+
+<script id="achievement-toast-hard-hide-fix">
+(function(){
+  let hideTimer = 0;
+  let cleanupTimer = 0;
+
+  function getToast(){
+    return document.getElementById("achievementToast");
+  }
+
+  function hideAchievementToast(){
+    const toast = getToast();
+    if(!toast) return;
+
+    clearTimeout(hideTimer);
+    clearTimeout(cleanupTimer);
+
+    // Remove every state that can keep the notification visible.
+    toast.classList.remove("show","active","visible","open");
+    toast.classList.add("toast-force-hidden");
+    toast.setAttribute("aria-hidden","true");
+
+    // Keep the fade-out brief, then fully remove it from layout/rendering.
+    cleanupTimer = setTimeout(function(){
+      toast.style.display = "none";
+    }, 280);
+  }
+
+  function armAchievementToast(){
+    const toast = getToast();
+    if(!toast) return;
+
+    clearTimeout(hideTimer);
+    clearTimeout(cleanupTimer);
+
+    // A new achievement may reuse the same element.
+    toast.style.removeProperty("display");
+    toast.classList.remove("toast-force-hidden");
+    toast.setAttribute("aria-hidden","false");
+
+    // Hard deadline: notification cannot remain stuck.
+    hideTimer = setTimeout(hideAchievementToast, 3600);
+  }
+
+  const toast = getToast();
+  if(!toast) return;
+
+  // Detect ANY way the existing achievement code makes the toast visible.
+  new MutationObserver(function(){
+    const t = getToast();
+    if(!t) return;
+
+    const visible =
+      t.classList.contains("show") ||
+      t.classList.contains("active") ||
+      t.classList.contains("visible") ||
+      t.classList.contains("open");
+
+    if(visible && !t.classList.contains("toast-force-hidden")){
+      armAchievementToast();
+    }
+  }).observe(toast,{
+    attributes:true,
+    attributeFilter:["class","style"],
+    childList:true,
+    subtree:true
+  });
+
+  // Catch the original toast function even if it changes classes asynchronously.
+  document.addEventListener("click",function(){
+    const t=getToast();
+    if(t && (
+      t.classList.contains("show") ||
+      t.classList.contains("active") ||
+      t.classList.contains("visible") ||
+      t.classList.contains("open")
+    )){
+      armAchievementToast();
+    }
+  },true);
+
+  // Safety net in case the original code leaves the element visible without a known class.
+  setInterval(function(){
+    const t=getToast();
+    if(!t || t.classList.contains("toast-force-hidden")) return;
+    const s=getComputedStyle(t);
+    if(s.display!=="none" && s.visibility!=="hidden" && parseFloat(s.opacity||"1")>0){
+      if(t.classList.contains("show") || t.classList.contains("active") ||
+         t.classList.contains("visible") || t.classList.contains("open")){
+        if(!hideTimer) armAchievementToast();
+      }
+    }
+  },500);
+
+  window.hideAchievementToast = hideAchievementToast;
 })();
 </script>
 
