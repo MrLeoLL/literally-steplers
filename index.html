@@ -311,6 +311,64 @@ body[data-theme="steplers"] .intro-title .title-gold{
   -webkit-text-fill-color:#ff1493!important;
 }
 
+
+/* ===== LITERALLY STEPLERS QUIZ ===== */
+.game-section{padding:120px 7%;border-top:1px solid #222;position:relative;overflow:hidden}
+.game-section::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:var(--custom-accent,#c8b38a);filter:blur(190px);opacity:.07;left:-180px;top:30px;pointer-events:none}
+.game-intro{max-width:720px;margin-top:28px;color:var(--custom-muted,#999);line-height:1.8}
+.game-launch{margin-top:45px;display:flex;align-items:center;justify-content:space-between;gap:30px;padding:36px;border:1px solid var(--custom-border,#222);background:var(--custom-panel,#080808);position:relative;z-index:1}
+.game-launch h3{font-size:clamp(25px,4vw,42px);letter-spacing:-1px}
+.game-launch p{margin-top:10px;color:var(--custom-muted,#999);line-height:1.6}
+.game-play-button{flex:0 0 auto;border:0;background:var(--custom-accent,#c8b38a);color:#fff!important;padding:17px 28px;font-size:11px;font-weight:900;letter-spacing:3px;cursor:pointer;transition:.25s}
+.game-play-button:hover{background:#fff;color:#000!important;transform:translateY(-2px)}
+.quiz-modal{position:fixed;inset:0;z-index:22000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.82);backdrop-filter:blur(14px)}
+.quiz-modal.open{display:flex}
+.quiz-panel{width:min(94vw,760px);max-height:90vh;overflow:auto;background:#090909;color:#fff!important;border:1px solid #292929;box-shadow:0 35px 120px rgba(0,0,0,.75)}
+.quiz-panel *{color:inherit}
+.quiz-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 28px;border-bottom:1px solid #222;position:sticky;top:0;background:#090909;z-index:5}
+.quiz-header-title{font-size:18px;font-weight:900;letter-spacing:4px}
+.quiz-close{background:none;border:0;color:#888!important;font-size:30px;cursor:pointer}
+.quiz-close:hover{color:#fff!important}
+.quiz-content{padding:30px}
+.quiz-kicker{font-size:10px;letter-spacing:4px;color:#777!important}
+.quiz-title{margin-top:8px;font-size:clamp(30px,6vw,60px);letter-spacing:-2px}
+.quiz-desc{margin-top:18px;color:#aaa!important;line-height:1.7}
+.quiz-start{margin-top:28px;background:var(--custom-accent,#c8b38a);color:#fff!important;border:0;padding:15px 24px;font-size:11px;font-weight:900;letter-spacing:3px;cursor:pointer}
+.quiz-start:hover{background:#fff;color:#000!important}
+.quiz-stage{display:none}
+.quiz-stage.active{display:block}
+.quiz-progress-wrap{height:4px;background:#222;margin-bottom:28px}
+.quiz-progress{height:100%;width:0;background:var(--custom-accent,#c8b38a);transition:.35s}
+.quiz-count{font-size:10px;letter-spacing:3px;color:#777!important;margin-bottom:12px}
+.quiz-question{font-size:clamp(22px,4vw,36px);line-height:1.15;margin-bottom:25px}
+.quiz-answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.quiz-answer{min-height:72px;text-align:left;padding:16px 18px;border:1px solid #292929;background:#111;color:#fff!important;cursor:pointer;transition:.2s;font-weight:700;line-height:1.35}
+.quiz-answer:hover{border-color:var(--custom-accent,#c8b38a);transform:translateY(-1px)}
+.quiz-answer.correct{background:#17351f;border-color:#4caf69}
+.quiz-answer.wrong{background:#3c1515;border-color:#d74b4b}
+.quiz-answer:disabled{cursor:default;transform:none}
+.quiz-feedback{min-height:50px;margin-top:18px;color:#bbb!important;line-height:1.55}
+.quiz-next{display:none;margin-top:20px;border:1px solid #444;background:#fff;color:#000!important;padding:13px 20px;font-size:10px;font-weight:900;letter-spacing:2px;cursor:pointer}
+.quiz-result{text-align:center;padding:15px 0 5px}
+.quiz-score{font-size:clamp(54px,10vw,100px);font-weight:900;line-height:1;color:var(--custom-accent,#c8b38a)!important}
+.quiz-result h3{font-size:30px;margin-top:15px}
+.quiz-result p{margin:15px auto 0;max-width:520px;color:#aaa!important;line-height:1.6}
+.quiz-restart{margin-top:25px;background:var(--custom-accent,#c8b38a);border:0;color:#fff!important;padding:14px 22px;font-weight:900;letter-spacing:2px;cursor:pointer}
+body[data-theme="the-home"] .quiz-panel,
+body[data-theme="the-home"] .quiz-header{background:#090909!important}
+body[data-theme="the-home"] .quiz-panel,
+body[data-theme="the-home"] .quiz-panel h2,
+body[data-theme="the-home"] .quiz-panel h3,
+body[data-theme="the-home"] .quiz-panel p,
+body[data-theme="the-home"] .quiz-panel div,
+body[data-theme="the-home"] .quiz-panel button{color:#fff!important}
+body[data-theme="the-home"] .quiz-start:hover,
+body[data-theme="the-home"] .quiz-next{color:#000!important}
+body[data-theme="the-home"] .game-launch{background:#fff!important;color:#000!important;border-color:#ddd!important}
+body[data-theme="the-home"] .game-launch h3{color:#000!important}
+body[data-theme="the-home"] .game-launch p{color:#444!important}
+@media(max-width:700px){.game-launch{align-items:flex-start;flex-direction:column}.quiz-answers{grid-template-columns:1fr}}
+
 </style>
 
 <style id="custom-theme-system">
@@ -553,6 +611,109 @@ body[data-theme="steplers"] .intro-title .intro-word-accent{
 }
 </style>
 
+
+<style id="quiz-randomization-fix">
+.quiz-score-details{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:18px;font-size:11px;font-weight:900;letter-spacing:2px}
+.quiz-score-details span:first-child{color:#76d58b!important}
+.quiz-score-details span:last-child{color:#ef7777!important}
+.quiz-result-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:25px}
+.quiz-result-actions .quiz-restart{margin-top:0}
+.quiz-result-close{border:1px solid #444;background:transparent;color:#fff!important;padding:14px 22px;font-weight:900;letter-spacing:2px;cursor:pointer}
+.quiz-result-close:hover{background:#fff;color:#000!important}
+body[data-theme="the-home"] .quiz-result-close{color:#fff!important}
+body[data-theme="the-home"] .quiz-result-close:hover{color:#000!important}
+</style>
+
+
+<style id="quiz-upgrade-system">
+.quiz-difficulty{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:26px}
+.quiz-difficulty-btn{padding:13px 10px;border:1px solid #333;background:#111;color:#aaa!important;font-size:10px;font-weight:900;letter-spacing:2px;cursor:pointer;transition:.2s}
+.quiz-difficulty-btn:hover{border-color:var(--custom-accent,#c8b38a);color:#fff!important}
+.quiz-difficulty-btn.active{background:var(--custom-accent,#c8b38a);border-color:var(--custom-accent,#c8b38a);color:#fff!important}
+.quiz-difficulty-info{margin-top:12px;color:#888!important;font-size:11px;line-height:1.5}
+.quiz-hud{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.quiz-hud>div{border:1px solid #242424;background:#101010;padding:12px}
+.quiz-hud-label{display:block;color:#666!important;font-size:8px;letter-spacing:2px;margin-bottom:5px}
+.quiz-hud strong{font-size:15px;color:#fff!important}
+.quiz-special-badge{display:none;margin-bottom:18px;padding:9px 12px;border:1px solid #8b0000;background:#260606;color:#ff7777!important;font-size:9px;font-weight:900;letter-spacing:2px;text-align:center}
+.quiz-special-badge.show{display:block;animation:quizBadgePulse .9s ease-in-out infinite alternate}
+@keyframes quizBadgePulse{from{box-shadow:0 0 0 rgba(255,0,0,0)}to{box-shadow:0 0 26px rgba(255,0,0,.22)}}
+.quiz-visual{display:none;margin:0 auto 24px;width:min(100%,380px);aspect-ratio:1/1;overflow:hidden;border:1px solid #292929;background:#111}
+.quiz-visual.show{display:block}
+.quiz-visual img{width:100%;height:100%;object-fit:cover;display:block;filter:blur(18px) brightness(.78);transform:scale(1.08)}
+.quiz-total-points{margin-top:12px;color:#ddd!important;font-size:13px;font-weight:900;letter-spacing:3px}
+.quiz-timer-danger{color:#ff5a5a!important;animation:timerDanger .45s ease-in-out infinite alternate}
+@keyframes timerDanger{from{opacity:1}to{opacity:.45}}
+body[data-theme="the-home"] .quiz-difficulty-info,
+body[data-theme="the-home"] .quiz-hud-label,
+body[data-theme="the-home"] .quiz-total-points{color:#aaa!important}
+body[data-theme="the-home"] .quiz-hud strong{color:#fff!important}
+@media(max-width:650px){
+  .quiz-difficulty{grid-template-columns:1fr}
+  .quiz-hud{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+
+<style id="quiz-cover-rules">
+.quiz-visual img{
+  filter:blur(18px) brightness(.78)!important;
+  transform:scale(1.08)!important;
+}
+</style>
+
+
+<style id="language-selector-styles">
+.language-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.language-button{
+  padding:11px 8px;border:1px solid #333;background:#111;color:#aaa!important;
+  font-size:9px;font-weight:900;letter-spacing:1px;cursor:pointer;transition:.2s
+}
+.language-button:hover{border-color:var(--custom-accent,#c8b38a);color:#fff!important}
+.language-button.active{
+  background:var(--custom-accent,#c8b38a)!important;
+  border-color:var(--custom-accent,#c8b38a)!important;
+  color:#fff!important
+}
+body[data-theme="the-home"] .language-button{
+  background:#fff!important;color:#111!important;border-color:#ccc!important
+}
+body[data-theme="the-home"] .language-button.active{
+  background:#b28a18!important;color:#fff!important;border-color:#b28a18!important
+}
+@media(max-width:600px){.language-options{grid-template-columns:repeat(2,1fr)}}
+</style>
+
+
+<style id="secret-sahur-style">
+#secretSahur{
+  position:fixed;
+  right:18px;
+  bottom:0;
+  z-index:19999;
+  width:min(18vw,260px);
+  min-width:140px;
+  height:auto;
+  pointer-events:none;
+  user-select:none;
+  opacity:0;
+  transform:translateY(35px) scale(.92);
+  transition:opacity .28s ease, transform .28s ease;
+  filter:drop-shadow(0 10px 26px rgba(0,0,0,.45));
+}
+#secretSahur.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+@media(max-width:700px){
+  #secretSahur{
+    width:min(36vw,210px);
+    min-width:110px;
+    right:8px;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -591,6 +752,7 @@ body[data-theme="steplers"] .intro-title .intro-word-accent{
 <a href="#home" id="homeNav">HOME</a>
 <a href="#music">MUSIC</a>
 <a href="#streaming">STREAMING</a>
+<a href="#game" id="gameNav">GAME</a>
 <a href="#" id="optionsNav">OPTIONS</a>
 </nav>
 </header>
@@ -853,8 +1015,22 @@ piece to the Literally Steplers universe.
 </div>
 </section>
 
+
+<section class="game-section" id="game">
+<div class="section-number">03 / MINIGAME</div>
+<h2 class="section-title">LITERALLY STEPLERS QUIZ</h2>
+<p class="game-intro">Think you know the Literally Steplers universe? Test your knowledge about the albums, songs and the band's discography in the official quiz.</p>
+<div class="game-launch">
+  <div>
+    <h3>HOW WELL DO YOU KNOW THE BAND?</h3>
+    <p>10 questions. One score. No mercy.</p>
+  </div>
+  <button class="game-play-button" id="openQuizButton" type="button">PLAY QUIZ →</button>
+</div>
+</section>
+
 <section class="streaming-section" id="streaming">
-<div class="section-number">03 / LISTEN NOW</div>
+<div class="section-number">04 / LISTEN NOW</div>
 <h2 class="section-title">EXPERIENCE THE MUSIC</h2>
 <p class="streaming-intro">
 Take Hell's Aura and Stemers with you beyond YouTube.
@@ -897,6 +1073,62 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 </section>
 
 
+
+<div id="quizModal" class="quiz-modal" aria-hidden="true">
+  <div class="quiz-panel" role="dialog" aria-modal="true" aria-labelledby="quizModalTitle">
+    <div class="quiz-header">
+      <div class="quiz-header-title">LITERALLY STEPLERS / GAME</div>
+      <button class="quiz-close" id="quizClose" type="button" aria-label="Close quiz">&times;</button>
+    </div>
+    <div class="quiz-content">
+      <div id="quizIntroStage" class="quiz-stage active">
+        <div class="quiz-kicker">THE OFFICIAL BAND QUIZ</div>
+        <h2 class="quiz-title" id="quizModalTitle">ARE YOU A REAL STEPLER?</h2>
+        <p class="quiz-desc">Each run gives you 10 random questions from the full question bank. Choose your difficulty, answer fast, build a streak and chase the highest score.</p>
+        <div class="quiz-difficulty">
+          <button class="quiz-difficulty-btn" data-difficulty="easy" type="button">EASY</button>
+          <button class="quiz-difficulty-btn active" data-difficulty="normal" type="button">NORMAL</button>
+          <button class="quiz-difficulty-btn" data-difficulty="diabolical" type="button">DIABOLICAL</button>
+        </div>
+        <div class="quiz-difficulty-info" id="quizDifficultyInfo">NORMAL — 15 seconds per question. Standard scoring.</div>
+        <button class="quiz-start" id="quizStart" type="button">START GAME</button>
+      </div>
+      <div id="quizQuestionStage" class="quiz-stage">
+        <div class="quiz-progress-wrap"><div class="quiz-progress" id="quizProgress"></div></div>
+        <div class="quiz-hud">
+          <div><span class="quiz-hud-label">QUESTION</span><strong id="quizCount">01 / 10</strong></div>
+          <div><span class="quiz-hud-label">TIME</span><strong id="quizTimer">15.0</strong></div>
+          <div><span class="quiz-hud-label">STREAK</span><strong id="quizStreak">×0</strong></div>
+          <div><span class="quiz-hud-label">POINTS</span><strong id="quizPoints">0</strong></div>
+        </div>
+        <div class="quiz-special-badge" id="quizSpecialBadge">DIABOLICAL QUESTION — ×2 POINTS</div>
+        <div class="quiz-visual" id="quizVisual"><img id="quizVisualImage" alt=""></div>
+        <h3 class="quiz-question" id="quizQuestion"></h3>
+        <div class="quiz-answers" id="quizAnswers"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next" id="quizNext" type="button">NEXT QUESTION →</button>
+      </div>
+      <div id="quizResultStage" class="quiz-stage">
+        <div class="quiz-result">
+          <div class="quiz-kicker">FINAL SCORE</div>
+          <div class="quiz-score" id="quizScore">0/10</div>
+          <div class="quiz-total-points" id="quizTotalPoints">0 POINTS</div>
+          <div class="quiz-score-details">
+            <span id="quizCorrectCount">CORRECT: 0</span>
+            <span id="quizWrongCount">WRONG: 0</span>
+          </div>
+          <h3 id="quizResultTitle">RESULT</h3>
+          <p id="quizResultText"></p>
+          <div class="quiz-result-actions">
+            <button class="quiz-restart" id="quizRestart" type="button">PLAY AGAIN</button>
+            <button class="quiz-result-close" id="quizResultClose" type="button">CLOSE QUIZ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="coverModal" class="cover-modal" onclick="closeCover()">
   <button class="close-cover" aria-label="Close">&times;</button>
   <img id="modalCover" src="" alt="">
@@ -936,6 +1168,23 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
     </button>
   </div>
 </div>
+
+<div class="option-row" style="display:block">
+  <div class="option-name" id="languageOptionName">LANGUAGE</div>
+  <div class="option-description" id="languageOptionDescription">Choose the language of the site.</div>
+  <div class="language-options" id="languageOptions">
+    <button class="language-button active" type="button" data-language="en">ENGLISH</button>
+    <button class="language-button" type="button" data-language="pt">PORTUGUÊS</button>
+    <button class="language-button" type="button" data-language="de">DEUTSCH</button>
+    <button class="language-button" type="button" data-language="ru">РУССКИЙ</button>
+    <button class="language-button" type="button" data-language="zh">中文</button>
+    <button class="language-button" type="button" data-language="ja">日本語</button>
+    <button class="language-button" type="button" data-language="ko">한국어</button>
+    <button class="language-button" type="button" data-language="fr">FRANÇAIS</button>
+    <button class="language-button" type="button" data-language="es">ESPAÑOL</button>
+  </div>
+</div>
+
 <div class="option-row"><div><div class="option-name">EFFECTS</div><div class="option-description">Enable or disable the angelical The Home effect.</div></div><button id="effectsToggle" class="effects-toggle on" type="button">ON</button></div></div></div></div>
 
 <footer>
@@ -982,7 +1231,7 @@ const optionsModal=document.getElementById("optionsModal");
 const optionsClose=document.getElementById("optionsClose");
 const effectsToggle=document.getElementById("effectsToggle");
 let effectsEnabled=localStorage.getItem("literallySteplersEffects")!=="off";
-function updateEffectsToggle(){effectsToggle.textContent=effectsEnabled?"ON":"OFF";effectsToggle.classList.toggle("on",effectsEnabled)}
+function updateEffectsToggle(){effectsToggle.classList.toggle("on",effectsEnabled);effectsToggle.textContent=window.siteT?(effectsEnabled?window.siteT("on"):window.siteT("off")):(effectsEnabled?"ON":"OFF")}
 function openOptions(){updateEffectsToggle();optionsModal.classList.add("open");optionsModal.setAttribute("aria-hidden","false")}
 function closeOptions(){optionsModal.classList.remove("open");optionsModal.setAttribute("aria-hidden","true")}
 updateEffectsToggle();
@@ -1033,6 +1282,575 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeCover(
   document.addEventListener("click",function(e){
     const b=e.target.closest(".theme-button");
     if(b) applyTheme(b.dataset.theme);
+  });
+})();
+</script>
+
+
+
+<script id="site-language-system">
+(function(){
+const I18N={"en": {"official": "THE OFFICIAL WEBSITE", "enter": "ENTER", "home": "HOME", "music": "MUSIC", "streaming": "STREAMING", "game": "GAME", "options": "OPTIONS", "bandLabel": "01 / THE BAND", "heroDesc": "Literally Steplers is a musical project built around chaos, absurdity, friendship, creativity and an unhealthy amount of questionable ideas.<br><br>From mysterious characters to entire fictional worlds, every album adds another piece to the Literally Steplers universe.", "explore": "EXPLORE THE DISCOGRAPHY", "youtubeChannel": "YOUTUBE CHANNEL", "discography": "02 / DISCOGRAPHY", "albums": "THE ALBUMS", "playlist": "YOUTUBE PLAYLIST", "minigame": "03 / MINIGAME", "quizTitle": "LITERALLY STEPLERS QUIZ", "gameIntro": "Think you know the Literally Steplers universe? Test your knowledge about the albums, songs and the band's discography in the official quiz.", "howKnow": "HOW WELL DO YOU KNOW THE BAND?", "gameSummary": "10 random questions per run. Three difficulties. No mercy.", "playQuiz": "PLAY QUIZ →", "listenNow": "04 / LISTEN NOW", "experience": "EXPERIENCE THE MUSIC", "streamIntro": "Take Hell's Aura and Stemers with you beyond YouTube.<br>Both albums are also available on Spotify and Apple Music.", "streamPlatform": "STREAMING PLATFORM", "listen": "LISTEN →", "visitChannel": "VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →", "siteTheme": "SITE THEME", "themeDesc": "Choose the visual theme of the site.", "effects": "EFFECTS", "effectsDesc": "Enable or disable the angelical The Home effect.", "language": "LANGUAGE", "languageDesc": "Choose the language of the site.", "on": "ON", "off": "OFF", "quizHeader": "LITERALLY STEPLERS / GAME", "officialQuiz": "THE OFFICIAL BAND QUIZ", "realStepler": "ARE YOU A REAL STEPLER?", "quizDesc": "Each run gives you 10 random questions from the full question bank. Choose your difficulty, answer fast, build a streak and chase the highest score.", "easy": "EASY", "normal": "NORMAL", "diabolical": "DIABOLICAL", "startGame": "START GAME", "easyInfo": "EASY — 20 seconds per question. More album and song recognition.", "normalInfo": "NORMAL — 15 seconds per question. Standard scoring.", "diabolicalInfo": "DIABOLICAL — 10 seconds per question. Harder questions and higher scores.", "question": "QUESTION", "time": "TIME", "streak": "STREAK", "points": "POINTS", "special": "DIABOLICAL QUESTION — ×2 POINTS", "next": "NEXT QUESTION →", "resultNext": "SEE RESULT →", "finalScore": "FINAL SCORE", "correct": "CORRECT", "wrong": "WRONG", "result": "RESULT", "playAgain": "PLAY AGAIN", "closeQuiz": "CLOSE QUIZ", "pointsWord": "POINTS", "correctPrefix": "CORRECT", "wrongPrefix": "WRONG", "timeUp": "TIME'S UP", "rankPerfect": "LITERALLY A STEPLER", "rankPerfectText": "Perfect score. You know the Literally Steplers universe inside out.", "rankGreat": "CERTIFIED STEPLER", "rankGreatText": "Excellent run. You clearly know the band.", "rankMid": "STEPLER IN TRAINING", "rankMidText": "Not bad. You know the universe, but there is still more chaos to study.", "rankLow": "BACK TO THE DISCOGRAPHY", "rankLowText": "Time to study the albums and come back stronger.", "originalTheme": "Original theme", "redWhite": "Red & white", "goldRed": "Gold & red", "darkLightRed": "Dark red & light red", "whiteGold": "White & gold", "goldPink": "Gold & neon pink"}, "pt": {"official": "O SITE OFICIAL", "enter": "ENTRAR", "home": "INÍCIO", "music": "MÚSICA", "streaming": "STREAMING", "game": "JOGO", "options": "OPÇÕES", "bandLabel": "01 / A BANDA", "heroDesc": "Literally Steplers é um projeto musical construído em torno de caos, absurdo, amizade, criatividade e uma quantidade nada saudável de ideias questionáveis.<br><br>De personagens misteriosos a mundos fictícios inteiros, cada álbum adiciona uma nova peça ao universo Literally Steplers.", "explore": "EXPLORAR A DISCOGRAFIA", "youtubeChannel": "CANAL NO YOUTUBE", "discography": "02 / DISCOGRAFIA", "albums": "OS ÁLBUNS", "playlist": "PLAYLIST NO YOUTUBE", "minigame": "03 / MINIJOGO", "quizTitle": "QUIZ LITERALLY STEPLERS", "gameIntro": "Acha que conhece o universo Literally Steplers? Teste seu conhecimento sobre os álbuns, músicas e a discografia da banda no quiz oficial.", "howKnow": "O QUANTO VOCÊ CONHECE A BANDA?", "gameSummary": "10 perguntas aleatórias por partida. Três dificuldades. Sem piedade.", "playQuiz": "JOGAR QUIZ →", "listenNow": "04 / OUÇA AGORA", "experience": "VIVA A MÚSICA", "streamIntro": "Leve Hell's Aura e Stemers para além do YouTube.<br>Os dois álbuns também estão disponíveis no Spotify e Apple Music.", "streamPlatform": "PLATAFORMA DE STREAMING", "listen": "OUVIR →", "visitChannel": "VISITAR O CANAL LITERALLY STEPLERS NO YOUTUBE →", "siteTheme": "TEMA DO SITE", "themeDesc": "Escolha o tema visual do site.", "effects": "EFEITOS", "effectsDesc": "Ative ou desative o efeito angelical de The Home.", "language": "IDIOMA", "languageDesc": "Escolha o idioma do site.", "on": "LIGADO", "off": "DESLIGADO", "quizHeader": "LITERALLY STEPLERS / JOGO", "officialQuiz": "O QUIZ OFICIAL DA BANDA", "realStepler": "VOCÊ É UM STEPLER DE VERDADE?", "quizDesc": "Cada partida traz 10 perguntas aleatórias do banco completo. Escolha a dificuldade, responda rápido, faça uma sequência e busque a maior pontuação.", "easy": "FÁCIL", "normal": "NORMAL", "diabolical": "DIABÓLICO", "startGame": "COMEÇAR JOGO", "easyInfo": "FÁCIL — 20 segundos por pergunta. Mais reconhecimento de álbuns e músicas.", "normalInfo": "NORMAL — 15 segundos por pergunta. Pontuação padrão.", "diabolicalInfo": "DIABÓLICO — 10 segundos por pergunta. Perguntas mais difíceis e pontuação maior.", "question": "PERGUNTA", "time": "TEMPO", "streak": "SEQUÊNCIA", "points": "PONTOS", "special": "PERGUNTA DIABÓLICA — ×2 PONTOS", "next": "PRÓXIMA PERGUNTA →", "resultNext": "VER RESULTADO →", "finalScore": "PLACAR FINAL", "correct": "ACERTOS", "wrong": "ERROS", "result": "RESULTADO", "playAgain": "JOGAR NOVAMENTE", "closeQuiz": "FECHAR QUIZ", "pointsWord": "PONTOS", "correctPrefix": "CERTO", "wrongPrefix": "ERRADO", "timeUp": "TEMPO ESGOTADO", "rankPerfect": "LITERALMENTE UM STEPLER", "rankPerfectText": "Pontuação perfeita. Você conhece o universo Literally Steplers por completo.", "rankGreat": "STEPLER CERTIFICADO", "rankGreatText": "Excelente partida. Você claramente conhece a banda.", "rankMid": "STEPLER EM TREINAMENTO", "rankMidText": "Nada mal. Você conhece o universo, mas ainda há mais caos para estudar.", "rankLow": "DE VOLTA À DISCOGRAFIA", "rankLowText": "Hora de estudar os álbuns e voltar mais forte.", "originalTheme": "Tema original", "redWhite": "Vermelho e branco", "goldRed": "Dourado e vermelho", "darkLightRed": "Vermelho escuro e claro", "whiteGold": "Branco e dourado", "goldPink": "Dourado e rosa neon"}, "de": {"official": "DIE OFFIZIELLE WEBSITE", "enter": "EINTRETEN", "home": "START", "music": "MUSIK", "streaming": "STREAMING", "game": "SPIEL", "options": "OPTIONEN", "bandLabel": "01 / DIE BAND", "heroDesc": "Literally Steplers ist ein Musikprojekt rund um Chaos, Absurdität, Freundschaft, Kreativität und eine ungesunde Menge fragwürdiger Ideen.<br><br>Von mysteriösen Figuren bis zu ganzen fiktiven Welten fügt jedes Album dem Literally-Steplers-Universum ein weiteres Stück hinzu.", "explore": "DISKOGRAFIE ENTDECKEN", "youtubeChannel": "YOUTUBE-KANAL", "discography": "02 / DISKOGRAFIE", "albums": "DIE ALBEN", "playlist": "YOUTUBE-PLAYLIST", "minigame": "03 / MINISPIEL", "quizTitle": "LITERALLY STEPLERS QUIZ", "gameIntro": "Glaubst du, das Literally-Steplers-Universum zu kennen? Teste dein Wissen über Alben, Songs und die Diskografie der Band im offiziellen Quiz.", "howKnow": "WIE GUT KENNST DU DIE BAND?", "gameSummary": "10 zufällige Fragen pro Runde. Drei Schwierigkeitsgrade. Keine Gnade.", "playQuiz": "QUIZ SPIELEN →", "listenNow": "04 / JETZT HÖREN", "experience": "ERLEBE DIE MUSIK", "streamIntro": "Nimm Hell's Aura und Stemers über YouTube hinaus mit.<br>Beide Alben sind auch auf Spotify und Apple Music verfügbar.", "streamPlatform": "STREAMING-PLATTFORM", "listen": "ANHÖREN →", "visitChannel": "LITERALLY STEPLERS AUF YOUTUBE BESUCHEN →", "siteTheme": "WEBSITE-THEMA", "themeDesc": "Wähle das visuelle Thema der Website.", "effects": "EFFEKTE", "effectsDesc": "Aktiviere oder deaktiviere den himmlischen The-Home-Effekt.", "language": "SPRACHE", "languageDesc": "Wähle die Sprache der Website.", "on": "AN", "off": "AUS", "quizHeader": "LITERALLY STEPLERS / SPIEL", "officialQuiz": "DAS OFFIZIELLE BAND-QUIZ", "realStepler": "BIST DU EIN ECHTER STEPLER?", "quizDesc": "Jede Runde enthält 10 zufällige Fragen aus dem gesamten Fragenpool. Wähle den Schwierigkeitsgrad, antworte schnell, baue eine Serie auf und jage den Highscore.", "easy": "LEICHT", "normal": "NORMAL", "diabolical": "DIABOLISCH", "startGame": "SPIEL STARTEN", "easyInfo": "LEICHT — 20 Sekunden pro Frage. Mehr Album- und Songerkennung.", "normalInfo": "NORMAL — 15 Sekunden pro Frage. Standardwertung.", "diabolicalInfo": "DIABOLISCH — 10 Sekunden pro Frage. Schwerere Fragen und mehr Punkte.", "question": "FRAGE", "time": "ZEIT", "streak": "SERIE", "points": "PUNKTE", "special": "DIABOLISCHE FRAGE — ×2 PUNKTE", "next": "NÄCHSTE FRAGE →", "resultNext": "ERGEBNIS ANZEIGEN →", "finalScore": "ENDSTAND", "correct": "RICHTIG", "wrong": "FALSCH", "result": "ERGEBNIS", "playAgain": "NOCHMAL SPIELEN", "closeQuiz": "QUIZ SCHLIESSEN", "pointsWord": "PUNKTE", "correctPrefix": "RICHTIG", "wrongPrefix": "FALSCH", "timeUp": "ZEIT ABGELAUFEN", "rankPerfect": "LITERALLY EIN STEPLER", "rankPerfectText": "Perfekte Punktzahl. Du kennst das Literally-Steplers-Universum in- und auswendig.", "rankGreat": "ZERTIFIZIERTER STEPLER", "rankGreatText": "Starke Runde. Du kennst die Band eindeutig.", "rankMid": "STEPLER IM TRAINING", "rankMidText": "Nicht schlecht. Du kennst das Universum, aber es gibt noch mehr Chaos zu lernen.", "rankLow": "ZURÜCK ZUR DISKOGRAFIE", "rankLowText": "Zeit, die Alben zu lernen und stärker zurückzukommen.", "originalTheme": "Originalthema", "redWhite": "Rot & Weiß", "goldRed": "Gold & Rot", "darkLightRed": "Dunkelrot & Hellrot", "whiteGold": "Weiß & Gold", "goldPink": "Gold & Neonpink"}, "ru": {"official": "ОФИЦИАЛЬНЫЙ САЙТ", "enter": "ВОЙТИ", "home": "ГЛАВНАЯ", "music": "МУЗЫКА", "streaming": "СТРИМИНГ", "game": "ИГРА", "options": "НАСТРОЙКИ", "bandLabel": "01 / ГРУППА", "heroDesc": "Literally Steplers — музыкальный проект о хаосе, абсурде, дружбе, творчестве и нездоровом количестве сомнительных идей.<br><br>От загадочных персонажей до целых вымышленных миров — каждый альбом добавляет новую часть во вселенную Literally Steplers.", "explore": "ИЗУЧИТЬ ДИСКОГРАФИЮ", "youtubeChannel": "КАНАЛ YOUTUBE", "discography": "02 / ДИСКОГРАФИЯ", "albums": "АЛЬБОМЫ", "playlist": "ПЛЕЙЛИСТ YOUTUBE", "minigame": "03 / МИНИ-ИГРА", "quizTitle": "ВИКТОРИНА LITERALLY STEPLERS", "gameIntro": "Думаешь, ты знаешь вселенную Literally Steplers? Проверь знания об альбомах, песнях и дискографии группы в официальной викторине.", "howKnow": "НАСKОЛЬКО ХОРОШО ТЫ ЗНАЕШЬ ГРУППУ?", "gameSummary": "10 случайных вопросов за игру. Три сложности. Без пощады.", "playQuiz": "ИГРАТЬ →", "listenNow": "04 / СЛУШАТЬ", "experience": "ПОЧУВСТВУЙ МУЗЫКУ", "streamIntro": "Слушай Hell's Aura и Stemers не только на YouTube.<br>Оба альбома также доступны в Spotify и Apple Music.", "streamPlatform": "СТРИМИНГОВАЯ ПЛАТФОРМА", "listen": "СЛУШАТЬ →", "visitChannel": "ПЕРЕЙТИ НА YOUTUBE-КАНАЛ LITERALLY STEPLERS →", "siteTheme": "ТЕМА САЙТА", "themeDesc": "Выберите визуальную тему сайта.", "effects": "ЭФФЕКТЫ", "effectsDesc": "Включить или выключить ангельский эффект The Home.", "language": "ЯЗЫК", "languageDesc": "Выберите язык сайта.", "on": "ВКЛ", "off": "ВЫКЛ", "quizHeader": "LITERALLY STEPLERS / ИГРА", "officialQuiz": "ОФИЦИАЛЬНАЯ ВИКТОРИНА ГРУППЫ", "realStepler": "ТЫ НАСТОЯЩИЙ STEPLER?", "quizDesc": "Каждая игра содержит 10 случайных вопросов из полного банка. Выбери сложность, отвечай быстро, набирай серию и стремись к рекорду.", "easy": "ЛЕГКО", "normal": "НОРМАЛЬНО", "diabolical": "ДЬЯВОЛЬСКИ", "startGame": "НАЧАТЬ ИГРУ", "easyInfo": "ЛЕГКО — 20 секунд на вопрос. Больше узнавания альбомов и песен.", "normalInfo": "НОРМАЛЬНО — 15 секунд на вопрос. Стандартные очки.", "diabolicalInfo": "ДЬЯВОЛЬСКИ — 10 секунд на вопрос. Сложнее вопросы и больше очков.", "question": "ВОПРОС", "time": "ВРЕМЯ", "streak": "СЕРИЯ", "points": "ОЧКИ", "special": "ДЬЯВОЛЬСКИЙ ВОПРОС — ×2 ОЧКОВ", "next": "СЛЕДУЮЩИЙ ВОПРОС →", "resultNext": "ПОКАЗАТЬ РЕЗУЛЬТАТ →", "finalScore": "ИТОГОВЫЙ СЧЁТ", "correct": "ВЕРНО", "wrong": "ОШИБКИ", "result": "РЕЗУЛЬТАТ", "playAgain": "ИГРАТЬ СНОВА", "closeQuiz": "ЗАКРЫТЬ ВИКТОРИНУ", "pointsWord": "ОЧКОВ", "correctPrefix": "ВЕРНО", "wrongPrefix": "НЕВЕРНО", "timeUp": "ВРЕМЯ ВЫШЛО", "rankPerfect": "LITERALLY STEPLER", "rankPerfectText": "Идеальный результат. Ты знаешь вселенную Literally Steplers вдоль и поперёк.", "rankGreat": "СЕРТИФИЦИРОВАННЫЙ STEPLER", "rankGreatText": "Отличная игра. Ты явно хорошо знаешь группу.", "rankMid": "STEPLER НА ОБУЧЕНИИ", "rankMidText": "Неплохо. Ты знаешь вселенную, но ещё есть чему учиться.", "rankLow": "НАЗАД К ДИСКОГРАФИИ", "rankLowText": "Пора изучить альбомы и вернуться сильнее.", "originalTheme": "Оригинальная тема", "redWhite": "Красный и белый", "goldRed": "Золотой и красный", "darkLightRed": "Тёмно-красный и светло-красный", "whiteGold": "Белый и золотой", "goldPink": "Золотой и неоново-розовый"}, "zh": {"official": "官方网站", "enter": "进入", "home": "主页", "music": "音乐", "streaming": "流媒体", "game": "游戏", "options": "设置", "bandLabel": "01 / 乐队", "heroDesc": "Literally Steplers 是一个围绕混乱、荒诞、友谊、创造力以及大量可疑点子打造的音乐项目。<br><br>从神秘角色到完整的虚构世界，每张专辑都会为 Literally Steplers 宇宙增加新的部分。", "explore": "探索作品目录", "youtubeChannel": "YOUTUBE 频道", "discography": "02 / 作品目录", "albums": "专辑", "playlist": "YOUTUBE 播放列表", "minigame": "03 / 小游戏", "quizTitle": "LITERALLY STEPLERS 问答", "gameIntro": "你真的了解 Literally Steplers 宇宙吗？在官方问答中测试你对专辑、歌曲和乐队作品目录的了解。", "howKnow": "你有多了解这支乐队？", "gameSummary": "每局 10 道随机题。三种难度。毫不留情。", "playQuiz": "开始问答 →", "listenNow": "04 / 立即收听", "experience": "感受音乐", "streamIntro": "让 Hell's Aura 和 Stemers 不只存在于 YouTube。<br>这两张专辑也可以在 Spotify 和 Apple Music 收听。", "streamPlatform": "流媒体平台", "listen": "收听 →", "visitChannel": "访问 LITERALLY STEPLERS YOUTUBE 频道 →", "siteTheme": "网站主题", "themeDesc": "选择网站的视觉主题。", "effects": "效果", "effectsDesc": "启用或关闭 The Home 的天使效果。", "language": "语言", "languageDesc": "选择网站语言。", "on": "开", "off": "关", "quizHeader": "LITERALLY STEPLERS / 游戏", "officialQuiz": "官方乐队问答", "realStepler": "你是真正的 STEPLER 吗？", "quizDesc": "每局会从完整题库随机抽取 10 道题。选择难度，快速回答，累积连胜并冲击最高分。", "easy": "简单", "normal": "普通", "diabolical": "地狱", "startGame": "开始游戏", "easyInfo": "简单 — 每题 20 秒。更多专辑和歌曲识别题。", "normalInfo": "普通 — 每题 15 秒。标准计分。", "diabolicalInfo": "地狱 — 每题 10 秒。更难的问题和更高分数。", "question": "问题", "time": "时间", "streak": "连胜", "points": "分数", "special": "地狱问题 — ×2 分数", "next": "下一题 →", "resultNext": "查看结果 →", "finalScore": "最终成绩", "correct": "正确", "wrong": "错误", "result": "结果", "playAgain": "再玩一次", "closeQuiz": "关闭问答", "pointsWord": "分", "correctPrefix": "正确", "wrongPrefix": "错误", "timeUp": "时间到", "rankPerfect": "真正的 STEPLER", "rankPerfectText": "满分。你对 Literally Steplers 宇宙了如指掌。", "rankGreat": "认证 STEPLER", "rankGreatText": "非常出色。你显然很了解这支乐队。", "rankMid": "训练中的 STEPLER", "rankMidText": "不错。你了解这个宇宙，但还有更多混乱需要学习。", "rankLow": "回到作品目录", "rankLowText": "该研究专辑并更强地回来了。", "originalTheme": "原始主题", "redWhite": "红色与白色", "goldRed": "金色与红色", "darkLightRed": "深红与浅红", "whiteGold": "白色与金色", "goldPink": "金色与霓虹粉"}, "ja": {"official": "公式サイト", "enter": "入る", "home": "ホーム", "music": "音楽", "streaming": "ストリーミング", "game": "ゲーム", "options": "設定", "bandLabel": "01 / バンド", "heroDesc": "Literally Steplers は、混沌、不条理、友情、創造性、そして大量の怪しいアイデアを中心に作られた音楽プロジェクトです。<br><br>謎のキャラクターから架空の世界全体まで、各アルバムが Literally Steplers の世界に新しい要素を加えます。", "explore": "ディスコグラフィーを見る", "youtubeChannel": "YOUTUBE チャンネル", "discography": "02 / ディスコグラフィー", "albums": "アルバム", "playlist": "YOUTUBE プレイリスト", "minigame": "03 / ミニゲーム", "quizTitle": "LITERALLY STEPLERS クイズ", "gameIntro": "Literally Steplers の世界を知っていると思う？公式クイズでアルバム、曲、バンドのディスコグラフィーに関する知識を試そう。", "howKnow": "バンドをどれだけ知っている？", "gameSummary": "1回10問のランダム問題。3段階の難易度。容赦なし。", "playQuiz": "クイズをプレイ →", "listenNow": "04 / 今すぐ聴く", "experience": "音楽を体験", "streamIntro": "Hell's Aura と Stemers を YouTube の外でも楽しもう。<br>両アルバムは Spotify と Apple Music でも配信中です。", "streamPlatform": "ストリーミングサービス", "listen": "聴く →", "visitChannel": "LITERALLY STEPLERS の YOUTUBE チャンネルへ →", "siteTheme": "サイトテーマ", "themeDesc": "サイトのビジュアルテーマを選択します。", "effects": "エフェクト", "effectsDesc": "The Home の天使風エフェクトをオン／オフします。", "language": "言語", "languageDesc": "サイトの言語を選択します。", "on": "オン", "off": "オフ", "quizHeader": "LITERALLY STEPLERS / ゲーム", "officialQuiz": "公式バンドクイズ", "realStepler": "本物の STEPLER か？", "quizDesc": "毎回、全問題からランダムに10問出題。難易度を選び、素早く答え、連続正解を伸ばしてハイスコアを狙おう。", "easy": "イージー", "normal": "ノーマル", "diabolical": "ディアボリカル", "startGame": "ゲーム開始", "easyInfo": "イージー — 1問20秒。アルバムや曲の識別が中心。", "normalInfo": "ノーマル — 1問15秒。標準スコア。", "diabolicalInfo": "ディアボリカル — 1問10秒。難問と高得点。", "question": "問題", "time": "時間", "streak": "連続", "points": "ポイント", "special": "ディアボリカル問題 — ×2 ポイント", "next": "次の問題 →", "resultNext": "結果を見る →", "finalScore": "最終スコア", "correct": "正解", "wrong": "不正解", "result": "結果", "playAgain": "もう一度", "closeQuiz": "クイズを閉じる", "pointsWord": "ポイント", "correctPrefix": "正解", "wrongPrefix": "不正解", "timeUp": "時間切れ", "rankPerfect": "LITERALLY A STEPLER", "rankPerfectText": "パーフェクト。Literally Steplers の世界を完全に理解している。", "rankGreat": "認定 STEPLER", "rankGreatText": "素晴らしい成績。バンドをよく知っている。", "rankMid": "STEPLER 修行中", "rankMidText": "悪くない。世界観は知っているが、まだ学ぶべき混沌がある。", "rankLow": "ディスコグラフィーへ戻れ", "rankLowText": "アルバムを勉強して、もっと強くなって戻ってこよう。", "originalTheme": "オリジナルテーマ", "redWhite": "赤と白", "goldRed": "金と赤", "darkLightRed": "濃い赤と明るい赤", "whiteGold": "白と金", "goldPink": "金とネオンピンク"}, "ko": {"official": "공식 웹사이트", "enter": "입장", "home": "홈", "music": "음악", "streaming": "스트리밍", "game": "게임", "options": "설정", "bandLabel": "01 / 밴드", "heroDesc": "Literally Steplers는 혼돈, 부조리, 우정, 창의성, 그리고 건강하지 않을 정도로 많은 수상한 아이디어를 중심으로 만들어진 음악 프로젝트입니다.<br><br>미스터리한 캐릭터부터 완전한 가상 세계까지, 각 앨범은 Literally Steplers 세계에 새로운 조각을 더합니다.", "explore": "디스코그래피 보기", "youtubeChannel": "YOUTUBE 채널", "discography": "02 / 디스코그래피", "albums": "앨범", "playlist": "YOUTUBE 재생목록", "minigame": "03 / 미니게임", "quizTitle": "LITERALLY STEPLERS 퀴즈", "gameIntro": "Literally Steplers 세계를 안다고 생각하나요? 공식 퀴즈에서 앨범, 노래, 밴드 디스코그래피 지식을 시험해 보세요.", "howKnow": "밴드를 얼마나 잘 아나요?", "gameSummary": "한 판에 무작위 10문제. 세 가지 난이도. 자비 없음.", "playQuiz": "퀴즈 플레이 →", "listenNow": "04 / 지금 듣기", "experience": "음악을 경험하세요", "streamIntro": "Hell's Aura와 Stemers를 YouTube 밖에서도 즐겨보세요.<br>두 앨범 모두 Spotify와 Apple Music에서 들을 수 있습니다.", "streamPlatform": "스트리밍 플랫폼", "listen": "듣기 →", "visitChannel": "LITERALLY STEPLERS YOUTUBE 채널 방문 →", "siteTheme": "사이트 테마", "themeDesc": "사이트의 비주얼 테마를 선택하세요.", "effects": "효과", "effectsDesc": "The Home의 천사 효과를 켜거나 끕니다.", "language": "언어", "languageDesc": "사이트 언어를 선택하세요.", "on": "켜짐", "off": "꺼짐", "quizHeader": "LITERALLY STEPLERS / 게임", "officialQuiz": "공식 밴드 퀴즈", "realStepler": "진짜 STEPLER인가요?", "quizDesc": "매 게임마다 전체 문제에서 무작위 10문제가 나옵니다. 난이도를 선택하고 빠르게 답해 연속 정답과 최고 점수를 노려보세요.", "easy": "쉬움", "normal": "보통", "diabolical": "악마", "startGame": "게임 시작", "easyInfo": "쉬움 — 문제당 20초. 앨범과 노래 식별 중심.", "normalInfo": "보통 — 문제당 15초. 표준 점수.", "diabolicalInfo": "악마 — 문제당 10초. 더 어려운 문제와 더 높은 점수.", "question": "문제", "time": "시간", "streak": "연속", "points": "점수", "special": "악마 문제 — ×2 점수", "next": "다음 문제 →", "resultNext": "결과 보기 →", "finalScore": "최종 점수", "correct": "정답", "wrong": "오답", "result": "결과", "playAgain": "다시 플레이", "closeQuiz": "퀴즈 닫기", "pointsWord": "점", "correctPrefix": "정답", "wrongPrefix": "오답", "timeUp": "시간 초과", "rankPerfect": "LITERALLY A STEPLER", "rankPerfectText": "만점입니다. Literally Steplers 세계를 완전히 알고 있습니다.", "rankGreat": "인증 STEPLER", "rankGreatText": "훌륭한 경기입니다. 밴드를 정말 잘 알고 있습니다.", "rankMid": "훈련 중인 STEPLER", "rankMidText": "나쁘지 않습니다. 세계관을 알지만 아직 더 배울 혼돈이 있습니다.", "rankLow": "디스코그래피로 돌아가기", "rankLowText": "앨범을 공부하고 더 강하게 돌아오세요.", "originalTheme": "기본 테마", "redWhite": "빨강 & 흰색", "goldRed": "금색 & 빨강", "darkLightRed": "진한 빨강 & 밝은 빨강", "whiteGold": "흰색 & 금색", "goldPink": "금색 & 네온 핑크"}, "fr": {"official": "LE SITE OFFICIEL", "enter": "ENTRER", "home": "ACCUEIL", "music": "MUSIQUE", "streaming": "STREAMING", "game": "JEU", "options": "OPTIONS", "bandLabel": "01 / LE GROUPE", "heroDesc": "Literally Steplers est un projet musical construit autour du chaos, de l'absurde, de l'amitié, de la créativité et d'une quantité malsaine d'idées discutables.<br><br>Des personnages mystérieux aux mondes fictifs entiers, chaque album ajoute une nouvelle pièce à l'univers Literally Steplers.", "explore": "EXPLORER LA DISCOGRAPHIE", "youtubeChannel": "CHAÎNE YOUTUBE", "discography": "02 / DISCOGRAPHIE", "albums": "LES ALBUMS", "playlist": "PLAYLIST YOUTUBE", "minigame": "03 / MINI-JEU", "quizTitle": "QUIZ LITERALLY STEPLERS", "gameIntro": "Tu penses connaître l'univers Literally Steplers ? Teste tes connaissances sur les albums, les chansons et la discographie du groupe dans le quiz officiel.", "howKnow": "CONNAIS-TU VRAIMENT LE GROUPE ?", "gameSummary": "10 questions aléatoires par partie. Trois difficultés. Aucune pitié.", "playQuiz": "JOUER AU QUIZ →", "listenNow": "04 / ÉCOUTER", "experience": "VIVEZ LA MUSIQUE", "streamIntro": "Emportez Hell's Aura et Stemers au-delà de YouTube.<br>Les deux albums sont aussi disponibles sur Spotify et Apple Music.", "streamPlatform": "PLATEFORME DE STREAMING", "listen": "ÉCOUTER →", "visitChannel": "VISITER LA CHAÎNE YOUTUBE LITERALLY STEPLERS →", "siteTheme": "THÈME DU SITE", "themeDesc": "Choisissez le thème visuel du site.", "effects": "EFFETS", "effectsDesc": "Activez ou désactivez l'effet angélique de The Home.", "language": "LANGUE", "languageDesc": "Choisissez la langue du site.", "on": "ACTIVÉ", "off": "DÉSACTIVÉ", "quizHeader": "LITERALLY STEPLERS / JEU", "officialQuiz": "LE QUIZ OFFICIEL DU GROUPE", "realStepler": "ES-TU UN VRAI STEPLER ?", "quizDesc": "Chaque partie propose 10 questions aléatoires de la banque complète. Choisis la difficulté, réponds vite, enchaîne les bonnes réponses et vise le meilleur score.", "easy": "FACILE", "normal": "NORMAL", "diabolical": "DIABOLIQUE", "startGame": "COMMENCER", "easyInfo": "FACILE — 20 secondes par question. Plus de reconnaissance d'albums et de chansons.", "normalInfo": "NORMAL — 15 secondes par question. Score standard.", "diabolicalInfo": "DIABOLIQUE — 10 secondes par question. Questions plus dures et scores plus élevés.", "question": "QUESTION", "time": "TEMPS", "streak": "SÉRIE", "points": "POINTS", "special": "QUESTION DIABOLIQUE — ×2 POINTS", "next": "QUESTION SUIVANTE →", "resultNext": "VOIR LE RÉSULTAT →", "finalScore": "SCORE FINAL", "correct": "BONNES", "wrong": "FAUSSES", "result": "RÉSULTAT", "playAgain": "REJOUER", "closeQuiz": "FERMER LE QUIZ", "pointsWord": "POINTS", "correctPrefix": "BONNE RÉPONSE", "wrongPrefix": "MAUVAISE RÉPONSE", "timeUp": "TEMPS ÉCOULÉ", "rankPerfect": "LITTÉRALEMENT UN STEPLER", "rankPerfectText": "Score parfait. Tu connais l'univers Literally Steplers sur le bout des doigts.", "rankGreat": "STEPLER CERTIFIÉ", "rankGreatText": "Excellente partie. Tu connais clairement le groupe.", "rankMid": "STEPLER EN FORMATION", "rankMidText": "Pas mal. Tu connais l'univers, mais il reste encore du chaos à étudier.", "rankLow": "RETOUR À LA DISCOGRAPHIE", "rankLowText": "Il est temps d'étudier les albums et de revenir plus fort.", "originalTheme": "Thème original", "redWhite": "Rouge et blanc", "goldRed": "Or et rouge", "darkLightRed": "Rouge foncé et rouge clair", "whiteGold": "Blanc et or", "goldPink": "Or et rose néon"}, "es": {"official": "EL SITIO OFICIAL", "enter": "ENTRAR", "home": "INICIO", "music": "MÚSICA", "streaming": "STREAMING", "game": "JUEGO", "options": "OPCIONES", "bandLabel": "01 / LA BANDA", "heroDesc": "Literally Steplers es un proyecto musical construido alrededor del caos, el absurdo, la amistad, la creatividad y una cantidad poco saludable de ideas cuestionables.<br><br>Desde personajes misteriosos hasta mundos ficticios completos, cada álbum añade otra pieza al universo Literally Steplers.", "explore": "EXPLORAR LA DISCOGRAFÍA", "youtubeChannel": "CANAL DE YOUTUBE", "discography": "02 / DISCOGRAFÍA", "albums": "LOS ÁLBUMES", "playlist": "PLAYLIST DE YOUTUBE", "minigame": "03 / MINIJUEGO", "quizTitle": "QUIZ LITERALLY STEPLERS", "gameIntro": "¿Crees que conoces el universo Literally Steplers? Pon a prueba tus conocimientos sobre los álbumes, canciones y la discografía de la banda en el quiz oficial.", "howKnow": "¿QUÉ TANTO CONOCES A LA BANDA?", "gameSummary": "10 preguntas aleatorias por partida. Tres dificultades. Sin piedad.", "playQuiz": "JUGAR QUIZ →", "listenNow": "04 / ESCUCHA AHORA", "experience": "VIVE LA MÚSICA", "streamIntro": "Lleva Hell's Aura y Stemers más allá de YouTube.<br>Ambos álbumes también están disponibles en Spotify y Apple Music.", "streamPlatform": "PLATAFORMA DE STREAMING", "listen": "ESCUCHAR →", "visitChannel": "VISITAR EL CANAL DE YOUTUBE DE LITERALLY STEPLERS →", "siteTheme": "TEMA DEL SITIO", "themeDesc": "Elige el tema visual del sitio.", "effects": "EFECTOS", "effectsDesc": "Activa o desactiva el efecto angelical de The Home.", "language": "IDIOMA", "languageDesc": "Elige el idioma del sitio.", "on": "ACTIVADO", "off": "DESACTIVADO", "quizHeader": "LITERALLY STEPLERS / JUEGO", "officialQuiz": "EL QUIZ OFICIAL DE LA BANDA", "realStepler": "¿ERES UN STEPLER DE VERDAD?", "quizDesc": "Cada partida presenta 10 preguntas aleatorias del banco completo. Elige la dificultad, responde rápido, crea una racha y busca la puntuación más alta.", "easy": "FÁCIL", "normal": "NORMAL", "diabolical": "DIABÓLICO", "startGame": "EMPEZAR JUEGO", "easyInfo": "FÁCIL — 20 segundos por pregunta. Más reconocimiento de álbumes y canciones.", "normalInfo": "NORMAL — 15 segundos por pregunta. Puntuación estándar.", "diabolicalInfo": "DIABÓLICO — 10 segundos por pregunta. Preguntas más difíciles y más puntos.", "question": "PREGUNTA", "time": "TIEMPO", "streak": "RACHA", "points": "PUNTOS", "special": "PREGUNTA DIABÓLICA — ×2 PUNTOS", "next": "SIGUIENTE PREGUNTA →", "resultNext": "VER RESULTADO →", "finalScore": "PUNTUACIÓN FINAL", "correct": "ACIERTOS", "wrong": "ERRORES", "result": "RESULTADO", "playAgain": "JUGAR DE NUEVO", "closeQuiz": "CERRAR QUIZ", "pointsWord": "PUNTOS", "correctPrefix": "CORRECTO", "wrongPrefix": "INCORRECTO", "timeUp": "TIEMPO AGOTADO", "rankPerfect": "LITERALMENTE UN STEPLER", "rankPerfectText": "Puntuación perfecta. Conoces el universo Literally Steplers de principio a fin.", "rankGreat": "STEPLER CERTIFICADO", "rankGreatText": "Excelente partida. Claramente conoces la banda.", "rankMid": "STEPLER EN ENTRENAMIENTO", "rankMidText": "Nada mal. Conoces el universo, pero todavía hay más caos que estudiar.", "rankLow": "DE VUELTA A LA DISCOGRAFÍA", "rankLowText": "Es hora de estudiar los álbumes y volver más fuerte.", "originalTheme": "Tema original", "redWhite": "Rojo y blanco", "goldRed": "Dorado y rojo", "darkLightRed": "Rojo oscuro y rojo claro", "whiteGold": "Blanco y dorado", "goldPink": "Dorado y rosa neón"}};
+const QPAT={"pt": [["What was the band's second album?", "Qual foi o segundo álbum da banda?"], ["Which song appears on {x}?", "Qual música aparece em {x}?"], ["Which album contains the song '{x}'?", "Qual álbum contém a música '{x}'?"], ["Which album has 10 listed tracks?", "Qual álbum tem 10 faixas listadas?"], ["What is track {n} on the {x}?", "Qual é a faixa {n} de {x}?"], ["Which song is part of {x}?", "Qual música faz parte de {x}?"], ["Which album contains '{x}'?", "Qual álbum contém '{x}'?"], ["Which album is number {n} in the discography?", "Qual é o álbum número {n} da discografia?"], ["Which album came immediately after {x}?", "Qual álbum veio imediatamente depois de {x}?"], ["What is the first track on {x}?", "Qual é a primeira faixa de {x}?"], ["What is the final track on {x}?", "Qual é a última faixa de {x}?"], ["Which song is track {n} on {x}?", "Qual música é a faixa {n} de {x}?"], ["What is track {n} on {x}?", "Qual é a faixa {n} de {x}?"], ["Which song is the first track on {x}?", "Qual música é a primeira faixa de {x}?"], ["What is track {n} on {x}?", "Qual é a faixa {n} de {x}?"], ["What is the title track of album number {n}?", "Qual é a faixa-título do álbum número {n}?"], ["Which album cover is this?", "De qual álbum é esta capa?"]], "de": [["What was the band's second album?", "Was war das zweite Album der Band?"], ["Which song appears on {x}?", "Welcher Song ist auf {x}?"], ["Which album contains the song '{x}'?", "Welches Album enthält den Song '{x}'?"], ["Which album has 10 listed tracks?", "Welches Album hat 10 aufgelistete Tracks?"], ["What is track {n} on the {x}?", "Welcher Song ist Track {n} auf {x}?"], ["Which song is part of {x}?", "Welcher Song gehört zu {x}?"], ["Which album contains '{x}'?", "Welches Album enthält '{x}'?"], ["Which album is number {n} in the discography?", "Welches Album ist Nummer {n} in der Diskografie?"], ["Which album came immediately after {x}?", "Welches Album kam direkt nach {x}?"], ["What is the first track on {x}?", "Was ist der erste Track auf {x}?"], ["What is the final track on {x}?", "Was ist der letzte Track auf {x}?"], ["Which song is track {n} on {x}?", "Welcher Song ist Track {n} auf {x}?"], ["What is track {n} on {x}?", "Was ist Track {n} auf {x}?"], ["Which song is the first track on {x}?", "Welcher Song ist der erste Track auf {x}?"], ["What is the title track of album number {n}?", "Wie heißt der Titeltrack von Album Nummer {n}?"], ["Which album cover is this?", "Zu welchem Album gehört dieses Cover?"]], "ru": [["What was the band's second album?", "Какой альбом был вторым у группы?"], ["Which song appears on {x}?", "Какая песня есть на {x}?"], ["Which album contains the song '{x}'?", "На каком альбоме находится песня '{x}'?"], ["Which album has 10 listed tracks?", "В каком альбоме указано 10 треков?"], ["What is track {n} on the {x}?", "Какой трек под номером {n} на {x}?"], ["Which song is part of {x}?", "Какая песня входит в {x}?"], ["Which album contains '{x}'?", "Какой альбом содержит '{x}'?"], ["Which album is number {n} in the discography?", "Какой альбом имеет номер {n} в дискографии?"], ["Which album came immediately after {x}?", "Какой альбом вышел сразу после {x}?"], ["What is the first track on {x}?", "Какой первый трек на {x}?"], ["What is the final track on {x}?", "Какой последний трек на {x}?"], ["Which song is track {n} on {x}?", "Какая песня является треком {n} на {x}?"], ["What is track {n} on {x}?", "Какой трек под номером {n} на {x}?"], ["Which song is the first track on {x}?", "Какая песня открывает {x}?"], ["What is the title track of album number {n}?", "Какой заглавный трек у альбома номер {n}?"], ["Which album cover is this?", "Обложка какого это альбома?"]], "zh": [["What was the band's second album?", "乐队的第二张专辑是哪一张？"], ["Which song appears on {x}?", "哪首歌收录在 {x}？"], ["Which album contains the song '{x}'?", "哪张专辑收录了歌曲 '{x}'？"], ["Which album has 10 listed tracks?", "哪张专辑列出了 10 首歌？"], ["What is track {n} on the {x}?", "{x} 的第 {n} 首歌是什么？"], ["Which song is part of {x}?", "哪首歌属于 {x}？"], ["Which album contains '{x}'?", "哪张专辑收录了 '{x}'？"], ["Which album is number {n} in the discography?", "作品目录中的第 {n} 张专辑是哪张？"], ["Which album came immediately after {x}?", "紧接在 {x} 之后的是哪张专辑？"], ["What is the first track on {x}?", "{x} 的第一首歌是什么？"], ["What is the final track on {x}?", "{x} 的最后一首歌是什么？"], ["Which song is track {n} on {x}?", "{x} 的第 {n} 首歌是哪首？"], ["What is track {n} on {x}?", "{x} 的第 {n} 首歌是什么？"], ["Which song is the first track on {x}?", "哪首歌是 {x} 的第一首？"], ["What is the title track of album number {n}?", "第 {n} 张专辑的同名主打歌是什么？"], ["Which album cover is this?", "这是哪张专辑的封面？"]], "ja": [["What was the band's second album?", "バンドの2枚目のアルバムは？"], ["Which song appears on {x}?", "{x} に収録されている曲は？"], ["Which album contains the song '{x}'?", "'{x}' が収録されているアルバムは？"], ["Which album has 10 listed tracks?", "10曲収録されているアルバムは？"], ["What is track {n} on the {x}?", "{x} のトラック{n}は？"], ["Which song is part of {x}?", "{x} に収録されている曲は？"], ["Which album contains '{x}'?", "'{x}' が収録されているアルバムは？"], ["Which album is number {n} in the discography?", "ディスコグラフィーの{n}番目のアルバムは？"], ["Which album came immediately after {x}?", "{x} の直後に出たアルバムは？"], ["What is the first track on {x}?", "{x} の1曲目は？"], ["What is the final track on {x}?", "{x} の最後の曲は？"], ["Which song is track {n} on {x}?", "{x} のトラック{n}はどの曲？"], ["What is track {n} on {x}?", "{x} のトラック{n}は？"], ["Which song is the first track on {x}?", "{x} の1曲目はどの曲？"], ["What is the title track of album number {n}?", "アルバム番号{n}のタイトル曲は？"], ["Which album cover is this?", "これはどのアルバムのジャケット？"]], "ko": [["What was the band's second album?", "밴드의 두 번째 앨범은 무엇인가요?"], ["Which song appears on {x}?", "{x}에 수록된 곡은 무엇인가요?"], ["Which album contains the song '{x}'?", "'{x}'가 수록된 앨범은 무엇인가요?"], ["Which album has 10 listed tracks?", "10곡이 수록된 앨범은 무엇인가요?"], ["What is track {n} on the {x}?", "{x}의 {n}번 트랙은 무엇인가요?"], ["Which song is part of {x}?", "{x}에 포함된 곡은 무엇인가요?"], ["Which album contains '{x}'?", "'{x}'가 수록된 앨범은 무엇인가요?"], ["Which album is number {n} in the discography?", "디스코그래피의 {n}번째 앨범은 무엇인가요?"], ["Which album came immediately after {x}?", "{x} 바로 다음 앨범은 무엇인가요?"], ["What is the first track on {x}?", "{x}의 첫 번째 트랙은 무엇인가요?"], ["What is the final track on {x}?", "{x}의 마지막 트랙은 무엇인가요?"], ["Which song is track {n} on {x}?", "{x}의 {n}번 트랙은 어떤 곡인가요?"], ["What is track {n} on {x}?", "{x}의 {n}번 트랙은 무엇인가요?"], ["Which song is the first track on {x}?", "{x}의 첫 곡은 무엇인가요?"], ["What is the title track of album number {n}?", "{n}번 앨범의 타이틀 트랙은 무엇인가요?"], ["Which album cover is this?", "이 앨범 커버는 무엇인가요?"]], "fr": [["What was the band's second album?", "Quel était le deuxième album du groupe ?"], ["Which song appears on {x}?", "Quelle chanson apparaît sur {x} ?"], ["Which album contains the song '{x}'?", "Quel album contient la chanson '{x}' ?"], ["Which album has 10 listed tracks?", "Quel album contient 10 pistes ?"], ["What is track {n} on the {x}?", "Quelle est la piste {n} de {x} ?"], ["Which song is part of {x}?", "Quelle chanson fait partie de {x} ?"], ["Which album contains '{x}'?", "Quel album contient '{x}' ?"], ["Which album is number {n} in the discography?", "Quel album est le numéro {n} de la discographie ?"], ["Which album came immediately after {x}?", "Quel album est sorti juste après {x} ?"], ["What is the first track on {x}?", "Quelle est la première piste de {x} ?"], ["What is the final track on {x}?", "Quelle est la dernière piste de {x} ?"], ["Which song is track {n} on {x}?", "Quelle chanson est la piste {n} de {x} ?"], ["What is track {n} on {x}?", "Quelle est la piste {n} de {x} ?"], ["Which song is the first track on {x}?", "Quelle chanson ouvre {x} ?"], ["What is the title track of album number {n}?", "Quelle est la chanson-titre de l'album numéro {n} ?"], ["Which album cover is this?", "De quel album est cette pochette ?"]], "es": [["What was the band's second album?", "¿Cuál fue el segundo álbum de la banda?"], ["Which song appears on {x}?", "¿Qué canción aparece en {x}?"], ["Which album contains the song '{x}'?", "¿Qué álbum contiene la canción '{x}'?"], ["Which album has 10 listed tracks?", "¿Qué álbum tiene 10 canciones listadas?"], ["What is track {n} on the {x}?", "¿Cuál es la pista {n} de {x}?"], ["Which song is part of {x}?", "¿Qué canción forma parte de {x}?"], ["Which album contains '{x}'?", "¿Qué álbum contiene '{x}'?"], ["Which album is number {n} in the discography?", "¿Qué álbum es el número {n} de la discografía?"], ["Which album came immediately after {x}?", "¿Qué álbum vino inmediatamente después de {x}?"], ["What is the first track on {x}?", "¿Cuál es la primera pista de {x}?"], ["What is the final track on {x}?", "¿Cuál es la última pista de {x}?"], ["Which song is track {n} on {x}?", "¿Qué canción es la pista {n} de {x}?"], ["What is track {n} on {x}?", "¿Cuál es la pista {n} de {x}?"], ["Which song is the first track on {x}?", "¿Qué canción es la primera pista de {x}?"], ["What is the title track of album number {n}?", "¿Cuál es la canción titular del álbum número {n}?"], ["Which album cover is this?", "¿De qué álbum es esta portada?"]]};
+let currentLanguage=localStorage.getItem("literallySteplersLanguage")||"en";
+if(!I18N[currentLanguage]) currentLanguage="en";
+
+function t(key){return (I18N[currentLanguage]&&I18N[currentLanguage][key])||I18N.en[key]||key}
+window.siteT=t;
+window.getSiteLanguage=()=>currentLanguage;
+
+function setText(selector,key,htmlMode=false){
+  const el=document.querySelector(selector);
+  if(el) el[htmlMode?"innerHTML":"textContent"]=t(key);
+}
+function setAll(selector,key){
+  document.querySelectorAll(selector).forEach(el=>el.textContent=t(key));
+}
+
+function patternToRegex(pattern){
+  let esc=pattern.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  esc=esc.replace("\\{x\\}","(.+?)").replace("\\{n\\}","(\\d+)");
+  return new RegExp("^"+esc+"$");
+}
+function translateQuestion(text){
+  if(currentLanguage==="en") return text;
+  const patterns=QPAT[currentLanguage]||[];
+  for(const [src,dst] of patterns){
+    const m=text.match(patternToRegex(src));
+    if(m){
+      let out=dst;
+      let idx=1;
+      if(src.includes("{x}")) out=out.replace("{x}",m[idx++]);
+      if(src.includes("{n}")) out=out.replace("{n}",m[idx++]);
+      return out;
+    }
+  }
+  return text;
+}
+window.translateQuizQuestion=translateQuestion;
+
+function translateExplanation(text){
+  if(currentLanguage==="en") return text;
+  // Keep proper nouns intact while translating the recurring explanatory structure.
+  let m;
+  if((m=text.match(/^(.+?) was the second Literally Steplers album\.$/))){
+    const x=m[1];
+    const map={pt:`${x} foi o segundo álbum do Literally Steplers.`,de:`${x} war das zweite Literally-Steplers-Album.`,ru:`${x} был вторым альбомом Literally Steplers.`,zh:`${x} 是 Literally Steplers 的第二张专辑。`,ja:`${x} は Literally Steplers の2枚目のアルバムです。`,ko:`${x}는 Literally Steplers의 두 번째 앨범입니다.`,fr:`${x} était le deuxième album de Literally Steplers.`,es:`${x} fue el segundo álbum de Literally Steplers.`};
+    return map[currentLanguage]||text;
+  }
+  if((m=text.match(/^(.+?) is part of (.+?)\.$/))){
+    const [_,a,b]=m;
+    const map={pt:`${a} faz parte de ${b}.`,de:`${a} gehört zu ${b}.`,ru:`${a} входит в ${b}.`,zh:`${a} 收录于 ${b}。`,ja:`${a} は ${b} に収録されています。`,ko:`${a}는 ${b}에 수록되어 있습니다.`,fr:`${a} fait partie de ${b}.`,es:`${a} forma parte de ${b}.`};
+    return map[currentLanguage]||text;
+  }
+  if((m=text.match(/^(.+?) appears on (.+?)\.$/))){
+    const [_,a,b]=m;
+    const map={pt:`${a} aparece em ${b}.`,de:`${a} ist auf ${b}.`,ru:`${a} находится на ${b}.`,zh:`${a} 收录于 ${b}。`,ja:`${a} は ${b} に収録されています。`,ko:`${a}는 ${b}에 수록되어 있습니다.`,fr:`${a} apparaît sur ${b}.`,es:`${a} aparece en ${b}.`};
+    return map[currentLanguage]||text;
+  }
+  if((m=text.match(/^(.+?) is track (\d+) on (.+?)\.$/))){
+    const [_,a,n,b]=m;
+    const map={pt:`${a} é a faixa ${n} de ${b}.`,de:`${a} ist Track ${n} auf ${b}.`,ru:`${a} — трек ${n} на ${b}.`,zh:`${a} 是 ${b} 的第 ${n} 首歌。`,ja:`${a} は ${b} のトラック${n}です。`,ko:`${a}는 ${b}의 ${n}번 트랙입니다.`,fr:`${a} est la piste ${n} de ${b}.`,es:`${a} es la pista ${n} de ${b}.`};
+    return map[currentLanguage]||text;
+  }
+  if((m=text.match(/^(.+?) is album number (\d+)(.*)$/))){
+    const [_,a,n,tail]=m;
+    const map={pt:`${a} é o álbum número ${n}.`,de:`${a} ist Album Nummer ${n}.`,ru:`${a} — альбом номер ${n}.`,zh:`${a} 是第 ${n} 张专辑。`,ja:`${a} はアルバム番号${n}です。`,ko:`${a}는 ${n}번째 앨범입니다.`,fr:`${a} est l'album numéro ${n}.`,es:`${a} es el álbum número ${n}.`};
+    return map[currentLanguage]||text;
+  }
+  if((m=text.match(/^This is (?:the )?(.+?) cover\.$/))){
+    const a=m[1];
+    const map={pt:`Esta é a capa de ${a}.`,de:`Das ist das Cover von ${a}.`,ru:`Это обложка ${a}.`,zh:`这是 ${a} 的封面。`,ja:`これは ${a} のジャケットです。`,ko:`이것은 ${a}의 앨범 커버입니다.`,fr:`C'est la pochette de ${a}.`,es:`Esta es la portada de ${a}.`};
+    return map[currentLanguage]||text;
+  }
+  return text;
+}
+window.translateQuizExplanation=translateExplanation;
+
+function applyLanguage(lang){
+  currentLanguage=I18N[lang]?lang:"en";
+  localStorage.setItem("literallySteplersLanguage",currentLanguage);
+  document.documentElement.lang={en:"en",pt:"pt-BR",de:"de",ru:"ru",zh:"zh-CN",ja:"ja",ko:"ko",fr:"fr",es:"es"}[currentLanguage];
+
+  setText(".intro-small","official");
+  setText(".enter-button","enter");
+  setText("#homeNav","home");
+  const nav=document.querySelectorAll("header nav a");
+  if(nav[1]) nav[1].textContent=t("music");
+  if(nav[2]) nav[2].textContent=t("streaming");
+  if(nav[3]) nav[3].textContent=t("game");
+  if(nav[4]) nav[4].textContent=t("options");
+
+  setText(".hero .small-title","bandLabel");
+  setText(".hero p","heroDesc",true);
+  const heroBtns=document.querySelectorAll(".hero-button");
+  if(heroBtns[0]) heroBtns[0].textContent=t("explore");
+  if(heroBtns[1]) heroBtns[1].textContent=t("youtubeChannel");
+  setText("#music .section-number","discography");
+  setText("#music .section-title","albums");
+  setAll(".youtube","playlist");
+
+  setText("#game .section-number","minigame");
+  setText("#game .section-title","quizTitle");
+  setText("#game .game-intro","gameIntro");
+  setText("#game .game-launch h3","howKnow");
+  setText("#game .game-launch p","gameSummary");
+  setText("#openQuizButton","playQuiz");
+
+  setText("#streaming .section-number","listenNow");
+  setText("#streaming .section-title","experience");
+  setText("#streaming .streaming-intro","streamIntro",true);
+  setAll(".platform-label","streamPlatform");
+  document.querySelectorAll(".platform-link span").forEach(el=>el.textContent=t("listen"));
+  setText(".channel","visitChannel");
+
+  setText("#optionsTitle","options");
+  setText("#languageOptionName","language");
+  setText("#languageOptionDescription","languageDesc");
+  const themeName=document.querySelector("#optionsModal .option-name");
+  if(themeName) themeName.textContent=t("siteTheme");
+  const themeDesc=document.querySelector("#optionsModal .option-description");
+  if(themeDesc) themeDesc.textContent=t("themeDesc");
+  const optionNames=document.querySelectorAll("#optionsModal .option-name");
+  const optionDescs=document.querySelectorAll("#optionsModal .option-description");
+  if(optionNames.length) optionNames[optionNames.length-1].textContent=t("effects");
+  if(optionDescs.length) optionDescs[optionDescs.length-1].textContent=t("effectsDesc");
+
+  const themeSpans=document.querySelectorAll(".theme-button span");
+  const themeKeys=["originalTheme","redWhite","goldRed","darkLightRed","whiteGold","goldPink"];
+  themeSpans.forEach((el,i)=>{if(themeKeys[i])el.textContent=t(themeKeys[i])});
+
+  const effectsToggle=document.getElementById("effectsToggle");
+  if(effectsToggle){
+    const isOn=effectsToggle.classList.contains("on");
+    effectsToggle.textContent=isOn?t("on"):t("off");
+  }
+
+  setText(".quiz-header-title","quizHeader");
+  setText(".quiz-kicker","officialQuiz");
+  setText("#quizModalTitle","realStepler");
+  setText(".quiz-desc","quizDesc");
+  const diffBtns=document.querySelectorAll(".quiz-difficulty-btn");
+  if(diffBtns[0]) diffBtns[0].textContent=t("easy");
+  if(diffBtns[1]) diffBtns[1].textContent=t("normal");
+  if(diffBtns[2]) diffBtns[2].textContent=t("diabolical");
+  setText("#quizStart","startGame");
+  const hudLabels=document.querySelectorAll(".quiz-hud-label");
+  const hudKeys=["question","time","streak","points"];
+  hudLabels.forEach((el,i)=>{if(hudKeys[i])el.textContent=t(hudKeys[i])});
+  setText("#quizSpecialBadge","special");
+  setText("#quizNext","next");
+  const scoreKickers=document.querySelectorAll(".quiz-kicker");
+  if(scoreKickers[1]) scoreKickers[1].textContent=t("finalScore");
+  setText("#quizResultTitle","result");
+  setText("#quizRestart","playAgain");
+  setText("#quizResultClose","closeQuiz");
+
+  document.querySelectorAll(".language-button").forEach(btn=>btn.classList.toggle("active",btn.dataset.language===currentLanguage));
+
+  if(typeof window.refreshQuizLanguage==="function") window.refreshQuizLanguage();
+}
+
+window.applySiteLanguage=applyLanguage;
+document.querySelectorAll(".language-button").forEach(btn=>btn.addEventListener("click",()=>applyLanguage(btn.dataset.language)));
+applyLanguage(currentLanguage);
+})();
+</script>
+
+<script id="literally-steplers-quiz-js">
+(function(){
+const quizModal=document.getElementById("quizModal");
+const openQuizButton=document.getElementById("openQuizButton");
+const quizClose=document.getElementById("quizClose");
+const quizStart=document.getElementById("quizStart");
+const quizRestart=document.getElementById("quizRestart");
+const quizResultClose=document.getElementById("quizResultClose");
+const quizNext=document.getElementById("quizNext");
+const quizIntroStage=document.getElementById("quizIntroStage");
+const quizQuestionStage=document.getElementById("quizQuestionStage");
+const quizResultStage=document.getElementById("quizResultStage");
+const quizQuestion=document.getElementById("quizQuestion");
+const quizAnswers=document.getElementById("quizAnswers");
+const quizFeedback=document.getElementById("quizFeedback");
+const quizCount=document.getElementById("quizCount");
+const quizProgress=document.getElementById("quizProgress");
+const quizScore=document.getElementById("quizScore");
+const quizCorrectCount=document.getElementById("quizCorrectCount");
+const quizWrongCount=document.getElementById("quizWrongCount");
+const quizResultTitle=document.getElementById("quizResultTitle");
+const quizResultText=document.getElementById("quizResultText");
+const quizTimer=document.getElementById("quizTimer");
+const quizStreak=document.getElementById("quizStreak");
+const quizPointsEl=document.getElementById("quizPoints");
+const quizTotalPoints=document.getElementById("quizTotalPoints");
+const quizSpecialBadge=document.getElementById("quizSpecialBadge");
+const quizVisual=document.getElementById("quizVisual");
+const quizVisualImage=document.getElementById("quizVisualImage");
+const difficultyButtons=[...document.querySelectorAll(".quiz-difficulty-btn")];
+const quizDifficultyInfo=document.getElementById("quizDifficultyInfo");
+
+const questionBank=[
+  {question:"What was the band's second album?",options:["The Home","Diabolical Dog","Yâmers","Stemers"],correct:"Yâmers",explanation:"Yâmers was the second Literally Steplers album.",level:1},
+  {question:"Which song appears on Hell's Aura?",options:["Captivity","Quirathi","Lyndon","Palms"],correct:"Captivity",explanation:"Captivity is part of Hell's Aura.",level:1},
+  {question:"Which album contains the song 'Quirathi'?",options:["The Home","Stemers","The Page","Canada"],correct:"The Home",explanation:"Quirathi appears on The Home.",level:1},
+  {question:"Which album has 10 listed tracks?",options:["Steplers","Diabolical Dog","Armless John","Real South"],correct:"Steplers",explanation:"Steplers has 10 tracks listed on the site.",level:2},
+  {question:"What is track 04 on the Debut Album?",options:["Literally","Lil Bro","Tung Sahur","God VS Animatronic"],correct:"Literally",explanation:"Literally is track 04 on Debut Album.",level:2},
+  {question:"Which song is part of Stemers?",options:["Tumbulas","The Barrier","The Bill","Classic"],correct:"Tumbulas",explanation:"Tumbulas appears on Stemers.",level:1},
+  {question:"Which album contains 'The Devil's Leash'?",options:["Diabolical Dog","Hell's Aura","Mausoleum","The Tchola"],correct:"Diabolical Dog",explanation:"The Devil's Leash appears on Diabolical Dog.",level:1},
+  {question:"Which album contains 'Mirror Realm _ mlaeR rorriM'?",options:["Steplers","Yâmers","The Home","Laminhapal"],correct:"Steplers",explanation:"Mirror Realm _ mlaeR rorriM appears on Steplers.",level:2},
+  {question:"Which album is number 17 in the discography?",options:["Canada","Real South","Laminhapal","One Team, One Dream"],correct:"Canada",explanation:"Canada is album number 17.",level:3},
+  {question:"Which song appears on One Team, One Dream?",options:["Little Strawberry","Waymaker","Big Blue","Rent-A-Brun"],correct:"Little Strawberry",explanation:"Little Strawberry appears on One Team, One Dream.",level:2},
+
+  {question:"Which album came immediately after Hell's Aura?",options:["The Home","Diabolical Dog","Steplers","Return To The Boat"],correct:"The Home",explanation:"The Home is album number 05, immediately after Hell's Aura.",level:2},
+  {question:"What is the first track on Yâmers?",options:["En La Cadeia","The Peak","Tierlist","Yâmers"],correct:"En La Cadeia",explanation:"En La Cadeia is track 01 on Yâmers.",level:2},
+  {question:"Which album contains the song 'Rodrigo'?",options:["Hell's Aura","Stemers","Diabolical Dog","The Home"],correct:"Hell's Aura",explanation:"Rodrigo is track 03 on Hell's Aura.",level:1},
+  {question:"What is the final track on The Home?",options:["The Home","Daigoleite","Write of the Devil","The Yamers Path"],correct:"The Home",explanation:"The Home is track 06 and the final track on the album.",level:2},
+  {question:"Which song is track 03 on Diabolical Dog?",options:["Hell Rodeo","Goonaldo","The Last Bark","Tio"],correct:"Hell Rodeo",explanation:"Hell Rodeo is track 03 on Diabolical Dog.",level:2},
+  {question:"Which album is number 07 in the discography?",options:["Return To The Boat","Steplers","Herborine","Diabolical Dog"],correct:"Return To The Boat",explanation:"Return To The Boat is album number 07.",level:3},
+  {question:"Which song appears on Return To The Boat?",options:["Literally 2.0","Literally","The Peak","There Him"],correct:"Literally 2.0",explanation:"Literally 2.0 appears on Return To The Boat.",level:1},
+  {question:"What is track 06 on Steplers?",options:["Lyndon","PPN","2 Peak","Ngovij"],correct:"Lyndon",explanation:"Lyndon is track 06 on Steplers.",level:3},
+  {question:"Which album contains 'The Barrier'?",options:["Herborine","Armless John","The Cashier","Mausoleum"],correct:"Herborine",explanation:"The Barrier is track 06 on Herborine.",level:2},
+  {question:"Which album is number 10 in the discography?",options:["Armless John","Herborine","The Cashier","The Guy From Picture"],correct:"Armless John",explanation:"Armless John is album number 10.",level:3},
+  {question:"What is the first track on The Cashier?",options:["Waymaker","Penalman","Neilitaum","Countability"],correct:"Waymaker",explanation:"Waymaker is track 01 on The Cashier.",level:2},
+  {question:"Which album contains 'Green or Purple'?",options:["The Guy From Picture","The Tchola","The Cashier","Real South"],correct:"The Guy From Picture",explanation:"Green or Purple is track 02 on The Guy From Picture.",level:2},
+  {question:"What is track 04 on The Tchola?",options:["Mr. Skin","Unbad","Tendence","Cappucined"],correct:"Mr. Skin",explanation:"Mr. Skin is track 04 on The Tchola.",level:3},
+  {question:"Which song appears on Mausoleum?",options:["Big Blue","Big Liter Challenge","The Bill","The Door"],correct:"Big Blue",explanation:"Big Blue is track 04 on Mausoleum.",level:2},
+  {question:"Which album is number 15 in the discography?",options:["The Page","Mausoleum","Real South","Canada"],correct:"The Page",explanation:"The Page is album number 15.",level:3},
+  {question:"Which song is the first track on Real South?",options:["Palms","Dream","The Message","First One"],correct:"Palms",explanation:"Palms is track 01 on Real South.",level:2},
+  {question:"Which album contains 'The Instrumental Man'?",options:["Canada","Real South","Laminhapal","The Cashier"],correct:"Canada",explanation:"The Instrumental Man is track 06 on Canada.",level:2},
+  {question:"What is track 01 on Laminhapal?",options:["Derby's District","Dig And Bowls","Grabidiqui","Laminhapal"],correct:"Derby's District",explanation:"Derby's District is track 01 on Laminhapal.",level:3},
+  {question:"Which album contains the song 'RD'?",options:["Laminhapal","Canada","One Team, One Dream","Steplers"],correct:"Laminhapal",explanation:"RD is track 07 on Laminhapal.",level:3},
+  {question:"What is the title track of album number 20?",options:["One Team, One Dream","Canada","Laminhapal","Real South"],correct:"One Team, One Dream",explanation:"Album number 20 is One Team, One Dream, which includes its title track.",level:3},
+
+  /* Visual questions — all released album covers currently shown on the site */
+  {question:"Which album cover is this?",options:["Debut Album","Yâmers","Stemers","Hell's Aura"],correct:"Debut Album",explanation:"This is the Debut Album cover.",level:1,image:"images/debut.png"},
+  {question:"Which album cover is this?",options:["Yâmers","Stemers","The Home","Steplers"],correct:"Yâmers",explanation:"This is the Yâmers cover.",level:1,image:"images/yamers.png"},
+  {question:"Which album cover is this?",options:["Stemers","Hell's Aura","Steplers","Herborine"],correct:"Stemers",explanation:"This is the Stemers cover.",level:1,image:"images/stemers.png"},
+  {question:"Which album cover is this?",options:["Hell's Aura","Diabolical Dog","The Home","Mausoleum"],correct:"Hell's Aura",explanation:"This is the Hell's Aura cover.",level:1,image:"images/hells-aura.png"},
+  {question:"Which album cover is this?",options:["The Home","Hell's Aura","Diabolical Dog","Steplers"],correct:"The Home",explanation:"This is The Home cover.",level:1,image:"images/the-home.png"},
+  {question:"Which album cover is this?",options:["Diabolical Dog","Stemers","The Home","Herborine"],correct:"Diabolical Dog",explanation:"This is the Diabolical Dog cover.",level:1,image:"images/diabolical-dog.png"},
+  {question:"Which album cover is this?",options:["Return To The Boat","Debut Album","Steplers","Yâmers"],correct:"Return To The Boat",explanation:"This is the Return To The Boat cover.",level:2,image:"images/return-to-the-boat.png"},
+  {question:"Which album cover is this?",options:["Steplers","Stemers","Yâmers","Return To The Boat"],correct:"Steplers",explanation:"This is the Steplers cover.",level:1,image:"images/steplers.png"},
+  {question:"Which album cover is this?",options:["Herborine","Armless John","Mausoleum","The Tchola"],correct:"Herborine",explanation:"This is the Herborine cover.",level:2,image:"images/herborine.png"},
+  {question:"Which album cover is this?",options:["Armless John","Herborine","The Cashier","The Guy From Picture"],correct:"Armless John",explanation:"This is the Armless John cover.",level:2,image:"images/armless-john.png"},
+  {question:"Which album cover is this?",options:["The Cashier","Armless John","The Tchola","The Page"],correct:"The Cashier",explanation:"This is The Cashier cover.",level:2,image:"images/the-cashier.png"},
+  {question:"Which album cover is this?",options:["The Guy From Picture","The Cashier","The Tchola","Mausoleum"],correct:"The Guy From Picture",explanation:"This is The Guy From Picture cover.",level:2,image:"images/the-guy-from-picture.png"},
+  {question:"Which album cover is this?",options:["The Tchola","The Guy From Picture","The Page","Mausoleum"],correct:"The Tchola",explanation:"This is The Tchola cover.",level:2,image:"images/the-tchola.png"},
+  {question:"Which album cover is this?",options:["Mausoleum","The Tchola","The Page","The Cashier"],correct:"Mausoleum",explanation:"This is the Mausoleum cover.",level:2,image:"images/mausoleum.png"},
+  {question:"Which album cover is this?",options:["The Page","Mausoleum","Real South","Canada"],correct:"The Page",explanation:"This is The Page cover.",level:2,image:"images/the-page.png"},
+  {question:"Which album cover is this?",options:["Real South","Canada","Laminhapal","The Page"],correct:"Real South",explanation:"This is the Real South cover.",level:2,image:"images/real-south.png"},
+  {question:"Which album cover is this?",options:["Canada","Real South","Laminhapal","One Team, One Dream"],correct:"Canada",explanation:"This is the Canada cover.",level:2,image:"images/canada.png"},
+  {question:"Which album cover is this?",options:["Laminhapal","Canada","Real South","One Team, One Dream"],correct:"Laminhapal",explanation:"This is the Laminhapal cover.",level:3,image:"images/laminhapal.png"},
+  {question:"Which album cover is this?",options:["One Team, One Dream","Canada","Laminhapal","Real South"],correct:"One Team, One Dream",explanation:"This is the One Team, One Dream cover.",level:3,image:"images/one-team-one-dream.png"}
+];
+
+const settings={
+  easy:{time:20,levels:[1,2],scoreMultiplier:1,label:"EASY — 20 seconds per question. More album and song recognition."},
+  normal:{time:15,levels:[1,2,3],scoreMultiplier:1.25,label:"NORMAL — 15 seconds per question. Standard scoring."},
+  diabolical:{time:10,levels:[2,3],scoreMultiplier:1.6,label:"DIABOLICAL — 10 seconds per question. Harder questions and higher scores."}
+};
+
+let difficulty="normal";
+let roundQuestions=[];
+let currentIndex=0;
+let correctAnswers=0;
+let wrongAnswers=0;
+let streak=0;
+let totalPoints=0;
+let locked=false;
+let timerInterval=null;
+let timeLeft=0;
+
+function shuffle(items){
+  const copy=[...items];
+  for(let i=copy.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [copy[i],copy[j]]=[copy[j],copy[i]];
+  }
+  return copy;
+}
+
+difficultyButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    difficulty=btn.dataset.difficulty;
+    difficultyButtons.forEach(b=>b.classList.toggle("active",b===btn));
+    quizDifficultyInfo.textContent=window.siteT ? window.siteT(difficulty+"Info") : settings[difficulty].label;
+  });
+});
+
+function showStage(stage){
+  [quizIntroStage,quizQuestionStage,quizResultStage].forEach(el=>el.classList.remove("active"));
+  stage.classList.add("active");
+}
+
+function openQuiz(){
+  quizModal.classList.add("open");
+  quizModal.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  showStage(quizIntroStage);
+}
+
+function closeQuiz(){
+  stopTimer();
+  quizModal.classList.remove("open");
+  quizModal.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+}
+
+function buildRound(){
+  const allowed=settings[difficulty].levels;
+
+  // Album-cover questions are allowed on EASY/NORMAL, but NEVER on DIABOLICAL.
+  let pool=questionBank.filter(q=>{
+    const allowedLevel=allowed.includes(q.level);
+    const allowedVisual=difficulty!=="diabolical" || !q.image;
+    return allowedLevel && allowedVisual;
+  });
+
+  pool=shuffle(pool);
+
+  // Every run has exactly 10 questions.
+  let chosen=pool.slice(0,10);
+
+  // The special double-points DIABOLICAL QUESTION can never be an album-cover question.
+  const eligibleSpecialIndexes=chosen
+    .map((q,i)=>!q.image ? i : -1)
+    .filter(i=>i!==-1);
+
+  const specialIndex=eligibleSpecialIndexes.length
+    ? eligibleSpecialIndexes[Math.floor(Math.random()*eligibleSpecialIndexes.length)]
+    : -1;
+
+  chosen=chosen.map((q,i)=>({
+    ...q,
+    isSpecial:i===specialIndex,
+    roundOptions:shuffle(q.options)
+  }));
+
+  return chosen;
+}
+
+function startRound(){
+  roundQuestions=buildRound();
+  currentIndex=0;
+  correctAnswers=0;
+  wrongAnswers=0;
+  streak=0;
+  totalPoints=0;
+  showStage(quizQuestionStage);
+  renderQuestion();
+}
+
+function renderQuestion(){
+  stopTimer();
+  locked=false;
+  quizNext.style.display="none";
+  quizFeedback.textContent="";
+
+  const item=roundQuestions[currentIndex];
+  quizCount.textContent=`${String(currentIndex+1).padStart(2,"0")} / 10`;
+  quizProgress.style.width=`${(currentIndex/roundQuestions.length)*100}%`;
+  quizQuestion.textContent=window.translateQuizQuestion ? window.translateQuizQuestion(item.question) : item.question;
+  quizStreak.textContent=`×${streak}`;
+  quizPointsEl.textContent=Math.round(totalPoints);
+
+  quizSpecialBadge.classList.toggle("show",!!item.isSpecial);
+
+  if(item.image){
+    quizVisual.classList.add("show");
+    quizVisualImage.src=item.image;
+    quizVisualImage.alt="Blurred album cover";
+  }else{
+    quizVisual.classList.remove("show");
+    quizVisualImage.removeAttribute("src");
+  }
+
+  quizAnswers.innerHTML="";
+  item.roundOptions.forEach(option=>{
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="quiz-answer";
+    button.textContent=option;
+    button.addEventListener("click",()=>answerQuestion(option,button,false));
+    quizAnswers.appendChild(button);
+  });
+
+  startTimer();
+}
+
+function startTimer(){
+  timeLeft=settings[difficulty].time;
+  updateTimerDisplay();
+  timerInterval=setInterval(()=>{
+    timeLeft=Math.max(0,timeLeft-0.1);
+    updateTimerDisplay();
+    if(timeLeft<=0){
+      stopTimer();
+      answerQuestion(null,null,true);
+    }
+  },100);
+}
+
+function stopTimer(){
+  if(timerInterval){
+    clearInterval(timerInterval);
+    timerInterval=null;
+  }
+}
+
+function updateTimerDisplay(){
+  quizTimer.textContent=timeLeft.toFixed(1);
+  quizTimer.classList.toggle("quiz-timer-danger",timeLeft<=5);
+}
+
+function answerQuestion(selected,clickedButton,timedOut){
+  if(locked)return;
+  locked=true;
+  stopTimer();
+
+  const item=roundQuestions[currentIndex];
+  const buttons=[...quizAnswers.querySelectorAll(".quiz-answer")];
+
+  buttons.forEach(button=>{
+    button.disabled=true;
+    if(button.textContent===item.correct)button.classList.add("correct");
+  });
+
+  if(selected===item.correct){
+    correctAnswers++;
+    streak++;
+
+    const speedRatio=Math.max(0,timeLeft/settings[difficulty].time);
+    let gained=100 + Math.round(speedRatio*100);
+
+    // Streak bonus after consecutive correct answers.
+    if(streak>=5) gained*=2;
+    else if(streak>=3) gained=Math.round(gained*1.5);
+
+    gained=Math.round(gained*settings[difficulty].scoreMultiplier);
+    if(item.isSpecial) gained*=2;
+
+    totalPoints+=gained;
+    quizFeedback.textContent=`${window.siteT?window.siteT("correctPrefix"):"CORRECT"} — +${gained} ${window.siteT?window.siteT("pointsWord"):"POINTS"} — ${window.translateQuizExplanation?window.translateQuizExplanation(item.explanation):item.explanation}`;
+  }else{
+    wrongAnswers++;
+    streak=0;
+    if(clickedButton)clickedButton.classList.add("wrong");
+    quizFeedback.textContent=timedOut
+      ? `${window.siteT?window.siteT("timeUp"):"TIME'S UP"} — ${window.translateQuizExplanation?window.translateQuizExplanation(item.explanation):item.explanation}`
+      : `${window.siteT?window.siteT("wrongPrefix"):"WRONG"} — ${window.translateQuizExplanation?window.translateQuizExplanation(item.explanation):item.explanation}`;
+  }
+
+  quizStreak.textContent=`×${streak}`;
+  quizPointsEl.textContent=Math.round(totalPoints);
+  quizProgress.style.width=`${((currentIndex+1)/roundQuestions.length)*100}%`;
+  quizNext.style.display="inline-block";
+  quizNext.textContent=currentIndex===roundQuestions.length-1
+    ? (window.siteT?window.siteT("resultNext"):"SEE RESULT →")
+    : (window.siteT?window.siteT("next"):"NEXT QUESTION →");
+}
+
+function goNext(){
+  currentIndex++;
+  if(currentIndex>=roundQuestions.length)showResult();
+  else renderQuestion();
+}
+
+function showResult(){
+  stopTimer();
+  showStage(quizResultStage);
+
+  quizScore.textContent=`${correctAnswers}/10`;
+  quizCorrectCount.textContent=`${window.siteT?window.siteT("correct"):"CORRECT"}: ${correctAnswers}`;
+  quizWrongCount.textContent=`${window.siteT?window.siteT("wrong"):"WRONG"}: ${wrongAnswers}`;
+  quizTotalPoints.textContent=`${Math.round(totalPoints)} ${window.siteT?window.siteT("pointsWord"):"POINTS"}`;
+
+  const ratio=correctAnswers/10;
+  if(correctAnswers===10){
+    quizResultTitle.textContent=window.siteT?window.siteT("rankPerfect"):"LITERALLY A STEPLER";
+    quizResultText.textContent=window.siteT?window.siteT("rankPerfectText"):"Perfect score. You know the Literally Steplers universe inside out.";
+  }else if(ratio>=0.8){
+    quizResultTitle.textContent=window.siteT?window.siteT("rankGreat"):"CERTIFIED STEPLER";
+    quizResultText.textContent=window.siteT?window.siteT("rankGreatText"):"Excellent run. You clearly know the band.";
+  }else if(ratio>=0.5){
+    quizResultTitle.textContent=window.siteT?window.siteT("rankMid"):"STEPLER IN TRAINING";
+    quizResultText.textContent=window.siteT?window.siteT("rankMidText"):"Not bad. You know the universe, but there is still more chaos to study.";
+  }else{
+    quizResultTitle.textContent=window.siteT?window.siteT("rankLow"):"BACK TO THE DISCOGRAPHY";
+    quizResultText.textContent=window.siteT?window.siteT("rankLowText"):"Time to study the albums and come back stronger.";
+  }
+}
+
+
+window.refreshQuizLanguage=function(){
+  if(!window.siteT) return;
+  if(quizDifficultyInfo) quizDifficultyInfo.textContent=window.siteT(difficulty+"Info");
+  if(quizQuestionStage && quizQuestionStage.classList.contains("active") && roundQuestions[currentIndex]){
+    quizQuestion.textContent=window.translateQuizQuestion ? window.translateQuizQuestion(roundQuestions[currentIndex].question) : roundQuestions[currentIndex].question;
+    if(!locked){
+      quizNext.textContent=window.siteT("next");
+    }
+  }
+  if(quizResultStage && quizResultStage.classList.contains("active")){
+    showResult();
+  }
+};
+
+if(openQuizButton)openQuizButton.addEventListener("click",openQuiz);
+if(quizStart)quizStart.addEventListener("click",startRound);
+if(quizRestart)quizRestart.addEventListener("click",startRound);
+if(quizNext)quizNext.addEventListener("click",goNext);
+if(quizClose)quizClose.addEventListener("click",closeQuiz);
+if(quizResultClose)quizResultClose.addEventListener("click",closeQuiz);
+
+if(quizModal){
+  quizModal.addEventListener("click",event=>{
+    if(event.target===quizModal)closeQuiz();
+  });
+}
+
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape" && quizModal && quizModal.classList.contains("open")){
+    closeQuiz();
+  }
+});
+})();
+</script>
+
+
+<!-- SECRET EASTER EGG: type "sahur" -->
+<img id="secretSahur" src="images/secret1.png" alt="" aria-hidden="true">
+
+
+<script id="secret-sahur-script">
+(function(){
+  let typed="";
+  let revealed=false;
+  const secretWord="sahur";
+
+  document.addEventListener("keydown",function(event){
+    if(revealed) return;
+
+    // Ignore modifier shortcuts.
+    if(event.ctrlKey || event.metaKey || event.altKey) return;
+
+    const key=event.key.toLowerCase();
+
+    // Only track single-character keys.
+    if(key.length!==1){
+      if(key==="escape") typed="";
+      return;
+    }
+
+    typed=(typed+key).slice(-secretWord.length);
+
+    if(typed===secretWord){
+      const image=document.getElementById("secretSahur");
+      if(image){
+        revealed=true;
+        image.classList.add("show");
+      }
+    }
   });
 })();
 </script>
