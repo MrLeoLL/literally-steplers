@@ -2845,7 +2845,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
   <div class="site-version-inner">
     <div class="site-version-main">
       <span class="site-version-label">SITE VERSION</span>
-      <strong>1.45</strong>
+      <strong>1.46</strong>
     </div>
 
     <button class="site-version-toggle" id="siteVersionToggle" type="button">
@@ -2854,7 +2854,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
     <div class="site-version-history" id="siteVersionHistory">
       <div class="version-history-head">
-        <span>VERSION 1.45</span>
+        <span>VERSION 1.46</span>
         <span>CURRENT BUILD</span>
       </div>
 
@@ -2904,6 +2904,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>43</b><span>Guess cover blur and achievement refresh bugs fixed</span></div>
         <div class="version-update"><b>44</b><span>Achievement notification timeout fixed</span></div>
         <div class="version-update"><b>45</b><span>Major rendering, image loading and GPU performance optimization</span></div>
+        <div class="version-update"><b>46</b><span>Achievement count, popup and secret reset command fixed</span></div>
       </div>
     </div>
   </div>
@@ -4678,61 +4679,6 @@ renderProfile();
 </script>
 
 
-<script id="secret-delete-reset-command">
-(function(){
-  let deleteHoldTimer=null;
-  let deleteHolding=false;
-  const HOLD_MS=3000;
-
-  function clearLiterallySteplersData(){
-    try{
-      const keys=[];
-      for(let i=0;i<localStorage.length;i++){
-        const key=localStorage.key(i);
-        if(key && (
-          key.toLowerCase().includes("literallysteplers") ||
-          key.toLowerCase().includes("steplers")
-        )){
-          keys.push(key);
-        }
-      }
-      keys.forEach(key=>localStorage.removeItem(key));
-    }catch(e){}
-
-    location.reload();
-  }
-
-  document.addEventListener("keydown",function(event){
-    if(event.key!=="Delete") return;
-    if(deleteHolding || event.repeat) return;
-
-    deleteHolding=true;
-    deleteHoldTimer=setTimeout(function(){
-      clearLiterallySteplersData();
-    },HOLD_MS);
-  });
-
-  document.addEventListener("keyup",function(event){
-    if(event.key!=="Delete") return;
-
-    deleteHolding=false;
-    if(deleteHoldTimer){
-      clearTimeout(deleteHoldTimer);
-      deleteHoldTimer=null;
-    }
-  });
-
-  window.addEventListener("blur",function(){
-    deleteHolding=false;
-    if(deleteHoldTimer){
-      clearTimeout(deleteHoldTimer);
-      deleteHoldTimer=null;
-    }
-  });
-})();
-</script>
-
-
 <script id="site-version-script">
 (function(){
   const button=document.getElementById("siteVersionToggle");
@@ -5017,116 +4963,6 @@ targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe
 </script>
 
 
-<style id="achievement-toast-hard-hide-style">
-#achievementToast{
-  transition:opacity .25s ease, transform .25s ease!important;
-}
-#achievementToast.toast-force-hidden{
-  opacity:0!important;
-  transform:translateY(18px)!important;
-  pointer-events:none!important;
-  visibility:hidden!important;
-}
-</style>
-
-<script id="achievement-toast-hard-hide-fix">
-(function(){
-  let hideTimer = 0;
-  let cleanupTimer = 0;
-
-  function getToast(){
-    return document.getElementById("achievementToast");
-  }
-
-  function hideAchievementToast(){
-    const toast = getToast();
-    if(!toast) return;
-
-    clearTimeout(hideTimer);
-    clearTimeout(cleanupTimer);
-
-    // Remove every state that can keep the notification visible.
-    toast.classList.remove("show","active","visible","open");
-    toast.classList.add("toast-force-hidden");
-    toast.setAttribute("aria-hidden","true");
-
-    // Keep the fade-out brief, then fully remove it from layout/rendering.
-    cleanupTimer = setTimeout(function(){
-      toast.style.display = "none";
-    }, 280);
-  }
-
-  function armAchievementToast(){
-    const toast = getToast();
-    if(!toast) return;
-
-    clearTimeout(hideTimer);
-    clearTimeout(cleanupTimer);
-
-    // A new achievement may reuse the same element.
-    toast.style.removeProperty("display");
-    toast.classList.remove("toast-force-hidden");
-    toast.setAttribute("aria-hidden","false");
-
-    // Hard deadline: notification cannot remain stuck.
-    hideTimer = setTimeout(hideAchievementToast, 3600);
-  }
-
-  const toast = getToast();
-  if(!toast) return;
-
-  // Detect ANY way the existing achievement code makes the toast visible.
-  new MutationObserver(function(){
-    const t = getToast();
-    if(!t) return;
-
-    const visible =
-      t.classList.contains("show") ||
-      t.classList.contains("active") ||
-      t.classList.contains("visible") ||
-      t.classList.contains("open");
-
-    if(visible && !t.classList.contains("toast-force-hidden")){
-      armAchievementToast();
-    }
-  }).observe(toast,{
-    attributes:true,
-    attributeFilter:["class","style"],
-    childList:true,
-    subtree:true
-  });
-
-  // Catch the original toast function even if it changes classes asynchronously.
-  document.addEventListener("click",function(){
-    const t=getToast();
-    if(t && (
-      t.classList.contains("show") ||
-      t.classList.contains("active") ||
-      t.classList.contains("visible") ||
-      t.classList.contains("open")
-    )){
-      armAchievementToast();
-    }
-  },true);
-
-  // Safety net in case the original code leaves the element visible without a known class.
-  setInterval(function(){
-    const t=getToast();
-    if(!t || t.classList.contains("toast-force-hidden")) return;
-    const s=getComputedStyle(t);
-    if(s.display!=="none" && s.visibility!=="hidden" && parseFloat(s.opacity||"1")>0){
-      if(t.classList.contains("show") || t.classList.contains("active") ||
-         t.classList.contains("visible") || t.classList.contains("open")){
-        if(!hideTimer) armAchievementToast();
-      }
-    }
-  },500);
-
-  window.hideAchievementToast = hideAchievementToast;
-})();
-</script>
-
-
 <script id="idle-optimization-v145">
 (function(){
   const idle=window.requestIdleCallback || function(cb){return setTimeout(cb,120)};
@@ -5138,6 +4974,206 @@ targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe
       }catch(e){}
     });
   },{once:true});
+})();
+</script>
+
+
+<script id="combined-achievements-fix-v146">
+(function(){
+  const GUESS_KEY="literallySteplersGuessAchievementsV1";
+
+  const guessDefs=[
+    {id:"sharp_eyes",name:"SHARP EYES",hint:"Finish a Guess the Album run without missing a single cover."},
+    {id:"no_blur_needed",name:"NO BLUR NEEDED",hint:"Recognize a cover almost immediately, before the blur has much time to fade."},
+    {id:"cover_collector",name:"COVER COLLECTOR",hint:"Correctly identify 10 different album covers."},
+    {id:"visual_master",name:"VISUAL MASTER",hint:"Correctly identify every album cover available in Guess the Album."}
+  ];
+
+  let renderQueued=false;
+
+  function getGuessState(){
+    try{
+      const data=JSON.parse(localStorage.getItem(GUESS_KEY)||"{}");
+      return {unlocked:data.unlocked||{}};
+    }catch(e){
+      return {unlocked:{}};
+    }
+  }
+
+  function renderGuessAchievementCards(){
+    const grid=document.getElementById("achievementsGrid");
+    if(!grid)return;
+
+    // Do not duplicate.
+    grid.querySelectorAll('[data-guess-achievement="v146"]').forEach(el=>el.remove());
+
+    const state=getGuessState();
+
+    guessDefs.forEach((a,index)=>{
+      const done=!!state.unlocked[a.id];
+      const card=document.createElement("div");
+      card.className="achievement-card "+(done?"unlocked":"");
+      card.dataset.guessAchievement="v146";
+      card.innerHTML=`
+        <div class="achievement-icon">${done?"✓":"?"}</div>
+        <div>
+          <div class="achievement-status">${done?"UNLOCKED":"LOCKED"} · G${String(index+1).padStart(2,"0")}</div>
+          <div class="achievement-name">${done?a.name:"SECRET ACHIEVEMENT"}</div>
+          <div class="achievement-hint">${done?"Completed — "+a.hint:"HINT — "+a.hint}</div>
+          <div class="achievement-reward">GUESS THE ALBUM ACHIEVEMENT</div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    let baseUnlocked=0;
+    try{
+      const base=JSON.parse(localStorage.getItem("literallySteplersAchievementsV1")||"{}");
+      baseUnlocked=base.unlocked?Object.keys(base.unlocked).length:0;
+    }catch(e){}
+
+    const guessUnlocked=Object.keys(state.unlocked).length;
+    const count=document.getElementById("achievementCount");
+    if(count)count.textContent=(baseUnlocked+guessUnlocked)+" / 14";
+
+    const stat=document.getElementById("statAchievements");
+    if(stat)stat.textContent=(baseUnlocked+guessUnlocked)+" / 14";
+
+    try{
+      if(window.applyCompleteLanguage)window.applyCompleteLanguage();
+    }catch(e){}
+  }
+
+  function queueRender(){
+    if(renderQueued)return;
+    renderQueued=true;
+    setTimeout(function(){
+      renderQueued=false;
+      renderGuessAchievementCards();
+    },25);
+  }
+
+  const grid=document.getElementById("achievementsGrid");
+  if(grid){
+    new MutationObserver(queueRender).observe(grid,{childList:true});
+  }
+
+  document.getElementById("achievementsOpen")?.addEventListener("click",function(){
+    setTimeout(renderGuessAchievementCards,40);
+  });
+
+  document.getElementById("profileOpen")?.addEventListener("click",function(){
+    setTimeout(renderGuessAchievementCards,40);
+  });
+
+  window.addEventListener("steplersAchievementChanged",function(){
+    setTimeout(renderGuessAchievementCards,20);
+  });
+
+  window.addEventListener("load",function(){
+    setTimeout(renderGuessAchievementCards,120);
+  });
+
+  window.renderCombinedAchievements=renderGuessAchievementCards;
+})();
+</script>
+
+
+<style id="achievement-toast-stable-v146">
+#achievementToast{
+  display:block!important;
+  visibility:visible;
+  pointer-events:none!important;
+  transition:opacity .28s ease,transform .28s ease!important;
+}
+#achievementToast:not(.show){
+  opacity:0!important;
+  transform:translateY(35px)!important;
+  visibility:hidden!important;
+}
+#achievementToast.show{
+  opacity:1!important;
+  transform:translateY(0)!important;
+  visibility:visible!important;
+}
+</style>
+
+<script id="achievement-toast-stable-v146">
+(function(){
+  const toast=document.getElementById("achievementToast");
+  if(!toast)return;
+
+  let timer=null;
+
+  function arm(){
+    clearTimeout(timer);
+    // Undo any legacy inline hiding from previous implementations.
+    toast.style.removeProperty("display");
+    toast.style.removeProperty("visibility");
+    toast.classList.remove("toast-force-hidden");
+
+    timer=setTimeout(function(){
+      toast.classList.remove("show","active","visible","open");
+    },3600);
+  }
+
+  new MutationObserver(function(){
+    if(toast.classList.contains("show")){
+      arm();
+    }
+  }).observe(toast,{attributes:true,attributeFilter:["class"]});
+
+  window.showStableAchievementToast=function(){
+    toast.classList.remove("toast-force-hidden");
+    toast.style.removeProperty("display");
+    toast.classList.add("show");
+    arm();
+  };
+
+  window.hideStableAchievementToast=function(){
+    clearTimeout(timer);
+    toast.classList.remove("show","active","visible","open");
+  };
+})();
+</script>
+
+
+<script id="secret-delete-word-reset-v146">
+(function(){
+  let buffer="";
+  let clearTimer=null;
+
+  function resetSiteData(){
+    try{
+      const keys=[];
+      for(let i=0;i<localStorage.length;i++){
+        const key=localStorage.key(i);
+        if(key && (
+          key.toLowerCase().includes("literallysteplers") ||
+          key.toLowerCase().includes("steplers")
+        )){
+          keys.push(key);
+        }
+      }
+      keys.forEach(key=>localStorage.removeItem(key));
+    }catch(e){}
+    location.reload();
+  }
+
+  document.addEventListener("keydown",function(event){
+    if(event.ctrlKey||event.metaKey||event.altKey)return;
+    if(event.key.length!==1)return;
+
+    buffer=(buffer+event.key.toLowerCase()).slice(-6);
+
+    clearTimeout(clearTimer);
+    clearTimer=setTimeout(()=>buffer="",1800);
+
+    if(buffer==="delete"){
+      buffer="";
+      clearTimeout(clearTimer);
+      resetSiteData();
+    }
+  });
 })();
 </script>
 
