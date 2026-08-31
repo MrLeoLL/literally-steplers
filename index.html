@@ -2570,6 +2570,107 @@ body.pathtracing-mode .home-ring{
 }
 </style>
 
+
+<style id="options-structure-fix-v156">
+/* Path Tracing and Language are separate sibling rows. */
+.performance-option-row{
+  margin-bottom:0!important;
+}
+
+.pathtracing-option-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 142px!important;
+  align-items:center!important;
+  column-gap:32px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:22px 4px!important;
+  box-sizing:border-box!important;
+  border-bottom:1px solid #242424!important;
+}
+
+.pathtracing-option-copy{
+  min-width:0!important;
+  width:100%!important;
+}
+
+.pathtracing-option-row .option-name,
+.pathtracing-option-row .option-description{
+  position:static!important;
+  float:none!important;
+  width:auto!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+.pathtracing-option-row .option-name{
+  margin-bottom:7px!important;
+}
+
+.pathtracing-option-row .option-description{
+  line-height:1.5!important;
+  white-space:normal!important;
+}
+
+.pathtracing-option-row .pathtracing-toggle{
+  position:static!important;
+  float:none!important;
+  width:142px!important;
+  min-width:142px!important;
+  margin:0!important;
+  justify-self:end!important;
+}
+
+.language-option-row{
+  display:block!important;
+  width:100%!important;
+  clear:both!important;
+  margin:0!important;
+  padding:26px 4px 4px!important;
+  box-sizing:border-box!important;
+}
+
+.language-option-row #languageOptionName,
+.language-option-row #languageOptionDescription{
+  position:static!important;
+  float:none!important;
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+.language-option-row #languageOptionName{
+  margin-bottom:8px!important;
+}
+
+.language-option-row #languageOptionDescription{
+  margin-bottom:20px!important;
+  line-height:1.5!important;
+}
+
+.language-option-row .language-options{
+  position:static!important;
+  clear:both!important;
+  width:100%!important;
+  margin:0!important;
+}
+
+@media(max-width:760px){
+  .pathtracing-option-row{
+    grid-template-columns:1fr!important;
+    row-gap:16px!important;
+  }
+  .pathtracing-option-row .pathtracing-toggle{
+    justify-self:start!important;
+    width:100%!important;
+    max-width:260px!important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -3234,17 +3335,16 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
   <button class="performance-toggle" id="performanceToggle" type="button">OFF</button>
 </div>
 
-<div class="option-row" style="display:block">
-  <div class="option-name" id="languageOptionName">LANGUAGE</div>
-
 <div class="option-row pathtracing-option-row">
-  <div>
+  <div class="pathtracing-option-copy">
     <div class="option-name" id="pathtracingOptionName">PATH TRACING MODE</div>
     <div class="option-description" id="pathtracingOptionDescription">Ultra visual quality. Adds cinematic lighting, reflective highlights, stronger depth, glass effects and maximum graphics.</div>
   </div>
   <button class="pathtracing-toggle" id="pathtracingToggle" type="button">OFF</button>
 </div>
 
+<div class="option-row language-option-row" style="display:block">
+  <div class="option-name" id="languageOptionName">LANGUAGE</div>
   <div class="option-description" id="languageOptionDescription">Choose the language of the site.</div>
   <div class="language-options" id="languageOptions">
     <button class="language-button active" type="button" data-language="en">ENGLISH</button>
@@ -3258,10 +3358,10 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <section class="site-version-section" id="siteVersion">
   <div class="site-version-inner">
-    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.55</strong></div>
+    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.56</strong></div>
     <button class="site-version-toggle" id="siteVersionToggle" type="button">VIEW UPDATE HISTORY <span>+</span></button>
     <div class="site-version-history" id="siteVersionHistory">
-      <div class="version-history-head"><span>VERSION 1.55</span><span>CURRENT BUILD</span></div>
+      <div class="version-history-head"><span>VERSION 1.56</span><span>CURRENT BUILD</span></div>
       <div class="version-update-grid">
         <div class="version-update"><b>01</b><span>Custom Era Themes system</span></div>
         <div class="version-update"><b>02</b><span>Theme-aware colors and readability</span></div>
@@ -3298,6 +3398,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>33</b><span>Path Tracing option spacing improved in Options</span></div>
         <div class="version-update"><b>34</b><span>Path Tracing graphics upgraded with cinematic lighting and reflections</span></div>
         <div class="version-update"><b>35</b><span>Path Tracing and Language layout overlap fixed</span></div>
+        <div class="version-update"><b>36</b><span>Options DOM structure corrected so Path Tracing no longer nests inside Language</span></div>
       </div>
     </div>
   </div>
