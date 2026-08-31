@@ -2845,7 +2845,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
   <div class="site-version-inner">
     <div class="site-version-main">
       <span class="site-version-label">SITE VERSION</span>
-      <strong>1.46</strong>
+      <strong>1.48</strong>
     </div>
 
     <button class="site-version-toggle" id="siteVersionToggle" type="button">
@@ -2854,7 +2854,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
     <div class="site-version-history" id="siteVersionHistory">
       <div class="version-history-head">
-        <span>VERSION 1.46</span>
+        <span>VERSION 1.48</span>
         <span>CURRENT BUILD</span>
       </div>
 
@@ -2905,6 +2905,8 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>44</b><span>Achievement notification timeout fixed</span></div>
         <div class="version-update"><b>45</b><span>Major rendering, image loading and GPU performance optimization</span></div>
         <div class="version-update"><b>46</b><span>Achievement count, popup and secret reset command fixed</span></div>
+        <div class="version-update"><b>47</b><span>Memory optimization attempt reverted</span></div>
+        <div class="version-update"><b>48</b><span>Memory leak fixed without changing site behavior</span></div>
       </div>
     </div>
   </div>
@@ -4851,9 +4853,11 @@ window.applyCompleteLanguage=applyAll;
 document.querySelectorAll(".language-button").forEach(b=>b.addEventListener("click",()=>setTimeout(applyAll,60)));
 window.addEventListener("load",()=>setTimeout(applyAll,80));
 
-// Dynamic systems rerender cards and stats; keep them translated.
-const targets=["achievementsGrid","eraPickerGrid","profileModal","guessModal"].map(id=>document.getElementById(id)).filter(Boolean);
-targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe(target,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:["class"]}));
+// Dynamic UI translation refresh without recursive DOM observers.
+["achievementsOpen","profileOpen","eraPickerOpen","openGuessButton","guessNext","guessRestart"].forEach(id=>{
+  document.getElementById(id)?.addEventListener("click",()=>setTimeout(applyAll,60));
+});
+window.addEventListener("steplersAchievementChanged",()=>setTimeout(applyAll,60));
 })();
 </script>
 
@@ -4989,8 +4993,6 @@ targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe
     {id:"visual_master",name:"VISUAL MASTER",hint:"Correctly identify every album cover available in Guess the Album."}
   ];
 
-  let renderQueued=false;
-
   function getGuessState(){
     try{
       const data=JSON.parse(localStorage.getItem(GUESS_KEY)||"{}");
@@ -5043,22 +5045,9 @@ targets.forEach(target=>new MutationObserver(()=>setTimeout(applyAll,0)).observe
     }catch(e){}
   }
 
-  function queueRender(){
-    if(renderQueued)return;
-    renderQueued=true;
-    setTimeout(function(){
-      renderQueued=false;
-      renderGuessAchievementCards();
-    },25);
-  }
-
-  const grid=document.getElementById("achievementsGrid");
-  if(grid){
-    new MutationObserver(queueRender).observe(grid,{childList:true});
-  }
-
   document.getElementById("achievementsOpen")?.addEventListener("click",function(){
     setTimeout(renderGuessAchievementCards,40);
+    setTimeout(renderGuessAchievementCards,120);
   });
 
   document.getElementById("profileOpen")?.addEventListener("click",function(){
