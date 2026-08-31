@@ -2198,6 +2198,289 @@ body.performance-mode.pathtracing-mode{
 }
 </style>
 
+
+<style id="pathtracing-ultra-graphics-v154">
+/* =========================================================
+   PATH TRACING ULTRA — higher-end visual pass
+   Only active when Path Tracing Mode is ON.
+   ========================================================= */
+
+/* Animated ambient light field behind the entire site */
+body.pathtracing-mode::before,
+body.pathtracing-mode::after{
+  content:"";
+  position:fixed;
+  pointer-events:none;
+  z-index:-1;
+  border-radius:50%;
+  filter:blur(130px);
+  mix-blend-mode:screen;
+  will-change:transform,opacity;
+}
+
+body.pathtracing-mode::before{
+  width:58vw;
+  height:58vw;
+  left:-18vw;
+  top:-20vw;
+  background:
+    radial-gradient(circle,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 42%,transparent) 0%,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 15%,transparent) 28%,
+      transparent 72%);
+  opacity:.34;
+  animation:pathAmbientA 15s ease-in-out infinite alternate;
+}
+
+body.pathtracing-mode::after{
+  width:52vw;
+  height:52vw;
+  right:-18vw;
+  bottom:-20vw;
+  background:
+    radial-gradient(circle,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 35%,#fff 10%) 0%,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 13%,transparent) 34%,
+      transparent 72%);
+  opacity:.24;
+  animation:pathAmbientB 18s ease-in-out infinite alternate;
+}
+
+@keyframes pathAmbientA{
+  0%{transform:translate3d(0,0,0) scale(1)}
+  100%{transform:translate3d(16vw,12vh,0) scale(1.15)}
+}
+@keyframes pathAmbientB{
+  0%{transform:translate3d(0,0,0) scale(1)}
+  100%{transform:translate3d(-14vw,-10vh,0) scale(1.12)}
+}
+
+/* Stronger glass treatment */
+body.pathtracing-mode header,
+body.pathtracing-mode .options-panel,
+body.pathtracing-mode .meta-panel,
+body.pathtracing-mode .quiz-panel,
+body.pathtracing-mode .era-picker-panel,
+body.pathtracing-mode .achievements-panel{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.008) 26%,transparent 58%),
+    color-mix(in srgb,var(--custom-panel,#090909) 90%,transparent)!important;
+  backdrop-filter:blur(28px) saturate(1.32) contrast(1.04)!important;
+  -webkit-backdrop-filter:blur(28px) saturate(1.32) contrast(1.04)!important;
+  border-color:color-mix(in srgb,var(--custom-accent,#c8b38a) 26%,#292929)!important;
+}
+
+/* Light-catching edge around major panels */
+body.pathtracing-mode .options-panel,
+body.pathtracing-mode .meta-panel,
+body.pathtracing-mode .quiz-panel,
+body.pathtracing-mode .era-picker-panel,
+body.pathtracing-mode .achievements-panel,
+body.pathtracing-mode .lore-inline-card{
+  position:relative;
+  overflow:hidden;
+}
+
+body.pathtracing-mode .options-panel::before,
+body.pathtracing-mode .meta-panel::before,
+body.pathtracing-mode .quiz-panel::before,
+body.pathtracing-mode .era-picker-panel::before,
+body.pathtracing-mode .achievements-panel::before,
+body.pathtracing-mode .lore-inline-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    linear-gradient(120deg,
+      rgba(255,255,255,.10),
+      transparent 16%,
+      transparent 72%,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 12%,transparent));
+  opacity:.52;
+  mix-blend-mode:screen;
+}
+
+/* Premium specular highlight on album/game/platform cards */
+body.pathtracing-mode .album,
+body.pathtracing-mode .game-card,
+body.pathtracing-mode .platform-card,
+body.pathtracing-mode .era-card{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+
+body.pathtracing-mode .album::before,
+body.pathtracing-mode .game-card::before,
+body.pathtracing-mode .platform-card::before,
+body.pathtracing-mode .era-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  z-index:0;
+  pointer-events:none;
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,.14) 0%,
+      transparent 17%,
+      transparent 72%,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 18%,transparent) 100%);
+  opacity:.46;
+  mix-blend-mode:screen;
+}
+
+body.pathtracing-mode .album > *,
+body.pathtracing-mode .game-card > *,
+body.pathtracing-mode .platform-card > *,
+body.pathtracing-mode .era-card > *{
+  position:relative;
+  z-index:1;
+}
+
+/* Animated rim glow */
+body.pathtracing-mode .album:hover,
+body.pathtracing-mode .game-card:hover,
+body.pathtracing-mode .platform-card:hover,
+body.pathtracing-mode .era-card:hover{
+  border-color:color-mix(in srgb,var(--custom-accent,#c8b38a) 70%,#fff 6%)!important;
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.48),
+    0 0 0 1px color-mix(in srgb,var(--custom-accent,#c8b38a) 22%,transparent),
+    0 0 32px color-mix(in srgb,var(--custom-accent,#c8b38a) 24%,transparent),
+    0 0 80px color-mix(in srgb,var(--custom-accent,#c8b38a) 10%,transparent)!important;
+}
+
+/* Better album image depth */
+body.pathtracing-mode .album-cover,
+body.pathtracing-mode .era-preview-cover,
+body.pathtracing-mode .era-card img,
+body.pathtracing-mode .lore-inline-card img{
+  box-shadow:
+    0 16px 42px rgba(0,0,0,.34),
+    0 1px 0 rgba(255,255,255,.05) inset!important;
+}
+
+body.pathtracing-mode .album:hover .album-cover,
+body.pathtracing-mode .era-card:hover img,
+body.pathtracing-mode .era-preview-cover-wrap:hover .era-preview-cover{
+  transform:perspective(900px) translateY(-4px) scale(1.05)!important;
+}
+
+/* High-quality text glow, subtle enough to remain readable */
+body.pathtracing-mode .hero h1{
+  text-shadow:
+    0 24px 55px rgba(0,0,0,.42),
+    0 0 28px color-mix(in srgb,var(--custom-accent,#c8b38a) 14%,transparent),
+    0 0 70px color-mix(in srgb,var(--custom-accent,#c8b38a) 6%,transparent)!important;
+}
+
+body.pathtracing-mode .section-title,
+body.pathtracing-mode .game-card h3,
+body.pathtracing-mode .meta-header h2{
+  text-shadow:
+    0 10px 30px rgba(0,0,0,.34),
+    0 0 20px color-mix(in srgb,var(--custom-accent,#c8b38a) 10%,transparent)!important;
+}
+
+/* Gloss pass over buttons */
+body.pathtracing-mode .hero-button,
+body.pathtracing-mode .game-play-button,
+body.pathtracing-mode .era-picker-open,
+body.pathtracing-mode .achievements-open-options,
+body.pathtracing-mode .profile-open-options,
+body.pathtracing-mode .platform-link,
+body.pathtracing-mode .pathtracing-toggle.on{
+  position:relative;
+  overflow:hidden;
+}
+
+body.pathtracing-mode .hero-button::after,
+body.pathtracing-mode .game-play-button::after,
+body.pathtracing-mode .era-picker-open::after,
+body.pathtracing-mode .achievements-open-options::after,
+body.pathtracing-mode .profile-open-options::after,
+body.pathtracing-mode .platform-link::after{
+  content:"";
+  position:absolute;
+  top:-120%;
+  left:-30%;
+  width:28%;
+  height:330%;
+  pointer-events:none;
+  transform:rotate(18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+  opacity:0;
+  transition:left .55s ease,opacity .2s ease;
+}
+
+body.pathtracing-mode .hero-button:hover::after,
+body.pathtracing-mode .game-play-button:hover::after,
+body.pathtracing-mode .era-picker-open:hover::after,
+body.pathtracing-mode .achievements-open-options:hover::after,
+body.pathtracing-mode .profile-open-options:hover::after,
+body.pathtracing-mode .platform-link:hover::after{
+  left:108%;
+  opacity:1;
+}
+
+/* More cinematic section lighting */
+body.pathtracing-mode .music-section,
+body.pathtracing-mode .streaming-section,
+body.pathtracing-mode .games-zone,
+body.pathtracing-mode .lore-inline-section{
+  background:
+    radial-gradient(circle at 50% 0%,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 5%,transparent),
+      transparent 42%)!important;
+}
+
+/* Better achievement popup */
+body.pathtracing-mode .achievement-toast{
+  backdrop-filter:blur(22px) saturate(1.3)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(1.3)!important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 10%,#090909),
+      #090909 65%)!important;
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.58),
+    0 0 0 1px color-mix(in srgb,var(--custom-accent,#c8b38a) 20%,transparent),
+    0 0 48px color-mix(in srgb,var(--custom-accent,#c8b38a) 28%,transparent)!important;
+}
+
+/* Give modal backgrounds a richer cinematic falloff */
+body.pathtracing-mode .options-modal,
+body.pathtracing-mode .quiz-modal,
+body.pathtracing-mode .era-picker-modal,
+body.pathtracing-mode .achievements-modal,
+body.pathtracing-mode .meta-modal,
+body.pathtracing-mode .cover-modal{
+  background:
+    radial-gradient(circle at 50% 34%,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 8%,transparent),
+      rgba(0,0,0,.84) 48%,
+      rgba(0,0,0,.94) 100%)!important;
+}
+
+/* The Home angelical scene gets its most expensive visual pass here */
+body.pathtracing-mode #homeTransition::before{
+  filter:brightness(.82) saturate(1.06) contrast(1.02)!important;
+}
+body.pathtracing-mode .home-glow{
+  filter:blur(135px)!important;
+  opacity:.92!important;
+}
+body.pathtracing-mode .home-ring{
+  box-shadow:
+    0 0 28px rgba(255,255,255,.88),
+    0 0 90px rgba(255,220,170,.48),
+    0 0 170px rgba(255,235,205,.22),
+    inset 0 0 75px rgba(255,255,255,.22)!important;
+}
+</style>
+
 </head>
 
 <body>
@@ -2868,7 +3151,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 <div class="option-row pathtracing-option-row">
   <div>
     <div class="option-name" id="pathtracingOptionName">PATH TRACING MODE</div>
-    <div class="option-description" id="pathtracingOptionDescription">Maximum visual quality. Enables heavier glows, blur, shadows, animations and premium effects.</div>
+    <div class="option-description" id="pathtracingOptionDescription">Ultra visual quality. Adds cinematic lighting, reflective highlights, stronger depth, glass effects and maximum graphics.</div>
   </div>
   <button class="pathtracing-toggle" id="pathtracingToggle" type="button">OFF</button>
 </div>
@@ -2886,10 +3169,10 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <section class="site-version-section" id="siteVersion">
   <div class="site-version-inner">
-    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.53</strong></div>
+    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.54</strong></div>
     <button class="site-version-toggle" id="siteVersionToggle" type="button">VIEW UPDATE HISTORY <span>+</span></button>
     <div class="site-version-history" id="siteVersionHistory">
-      <div class="version-history-head"><span>VERSION 1.53</span><span>CURRENT BUILD</span></div>
+      <div class="version-history-head"><span>VERSION 1.54</span><span>CURRENT BUILD</span></div>
       <div class="version-update-grid">
         <div class="version-update"><b>01</b><span>Custom Era Themes system</span></div>
         <div class="version-update"><b>02</b><span>Theme-aware colors and readability</span></div>
@@ -2924,6 +3207,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>31</b><span>All quiz question templates translated into Portuguese and Spanish</span></div>
         <div class="version-update"><b>32</b><span>Path Tracing Mode added for maximum visual quality</span></div>
         <div class="version-update"><b>33</b><span>Path Tracing option spacing improved in Options</span></div>
+        <div class="version-update"><b>34</b><span>Path Tracing graphics upgraded with cinematic lighting and reflections</span></div>
       </div>
     </div>
   </div>
@@ -4835,17 +5119,17 @@ b.addEventListener("click",()=>{const o=h.classList.toggle("open");b.classList.t
   const labels={
     en:{
       name:"PATH TRACING MODE",
-      desc:"Maximum visual quality. Enables heavier glows, blur, shadows, animations and premium effects.",
+      desc:"Ultra visual quality. Adds cinematic lighting, reflective highlights, stronger depth, glass effects and maximum graphics.",
       on:"ON",off:"OFF"
     },
     pt:{
       name:"MODO PATH TRACING",
-      desc:"Qualidade visual máxima. Ativa brilhos, desfoques, sombras, animações e efeitos mais pesados.",
+      desc:"Qualidade visual ultra. Adiciona iluminação cinematográfica, reflexos, mais profundidade, vidro e gráficos no máximo.",
       on:"LIGADO",off:"DESLIGADO"
     },
     es:{
       name:"MODO PATH TRACING",
-      desc:"Calidad visual máxima. Activa brillos, desenfoques, sombras, animaciones y efectos más pesados.",
+      desc:"Calidad visual ultra. Añade iluminación cinematográfica, reflejos, más profundidad, cristal y gráficos al máximo.",
       on:"ACTIVADO",off:"DESACTIVADO"
     }
   };
