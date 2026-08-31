@@ -1249,7 +1249,7 @@ body[data-era-light="true"] .performance-toggle.on{
 
 #intro{--boot-a:#c8b38a;--boot-b:#fff}
 #intro{background:radial-gradient(circle at center,color-mix(in srgb,var(--boot-a) 18%,#151515) 0%,#050505 58%,#000 100%)!important}
-.boot-era-label{margin-top:15px;font-size:8px;letter-spacing:3px;color:var(--boot-a)!important}
+
 
 body.performance-mode .meta-modal{backdrop-filter:none!important}
 body.performance-mode .guess-cover-frame img{transition:none!important}
@@ -1702,456 +1702,73 @@ body[data-era-light="true"] .options-content .language-button.active{
 
 
 <style id="balanced-performance-safe-v2">
-/* Performance hints only — no feature or JS behavior changes. */
-
-/* Let the browser skip painting sections far outside the viewport. */
-.music-section,
-.streaming-section,
-.game-section,
-.games-zone{
+.music-section,.streaming-section,.game-section,.games-zone{
   content-visibility:auto;
   contain-intrinsic-size:900px;
 }
-
-/* Album cards are image-heavy; this reduces off-screen rendering work. */
 .album{
   content-visibility:auto;
   contain-intrinsic-size:520px;
 }
-
-/* Avoid unnecessary pre-promotion of layers. */
-.album-cover,
-.era-card,
-.platform-card,
-.game-card{
-  will-change:auto!important;
-}
-
-/* Hidden modals do not need blur/compositing work. */
-.options-modal:not(.open),
-.quiz-modal:not(.open),
-.era-picker-modal:not(.open),
-.achievements-modal:not(.open),
-.meta-modal:not(.open){
+.album-cover,.era-card,.platform-card,.game-card{will-change:auto!important}
+.options-modal:not(.open),.quiz-modal:not(.open),.era-picker-modal:not(.open),
+.achievements-modal:not(.open),.meta-modal:not(.open){
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none!important;
 }
-
-/* Preserve visual quality while allowing efficient image compositing. */
-.album-cover,
-.era-card img,
-.era-preview-cover{
-  backface-visibility:hidden;
-}
+.album-cover,.era-card img,.era-preview-cover{backface-visibility:hidden}
 </style>
 
-
-<style id="hide-current-era-label">
-#bootEraLabel,.boot-era-label{display:none!important}
-</style>
-
+<style id="hide-current-era-label">#bootEraLabel,.boot-era-label{display:none!important}</style>
 <style id="hide-section-numbers">.section-number{display:none!important}</style>
 
-<style id="guess-achievements-style">
-.guess-achievement-note{
-  margin-top:10px;
-  font-size:8px;
-  letter-spacing:1.4px;
-  color:#777!important;
-}
-</style>
-
-
-<style id="site-version-style">
-.site-version-section{
-  padding:26px 7%;
-  border-top:1px solid #1f1f1f;
-  background:#070707;
-}
-.site-version-inner{
-  max-width:1400px;
-  margin:0 auto;
-}
-.site-version-main{
-  display:flex;
-  align-items:baseline;
-  gap:12px;
-}
-.site-version-label{
-  color:#666!important;
-  font-size:7px;
-  font-weight:900;
-  letter-spacing:2.8px;
-}
-.site-version-main strong{
-  color:var(--custom-accent,#c8b38a)!important;
-  font-size:24px;
-  line-height:1;
-  letter-spacing:-1px;
-}
-.site-version-toggle{
-  margin-top:13px;
-  padding:0;
-  border:0;
-  background:none;
-  color:#888!important;
-  font-size:7px;
-  font-weight:900;
-  letter-spacing:1.8px;
-  cursor:pointer;
-}
-.site-version-toggle span{
-  display:inline-block;
-  margin-left:5px;
-  color:var(--custom-accent,#c8b38a)!important;
-  transition:transform .2s;
-}
-.site-version-toggle.open span{
-  transform:rotate(45deg);
-}
-.site-version-history{
-  display:none;
-  margin-top:18px;
-  padding-top:17px;
-  border-top:1px solid #1c1c1c;
-}
-.site-version-history.open{
-  display:block;
-}
-.version-history-head{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:12px;
-  color:#555!important;
-  font-size:7px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-.version-update-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  border-top:1px solid #181818;
-  border-left:1px solid #181818;
-}
-.version-update{
-  display:grid;
-  grid-template-columns:30px 1fr;
-  gap:10px;
-  align-items:center;
-  min-height:38px;
-  padding:7px 10px;
-  border-right:1px solid #181818;
-  border-bottom:1px solid #181818;
-  background:#090909;
-}
-.version-update b{
-  color:var(--custom-accent,#c8b38a)!important;
-  font-size:7px;
-  letter-spacing:1px;
-}
-.version-update span{
-  color:#777!important;
-  font-size:8px;
-  line-height:1.35;
-}
-body[data-era-light="true"] .site-version-section{
-  background:#0a0a0a!important;
-}
-body[data-era-light="true"] .version-update{
-  background:#0d0d0d!important;
-}
-body[data-era-light="true"] .version-update span{
-  color:#888!important;
-}
-@media(max-width:650px){
-  .site-version-section{padding:24px 5%}
-  .version-update-grid{grid-template-columns:1fr}
-}
-</style>
-
-
 <style id="lore-inline-style">
-.lore-inline-section{
-  width:min(1400px,86%);
-  margin:80px auto 110px;
-}
-.lore-inline-head{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:24px;
-  margin-bottom:20px;
-}
-.lore-inline-kicker{
-  display:block;
-  margin-bottom:8px;
-  color:var(--custom-accent,#c8b38a)!important;
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:3px;
-}
-.lore-inline-head h2{
-  margin:0;
-  color:var(--custom-text,#fff)!important;
-  font-size:clamp(24px,3vw,46px);
-  line-height:.95;
-  letter-spacing:-1.5px;
-}
-.lore-inline-status{
-  padding:8px 11px;
-  border:1px solid #2a2a2a;
-  color:#666!important;
-  font-size:7px;
-  font-weight:900;
-  letter-spacing:2px;
-  white-space:nowrap;
-}
-.lore-inline-card{
-  width:100%;
-  padding:8px;
-  border:1px solid #242424;
-  background:#080808;
-  box-shadow:0 24px 70px rgba(0,0,0,.28);
-}
-.lore-inline-card img{
-  display:block;
-  width:100%;
-  max-height:760px;
-  object-fit:contain;
-  background:#050505;
-}
-body[data-era-light="true"] .lore-inline-head h2{
-  color:#111!important;
-}
-body[data-era-light="true"] .lore-inline-status{
-  border-color:#d7d7d7;
-  color:#666!important;
-}
-@media(max-width:650px){
-  .lore-inline-section{
-    width:90%;
-    margin:55px auto 80px;
-  }
-  .lore-inline-head{
-    align-items:flex-start;
-    flex-direction:column;
-    gap:12px;
-  }
-  .lore-inline-card{padding:5px}
-}
+.lore-inline-section{width:min(1400px,86%);margin:80px auto 110px}
+.lore-inline-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}
+.lore-inline-kicker{display:block;margin-bottom:8px;color:var(--custom-accent,#c8b38a)!important;font-size:8px;font-weight:900;letter-spacing:3px}
+.lore-inline-head h2{margin:0;color:var(--custom-text,#fff)!important;font-size:clamp(24px,3vw,46px);line-height:.95;letter-spacing:-1.5px}
+.lore-inline-status{padding:8px 11px;border:1px solid #2a2a2a;color:#666!important;font-size:7px;font-weight:900;letter-spacing:2px;white-space:nowrap}
+.lore-inline-card{width:100%;padding:8px;border:1px solid #242424;background:#080808;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.lore-inline-card img{display:block;width:100%;max-height:760px;object-fit:contain;background:#050505}
+body[data-era-light="true"] .lore-inline-head h2{color:#111!important}
+@media(max-width:650px){.lore-inline-section{width:90%;margin:55px auto 80px}.lore-inline-head{align-items:flex-start;flex-direction:column;gap:12px}}
 </style>
 
 
 <style id="era-lock-visual-refresh-style">
-.era-card.locked{
-  opacity:.42!important;
-  filter:grayscale(.72) saturate(.25) brightness(.72)!important;
-  cursor:not-allowed!important;
-  border-color:#242424!important;
-  box-shadow:none!important;
-}
-.era-card.locked img{
-  filter:grayscale(.75) saturate(.2) brightness(.68)!important;
-}
-.era-card.locked:hover{
-  transform:none!important;
-  border-color:#2a2a2a!important;
-  box-shadow:none!important;
-}
-.era-card.locked::after{
-  transform:scaleX(0)!important;
-}
-.era-card.locked .era-card-active{
-  display:none!important;
-}
-.era-lock-overlay{
-  position:absolute!important;
-  inset:7px 7px auto!important;
-  z-index:6!important;
-  min-height:30px!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  padding:7px 8px!important;
-  background:rgba(0,0,0,.88)!important;
-  border:1px solid #333!important;
-  color:#aaa!important;
-  font-size:7px!important;
-  font-weight:900!important;
-  line-height:1.35!important;
-  letter-spacing:1.3px!important;
-  text-align:center!important;
-  backdrop-filter:blur(5px)!important;
-}
+.era-card.locked{opacity:.42!important;filter:grayscale(.72) saturate(.25) brightness(.72)!important;cursor:not-allowed!important;border-color:#242424!important;box-shadow:none!important}
+.era-card.locked img{filter:grayscale(.75) saturate(.2) brightness(.68)!important}
+.era-card.locked:hover{transform:none!important;border-color:#2a2a2a!important;box-shadow:none!important}
+.era-card.locked::after{transform:scaleX(0)!important}.era-card.locked .era-card-active{display:none!important}
+.era-lock-overlay{position:absolute!important;inset:7px 7px auto!important;z-index:6!important;min-height:30px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:7px 8px!important;background:rgba(0,0,0,.88)!important;border:1px solid #333!important;color:#aaa!important;font-size:7px!important;font-weight:900!important;line-height:1.35!important;letter-spacing:1.3px!important;text-align:center!important}
 </style>
 
 
 <style id="guess-instant-blur-fix">
-#guessCover{
-  transition:none!important;
-  animation:none!important;
-  will-change:filter;
-}
-.guess-cover-frame img{
-  transition:none!important;
-  animation:none!important;
-}
+#guessCover,.guess-cover-frame img{transition:none!important;animation:none!important}
+#guessCover{will-change:filter}
 </style>
 
 
-<style id="ultra-performance-balanced-v145">
-/* ===== HEAVY OPTIMIZATION WITHOUT REMOVING FEATURES ===== */
+<style id="three-language-layout">
+.language-options,.options-content .language-options{grid-template-columns:repeat(3,1fr)!important}
+@media(max-width:600px){.language-options,.options-content .language-options{grid-template-columns:1fr!important}}
+</style>
 
-/* Skip layout/paint for sections far outside the viewport. */
-.music-section,
-.streaming-section,
-.games-zone,
-.game-section,
-.lore-inline-section,
-.site-version-section{
-  content-visibility:auto;
-  contain-intrinsic-size:900px;
-}
 
-/* Cards are independent paint islands. */
-.album,
-.platform-card,
-.game-card,
-.achievement-card,
-.mastery-row,
-.era-card{
-  contain:layout paint style;
-}
-
-/* Album cards are the biggest repeated blocks. */
-.album{
-  content-visibility:auto;
-  contain-intrinsic-size:520px;
-}
-
-/* Reduce costly full-screen backdrop blur.
-   Appearance stays dark/translucent without forcing constant GPU blur. */
-header{
-  backdrop-filter:none!important;
-  -webkit-backdrop-filter:none!important;
-}
-.options-modal,
-.quiz-modal,
-.era-picker-modal,
-.achievements-modal,
-.meta-modal,
-.cover-modal{
-  backdrop-filter:none!important;
-  -webkit-backdrop-filter:none!important;
-}
-
-/* Keep only small local blur where it adds something visually. */
-.era-preview-number,
-.era-lock-overlay{
-  backdrop-filter:none!important;
-  -webkit-backdrop-filter:none!important;
-}
-
-/* Large blurred decorative circles are expensive.
-   Smaller blur radius gives nearly the same appearance with far less GPU work. */
-.hero::before,
-.hero::after{
-  filter:blur(95px)!important;
-}
-.streaming-section::before{
-  filter:blur(95px)!important;
-}
-.game-section::before{
-  filter:blur(100px)!important;
-}
-
-/* Pause the hidden infinite Home particles.
-   They were animating even while the effect was invisible. */
-.home-particles i{
-  animation-play-state:paused!important;
-}
-#homeTransition.active .home-particles i{
-  animation-play-state:running!important;
-}
-
-/* Do not promote dozens of cards/images to GPU layers unnecessarily. */
-.album,
-.album-cover,
-.platform-card,
-.game-card,
-.era-card,
-.era-card img,
-.era-preview-cover,
-.achievement-card,
-.mastery-row{
-  will-change:auto!important;
-}
-
-/* Shorter/cheaper hover effects while keeping the same interaction. */
-.album,
-.platform-card,
-.game-card,
-.era-card{
-  transition-duration:.16s!important;
-}
-.album:hover,
-.platform-card:hover,
-.game-card:hover,
-.era-card:hover{
-  box-shadow:none!important;
-}
-.album:hover .album-cover,
-.era-card:hover img{
-  transform:scale(1.01)!important;
-}
-
-/* Do not transition filter on album covers; filter interpolation is expensive. */
-.album-cover,
-.era-card img,
-.era-preview-cover{
-  transition-property:transform,border-color,opacity!important;
-}
-
-/* Hidden overlays should not be composited. */
-.options-modal:not(.open),
-.quiz-modal:not(.open),
-.era-picker-modal:not(.open),
-.achievements-modal:not(.open),
-.meta-modal:not(.open),
-.cover-modal:not(.open){
-  visibility:hidden!important;
-}
-
-/* Keep image decode/render efficient. */
-.album-cover,
-.era-card img,
-.era-preview-cover,
-.lore-inline-card img{
-  backface-visibility:hidden;
-}
-
-/* The Guess game intentionally needs blur; use a slightly cheaper max blur
-   while preserving the mechanic. */
-#guessCover,
-.guess-cover-frame img{
-  will-change:filter;
-}
-
-/* Scroll containers isolate paint more effectively. */
-.era-picker-grid-pro,
-.achievements-grid,
-.mastery-list{
-  contain:content;
-}
-
-/* Performance mode remains even more aggressive. */
-body.performance-mode .hero::before,
-body.performance-mode .hero::after,
-body.performance-mode .streaming-section::before,
-body.performance-mode .game-section::before{
-  display:none!important;
-}
+<style id="site-version-style">
+.site-version-section{padding:26px 7%;border-top:1px solid #1f1f1f;background:#070707}
+.site-version-inner{max-width:1400px;margin:0 auto}.site-version-main{display:flex;align-items:baseline;gap:12px}
+.site-version-label{color:#666!important;font-size:7px;font-weight:900;letter-spacing:2.8px}
+.site-version-main strong{color:var(--custom-accent,#c8b38a)!important;font-size:24px;line-height:1}
+.site-version-toggle{margin-top:13px;padding:0;border:0;background:none;color:#888!important;font-size:7px;font-weight:900;letter-spacing:1.8px;cursor:pointer}
+.site-version-toggle span{display:inline-block;margin-left:5px;color:var(--custom-accent,#c8b38a)!important;transition:transform .2s}
+.site-version-toggle.open span{transform:rotate(45deg)}.site-version-history{display:none;margin-top:18px;padding-top:17px;border-top:1px solid #1c1c1c}.site-version-history.open{display:block}
+.version-history-head{display:flex;justify-content:space-between;gap:15px;margin-bottom:12px;color:#555!important;font-size:7px;font-weight:900;letter-spacing:2px}
+.version-update-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid #181818;border-left:1px solid #181818}
+.version-update{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;min-height:38px;padding:7px 10px;border-right:1px solid #181818;border-bottom:1px solid #181818;background:#090909}
+.version-update b{color:var(--custom-accent,#c8b38a)!important;font-size:7px}.version-update span{color:#777!important;font-size:8px;line-height:1.35}
+@media(max-width:650px){.version-update-grid{grid-template-columns:1fr}}
 </style>
 
 </head>
@@ -2249,7 +1866,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">04</div>
-<img src="images/hells-aura.png" alt="Hell's Aura cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Hell's Aura</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="hell-s-aura">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/hells-aura.png" alt="Hell's Aura cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Hell's Aura</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="hell-s-aura">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Captivity</span></div>
 <div class="track"><span class="track-number">02</span><span>Hell's Aura</span></div>
 <div class="track"><span class="track-number">03</span><span>Rodrigo</span></div>
@@ -2259,7 +1876,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">05</div>
-<img src="images/the-home.png" alt="The Home cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Home</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-home">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-home.png" alt="The Home cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Home</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-home">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Quirathi</span></div>
 <div class="track"><span class="track-number">02</span><span>The Yamers Path</span></div>
 <div class="track"><span class="track-number">03</span><span>No Cap on Steplers</span></div>
@@ -2270,7 +1887,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">06</div>
-<img src="images/diabolical-dog.png" alt="Diabolical Dog cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Diabolical Dog</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="diabolical-dog">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/diabolical-dog.png" alt="Diabolical Dog cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Diabolical Dog</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="diabolical-dog">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Diabolical Dog</span></div>
 <div class="track"><span class="track-number">02</span><span>Goonaldo</span></div>
 <div class="track"><span class="track-number">03</span><span>Hell Rodeo</span></div>
@@ -2281,7 +1898,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">07</div>
-<img src="images/return-to-the-boat.png" alt="Return To The Boat cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Return To The Boat</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="return-to-the-boat">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/return-to-the-boat.png" alt="Return To The Boat cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Return To The Boat</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="return-to-the-boat">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>GvsA 2.0</span></div>
 <div class="track"><span class="track-number">02</span><span>In The Boat With The Tchola 2.0</span></div>
 <div class="track"><span class="track-number">03</span><span>Lil Bro 2.0</span></div>
@@ -2291,7 +1908,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">08</div>
-<img src="images/steplers.png" alt="Steplers cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Steplers</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="steplers">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/steplers.png" alt="Steplers cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Steplers</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="steplers">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>There Him</span></div>
 <div class="track"><span class="track-number">02</span><span>Mirror Realm _ mlaeR rorriM</span></div>
 <div class="track"><span class="track-number">03</span><span>I Can Breath</span></div>
@@ -2306,7 +1923,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">09</div>
-<img src="images/herborine.png" alt="Herborine cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Herborine</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="herborine">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/herborine.png" alt="Herborine cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Herborine</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="herborine">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Eat Eat</span></div>
 <div class="track"><span class="track-number">02</span><span>Mbabi</span></div>
 <div class="track"><span class="track-number">03</span><span>Bite And Fall</span></div>
@@ -2317,7 +1934,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">10</div>
-<img src="images/armless-john.png" alt="Armless John cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Armless John</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="armless-john">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/armless-john.png" alt="Armless John cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Armless John</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="armless-john">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Cup Chicken</span></div>
 <div class="track"><span class="track-number">02</span><span>Upside Down</span></div>
 <div class="track"><span class="track-number">03</span><span>Aiming Wrong</span></div>
@@ -2328,7 +1945,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">11</div>
-<img src="images/the-cashier.png" alt="The Cashier cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Cashier</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-cashier">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-cashier.png" alt="The Cashier cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Cashier</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-cashier">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Waymaker</span></div>
 <div class="track"><span class="track-number">02</span><span>Penalman</span></div>
 <div class="track"><span class="track-number">03</span><span>The Cashier</span></div>
@@ -2339,7 +1956,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">12</div>
-<img src="images/the-guy-from-picture.png" alt="The Guy From Picture cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Guy From Picture</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-guy-from-picture">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-guy-from-picture.png" alt="The Guy From Picture cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Guy From Picture</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-guy-from-picture">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Transition</span></div>
 <div class="track"><span class="track-number">02</span><span>Green or Purple</span></div>
 <div class="track"><span class="track-number">03</span><span>The Guy From Picture</span></div>
@@ -2350,7 +1967,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">13</div>
-<img src="images/the-tchola.png" alt="The Tchola cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Tchola</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-tchola">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-tchola.png" alt="The Tchola cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Tchola</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-tchola">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Cappucined</span></div>
 <div class="track"><span class="track-number">02</span><span>He Need to Be Fried</span></div>
 <div class="track"><span class="track-number">03</span><span>The Tchola</span></div>
@@ -2361,7 +1978,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">14</div>
-<img src="images/mausoleum.png" alt="Mausoleum cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Mausoleum</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="mausoleum">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/mausoleum.png" alt="Mausoleum cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Mausoleum</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="mausoleum">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Occultism</span></div>
 <div class="track"><span class="track-number">02</span><span>Labirynth</span></div>
 <div class="track"><span class="track-number">03</span><span>Mausoleum</span></div>
@@ -2372,7 +1989,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">15</div>
-<img src="images/the-page.png" alt="The Page cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>The Page</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-page">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/the-page.png" alt="The Page cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>The Page</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="the-page">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>The Page</span></div>
 <div class="track"><span class="track-number">02</span><span>Lildiuty</span></div>
 <div class="track"><span class="track-number">03</span><span>The Page</span></div>
@@ -2383,7 +2000,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">16</div>
-<img src="images/real-south.png" alt="Real South cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Real South</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="real-south">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/real-south.png" alt="Real South cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Real South</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="real-south">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Palms</span></div>
 <div class="track"><span class="track-number">02</span><span>Dream</span></div>
 <div class="track"><span class="track-number">03</span><span>Real South</span></div>
@@ -2394,7 +2011,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">17</div>
-<img src="images/canada.png" alt="Canada cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Canada</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="canada">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/canada.png" alt="Canada cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Canada</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="canada">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Rent-A-Brun</span></div>
 <div class="track"><span class="track-number">02</span><span>The Palit</span></div>
 <div class="track"><span class="track-number">03</span><span>Canada</span></div>
@@ -2405,7 +2022,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">18</div>
-<img src="images/laminhapal.png" alt="Laminhapal cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Laminhapal</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="laminhapal">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/laminhapal.png" alt="Laminhapal cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Laminhapal</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="laminhapal">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Derby's District</span></div>
 <div class="track"><span class="track-number">02</span><span>Dig And Bowls</span></div>
 <div class="track"><span class="track-number">03</span><span>Grabidiqui</span></div>
@@ -2417,7 +2034,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">19</div>
-<img src="images/one-team-one-dream.png" alt="One Team, One Dream cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>One Team, One Dream</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="one-team-one-dream">USE THIS ALBUM AS THEME</button><div class="tracks">
+<img src="images/one-team-one-dream.png" alt="One Team, One Dream cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>One Team, One Dream</h3><div class="album-icon">+</div><button class="album-theme-action" type="button" data-era-theme="one-team-one-dream">USE THIS ALBUM AS THEME</button><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Big Liter Challenge</span></div>
 <div class="track"><span class="track-number">02</span><span>I See, Luke!</span></div>
 <div class="track"><span class="track-number">03</span><span>Little Strawberry</span></div>
@@ -2428,7 +2045,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">20</div>
-<img src="images/soon1.png" alt="Want Want cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Coming Soon</h3><div class="album-icon">+</div><div class="tracks">
+<img src="images/soon1.png" alt="Want Want cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Coming Soon</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Soon</span></div>
 <div class="track"><span class="track-number">02</span><span>Soon</span></div>
 <div class="track"><span class="track-number">03</span><span>Soon</span></div>
@@ -2439,7 +2056,7 @@ piece to the Literally Steplers universe.
 </div></div>
 
 <div class="album"><div class="album-number">21</div>
-<img src="images/soon2.png" alt="Subconcequente cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy" fetchpriority="low"><h3>Coming Soon</h3><div class="album-icon">+</div><div class="tracks">
+<img src="images/soon2.png" alt="Subconcequente cover" class="album-cover" onclick="openCover(event, this.src, this.alt)" decoding="async" loading="lazy"><h3>Coming Soon</h3><div class="album-icon">+</div><div class="tracks">
 <div class="track"><span class="track-number">01</span><span>Soon</span></div>
 <div class="track"><span class="track-number">02</span><span>Soon</span></div>
 <div class="track"><span class="track-number">03</span><span>Soon</span></div>
@@ -2538,15 +2155,11 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <section class="lore-inline-section" id="lore">
   <div class="lore-inline-head">
-    <div>
-      <span class="lore-inline-kicker">LORE</span>
-      <h2>THE STORY BEHIND THE CHAOS</h2>
-    </div>
+    <div><span class="lore-inline-kicker">LORE</span><h2>THE STORY BEHIND THE CHAOS</h2></div>
     <span class="lore-inline-status">COMING SOON</span>
   </div>
-
   <div class="lore-inline-card">
-    <img src="images/working.png" alt="We are working. Please come back soon." decoding="async" loading="lazy" fetchpriority="low">
+    <img src="images/working.png" alt="We are working. Please come back soon." decoding="async" loading="lazy">
   </div>
 </section>
 
@@ -2837,71 +2450,36 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <section class="site-version-section" id="siteVersion">
   <div class="site-version-inner">
-    <div class="site-version-main">
-      <span class="site-version-label">SITE VERSION</span>
-      <strong>1.49</strong>
-    </div>
-
-    <button class="site-version-toggle" id="siteVersionToggle" type="button">
-      VIEW UPDATE HISTORY <span>+</span>
-    </button>
-
+    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.45</strong></div>
+    <button class="site-version-toggle" id="siteVersionToggle" type="button">VIEW UPDATE HISTORY <span>+</span></button>
     <div class="site-version-history" id="siteVersionHistory">
-      <div class="version-history-head">
-        <span>VERSION 1.49</span>
-        <span>CURRENT BUILD</span>
-      </div>
-
+      <div class="version-history-head"><span>VERSION 1.45</span><span>CURRENT BUILD</span></div>
       <div class="version-update-grid">
         <div class="version-update"><b>01</b><span>Custom Era Themes system</span></div>
-        <div class="version-update"><b>02</b><span>Hell's Aura, Stemers, Diabolical Dog, The Home and Steplers themes</span></div>
-        <div class="version-update"><b>03</b><span>Theme-aware text colors and improved light-theme readability</span></div>
-        <div class="version-update"><b>04</b><span>The Home OPTIONS readability fixes</span></div>
-        <div class="version-update"><b>05</b><span>Rare angelical audio event</span></div>
-        <div class="version-update"><b>06</b><span>Secret word easter egg</span></div>
-        <div class="version-update"><b>07</b><span>Era selector redesigned</span></div>
-        <div class="version-update"><b>08</b><span>19 unlockable Era Themes</span></div>
-        <div class="version-update"><b>09</b><span>Achievement system</span></div>
-        <div class="version-update"><b>10</b><span>Secret achievements and unlock hints</span></div>
-        <div class="version-update"><b>11</b><span>Era Themes unlocked through achievements</span></div>
-        <div class="version-update"><b>12</b><span>Achievements moved into OPTIONS</span></div>
-        <div class="version-update"><b>13</b><span>Performance Mode</span></div>
-        <div class="version-update"><b>14</b><span>Multilanguage system</span></div>
-        <div class="version-update"><b>15</b><span>English, Portuguese, German, Russian, Chinese, Japanese, Korean, French and Spanish</span></div>
-        <div class="version-update"><b>16</b><span>Literally Steplers Knowledge Quiz</span></div>
-        <div class="version-update"><b>17</b><span>Randomized quiz questions and answers</span></div>
-        <div class="version-update"><b>18</b><span>Normal and Diabolical quiz modes</span></div>
-        <div class="version-update"><b>19</b><span>Quiz scoring and replay system</span></div>
-        <div class="version-update"><b>20</b><span>Album-cover questions removed from Knowledge Quiz</span></div>
-        <div class="version-update"><b>21</b><span>Guess the Album visual minigame</span></div>
-        <div class="version-update"><b>22</b><span>Blur-based cover reveal and time scoring</span></div>
-        <div class="version-update"><b>23</b><span>Guess the Album achievements</span></div>
-        <div class="version-update"><b>24</b><span>Sharp Eyes achievement</span></div>
-        <div class="version-update"><b>25</b><span>No Blur Needed achievement</span></div>
-        <div class="version-update"><b>26</b><span>Cover Collector achievement</span></div>
-        <div class="version-update"><b>27</b><span>Visual Master achievement</span></div>
-        <div class="version-update"><b>28</b><span>Player Profile</span></div>
-        <div class="version-update"><b>29</b><span>Level and XP progression</span></div>
-        <div class="version-update"><b>30</b><span>Quiz Statistics</span></div>
-        <div class="version-update"><b>31</b><span>Theme Mastery</span></div>
-        <div class="version-update"><b>32</b><span>100% Site Completion system</span></div>
-        <div class="version-update"><b>33</b><span>Profile updated for 14 achievements</span></div>
-        <div class="version-update"><b>34</b><span>Games grouped into a dedicated Games section</span></div>
-        <div class="version-update"><b>35</b><span>OPTIONS interface redesign</span></div>
-        <div class="version-update"><b>36</b><span>Balanced loading and rendering optimizations</span></div>
-        <div class="version-update"><b>37</b><span>Cleaner intro and section labels</span></div>
-        <div class="version-update"><b>38</b><span>Secret DEL hold command to reset site data</span></div>
-        <div class="version-update"><b>39</b><span>LORE page added</span></div>
-        <div class="version-update"><b>40</b><span>All supported languages updated for the latest interface</span></div>
-        <div class="version-update"><b>41</b><span>Complete localization for games, achievements, Era Themes, Profile and Options</span></div>
-        <div class="version-update"><b>42</b><span>Locked Era Themes now display correctly before selection</span></div>
-        <div class="version-update"><b>43</b><span>Guess cover blur and achievement refresh bugs fixed</span></div>
-        <div class="version-update"><b>44</b><span>Achievement notification timeout fixed</span></div>
-        <div class="version-update"><b>45</b><span>Major rendering, image loading and GPU performance optimization</span></div>
-        <div class="version-update"><b>46</b><span>Achievement count, popup and secret reset command fixed</span></div>
-        <div class="version-update"><b>47</b><span>Memory optimization attempt reverted</span></div>
-        <div class="version-update"><b>48</b><span>Memory leak fixed without changing site behavior</span></div>
-        <div class="version-update"><b>49</b><span>Language system reduced to English, Portuguese and Spanish</span></div>
+        <div class="version-update"><b>02</b><span>Theme-aware colors and readability</span></div>
+        <div class="version-update"><b>03</b><span>Rare angelical event</span></div>
+        <div class="version-update"><b>04</b><span>Secret word easter egg</span></div>
+        <div class="version-update"><b>05</b><span>Era selector redesign</span></div>
+        <div class="version-update"><b>06</b><span>Unlockable Era Themes</span></div>
+        <div class="version-update"><b>07</b><span>Achievement progression</span></div>
+        <div class="version-update"><b>08</b><span>Secret achievement hints</span></div>
+        <div class="version-update"><b>09</b><span>Performance Mode</span></div>
+        <div class="version-update"><b>10</b><span>Knowledge Quiz improvements</span></div>
+        <div class="version-update"><b>11</b><span>Guess the Album visual minigame</span></div>
+        <div class="version-update"><b>12</b><span>Guess the Album achievements</span></div>
+        <div class="version-update"><b>13</b><span>Player Profile, Level and XP</span></div>
+        <div class="version-update"><b>14</b><span>Quiz statistics and Theme Mastery</span></div>
+        <div class="version-update"><b>15</b><span>100% Site Completion system</span></div>
+        <div class="version-update"><b>16</b><span>OPTIONS interface redesign</span></div>
+        <div class="version-update"><b>17</b><span>Balanced loading optimizations</span></div>
+        <div class="version-update"><b>18</b><span>Cleaner intro and section labels</span></div>
+        <div class="version-update"><b>19</b><span>LORE maintenance section</span></div>
+        <div class="version-update"><b>20</b><span>Locked Era Themes visual fix</span></div>
+        <div class="version-update"><b>21</b><span>Instant Guess the Album blur</span></div>
+        <div class="version-update"><b>22</b><span>Achievement popup and live refresh fixes</span></div>
+        <div class="version-update"><b>23</b><span>Languages reduced to English, Portuguese and Spanish</span></div>
+        <div class="version-update"><b>24</b><span>Secret data reset changed to typing a word</span></div>
+        <div class="version-update"><b>25</b><span>Guess the Album achievement popup fixed</span></div>
       </div>
     </div>
   </div>
@@ -3057,9 +2635,10 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeCover(
 
 <script id="site-language-system">
 (function(){
-const I18N={"en":{"official":"THE OFFICIAL WEBSITE","enter":"ENTER","home":"HOME","music":"MUSIC","streaming":"STREAMING","game":"GAME","options":"OPTIONS","bandLabel":"01 / THE BAND","heroDesc":"Literally Steplers is a musical project built around chaos, absurdity, friendship, creativity and an unhealthy amount of questionable ideas.<br><br>From mysterious characters to entire fictional worlds, every album adds another piece to the Literally Steplers universe.","explore":"EXPLORE THE DISCOGRAPHY","youtubeChannel":"YOUTUBE CHANNEL","discography":"02 / DISCOGRAPHY","albums":"THE ALBUMS","playlist":"YOUTUBE PLAYLIST","minigame":"03 / MINIGAME","quizTitle":"LITERALLY STEPLERS QUIZ","gameIntro":"Think you know the Literally Steplers universe? Test your knowledge about the albums, songs and the band's discography in the official quiz.","howKnow":"HOW WELL DO YOU KNOW THE BAND?","gameSummary":"10 random questions per run. Three difficulties. No mercy.","playQuiz":"PLAY QUIZ →","listenNow":"04 / LISTEN NOW","experience":"EXPERIENCE THE MUSIC","streamIntro":"Take Hell's Aura and Stemers with you beyond YouTube.<br>Both albums are also available on Spotify and Apple Music.","streamPlatform":"STREAMING PLATFORM","listen":"LISTEN →","visitChannel":"VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →","siteTheme":"SITE THEME","themeDesc":"Choose the visual theme of the site.","effects":"EFFECTS","effectsDesc":"Enable or disable the angelical The Home effect.","language":"LANGUAGE","languageDesc":"Choose the language of the site.","on":"ON","off":"OFF","quizHeader":"LITERALLY STEPLERS / GAME","officialQuiz":"THE OFFICIAL BAND QUIZ","realStepler":"ARE YOU A REAL STEPLER?","quizDesc":"Each run gives you 10 random questions from the full question bank. Choose your difficulty, answer fast, build a streak and chase the highest score.","easy":"EASY","normal":"NORMAL","diabolical":"DIABOLICAL","startGame":"START GAME","easyInfo":"EASY — 20 seconds per question. More album and song recognition.","normalInfo":"NORMAL — 15 seconds per question. Standard scoring.","diabolicalInfo":"DIABOLICAL — 10 seconds per question. Harder questions and higher scores.","question":"QUESTION","time":"TIME","streak":"STREAK","points":"POINTS","special":"DIABOLICAL QUESTION — ×2 POINTS","next":"NEXT QUESTION →","resultNext":"SEE RESULT →","finalScore":"FINAL SCORE","correct":"CORRECT","wrong":"WRONG","result":"RESULT","playAgain":"PLAY AGAIN","closeQuiz":"CLOSE QUIZ","pointsWord":"POINTS","correctPrefix":"CORRECT","wrongPrefix":"WRONG","timeUp":"TIME'S UP","rankPerfect":"LITERALLY A STEPLER","rankPerfectText":"Perfect score. You know the Literally Steplers universe inside out.","rankGreat":"CERTIFIED STEPLER","rankGreatText":"Excellent run. You clearly know the band.","rankMid":"STEPLER IN TRAINING","rankMidText":"Not bad. You know the universe, but there is still more chaos to study.","rankLow":"BACK TO THE DISCOGRAPHY","rankLowText":"Time to study the albums and come back stronger.","originalTheme":"Original theme","redWhite":"Red & white","goldRed":"Gold & red","darkLightRed":"Dark red & light red","whiteGold":"White & gold","goldPink":"Gold & neon pink"},"pt":{"official":"O SITE OFICIAL","enter":"ENTRAR","home":"INÍCIO","music":"MÚSICA","streaming":"STREAMING","game":"JOGO","options":"OPÇÕES","bandLabel":"01 / A BANDA","heroDesc":"Literally Steplers é um projeto musical construído em torno de caos, absurdo, amizade, criatividade e uma quantidade nada saudável de ideias questionáveis.<br><br>De personagens misteriosos a mundos fictícios inteiros, cada álbum adiciona uma nova peça ao universo Literally Steplers.","explore":"EXPLORAR A DISCOGRAFIA","youtubeChannel":"CANAL NO YOUTUBE","discography":"02 / DISCOGRAFIA","albums":"OS ÁLBUNS","playlist":"PLAYLIST NO YOUTUBE","minigame":"03 / MINIJOGO","quizTitle":"QUIZ LITERALLY STEPLERS","gameIntro":"Acha que conhece o universo Literally Steplers? Teste seu conhecimento sobre os álbuns, músicas e a discografia da banda no quiz oficial.","howKnow":"O QUANTO VOCÊ CONHECE A BANDA?","gameSummary":"10 perguntas aleatórias por partida. Três dificuldades. Sem piedade.","playQuiz":"JOGAR QUIZ →","listenNow":"04 / OUÇA AGORA","experience":"VIVA A MÚSICA","streamIntro":"Leve Hell's Aura e Stemers para além do YouTube.<br>Os dois álbuns também estão disponíveis no Spotify e Apple Music.","streamPlatform":"PLATAFORMA DE STREAMING","listen":"OUVIR →","visitChannel":"VISITAR O CANAL LITERALLY STEPLERS NO YOUTUBE →","siteTheme":"TEMA DO SITE","themeDesc":"Escolha o tema visual do site.","effects":"EFEITOS","effectsDesc":"Ative ou desative o efeito angelical de The Home.","language":"IDIOMA","languageDesc":"Escolha o idioma do site.","on":"LIGADO","off":"DESLIGADO","quizHeader":"LITERALLY STEPLERS / JOGO","officialQuiz":"O QUIZ OFICIAL DA BANDA","realStepler":"VOCÊ É UM STEPLER DE VERDADE?","quizDesc":"Cada partida traz 10 perguntas aleatórias do banco completo. Escolha a dificuldade, responda rápido, faça uma sequência e busque a maior pontuação.","easy":"FÁCIL","normal":"NORMAL","diabolical":"DIABÓLICO","startGame":"COMEÇAR JOGO","easyInfo":"FÁCIL — 20 segundos por pergunta. Mais reconhecimento de álbuns e músicas.","normalInfo":"NORMAL — 15 segundos por pergunta. Pontuação padrão.","diabolicalInfo":"DIABÓLICO — 10 segundos por pergunta. Perguntas mais difíceis e pontuação maior.","question":"PERGUNTA","time":"TEMPO","streak":"SEQUÊNCIA","points":"PONTOS","special":"PERGUNTA DIABÓLICA — ×2 PONTOS","next":"PRÓXIMA PERGUNTA →","resultNext":"VER RESULTADO →","finalScore":"PLACAR FINAL","correct":"ACERTOS","wrong":"ERROS","result":"RESULTADO","playAgain":"JOGAR NOVAMENTE","closeQuiz":"FECHAR QUIZ","pointsWord":"PONTOS","correctPrefix":"CERTO","wrongPrefix":"ERRADO","timeUp":"TEMPO ESGOTADO","rankPerfect":"LITERALMENTE UM STEPLER","rankPerfectText":"Pontuação perfeita. Você conhece o universo Literally Steplers por completo.","rankGreat":"STEPLER CERTIFICADO","rankGreatText":"Excelente partida. Você claramente conhece a banda.","rankMid":"STEPLER EM TREINAMENTO","rankMidText":"Nada mal. Você conhece o universo, mas ainda há mais caos para estudar.","rankLow":"DE VOLTA À DISCOGRAFIA","rankLowText":"Hora de estudar os álbuns e voltar mais forte.","originalTheme":"Tema original","redWhite":"Vermelho e branco","goldRed":"Dourado e vermelho","darkLightRed":"Vermelho escuro e claro","whiteGold":"Branco e dourado","goldPink":"Dourado e rosa neon"},"es":{"official":"EL SITIO OFICIAL","enter":"ENTRAR","home":"INICIO","music":"MÚSICA","streaming":"STREAMING","game":"JUEGO","options":"OPCIONES","bandLabel":"01 / LA BANDA","heroDesc":"Literally Steplers es un proyecto musical construido alrededor del caos, el absurdo, la amistad, la creatividad y una cantidad poco saludable de ideas cuestionables.<br><br>Desde personajes misteriosos hasta mundos ficticios completos, cada álbum añade otra pieza al universo Literally Steplers.","explore":"EXPLORAR LA DISCOGRAFÍA","youtubeChannel":"CANAL DE YOUTUBE","discography":"02 / DISCOGRAFÍA","albums":"LOS ÁLBUMES","playlist":"PLAYLIST DE YOUTUBE","minigame":"03 / MINIJUEGO","quizTitle":"QUIZ LITERALLY STEPLERS","gameIntro":"¿Crees que conoces el universo Literally Steplers? Pon a prueba tus conocimientos sobre los álbumes, canciones y la discografía de la banda en el quiz oficial.","howKnow":"¿QUÉ TANTO CONOCES A LA BANDA?","gameSummary":"10 preguntas aleatorias por partida. Tres dificultades. Sin piedad.","playQuiz":"JUGAR QUIZ →","listenNow":"04 / ESCUCHA AHORA","experience":"VIVE LA MÚSICA","streamIntro":"Lleva Hell's Aura y Stemers más allá de YouTube.<br>Ambos álbumes también están disponibles en Spotify y Apple Music.","streamPlatform":"PLATAFORMA DE STREAMING","listen":"ESCUCHAR →","visitChannel":"VISITAR EL CANAL DE YOUTUBE DE LITERALLY STEPLERS →","siteTheme":"TEMA DEL SITIO","themeDesc":"Elige el tema visual del sitio.","effects":"EFECTOS","effectsDesc":"Activa o desactiva el efecto angelical de The Home.","language":"IDIOMA","languageDesc":"Elige el idioma del sitio.","on":"ACTIVADO","off":"DESACTIVADO","quizHeader":"LITERALLY STEPLERS / JUEGO","officialQuiz":"EL QUIZ OFICIAL DE LA BANDA","realStepler":"¿ERES UN STEPLER DE VERDAD?","quizDesc":"Cada partida presenta 10 preguntas aleatorias del banco completo. Elige la dificultad, responde rápido, crea una racha y busca la puntuación más alta.","easy":"FÁCIL","normal":"NORMAL","diabolical":"DIABÓLICO","startGame":"EMPEZAR JUEGO","easyInfo":"FÁCIL — 20 segundos por pregunta. Más reconocimiento de álbumes y canciones.","normalInfo":"NORMAL — 15 segundos por pregunta. Puntuación estándar.","diabolicalInfo":"DIABÓLICO — 10 segundos por pregunta. Preguntas más difíciles y más puntos.","question":"PREGUNTA","time":"TIEMPO","streak":"RACHA","points":"PUNTOS","special":"PREGUNTA DIABÓLICA — ×2 PUNTOS","next":"SIGUIENTE PREGUNTA →","resultNext":"VER RESULTADO →","finalScore":"PUNTUACIÓN FINAL","correct":"ACIERTOS","wrong":"ERRORES","result":"RESULTADO","playAgain":"JUGAR DE NUEVO","closeQuiz":"CERRAR QUIZ","pointsWord":"PUNTOS","correctPrefix":"CORRECTO","wrongPrefix":"INCORRECTO","timeUp":"TIEMPO AGOTADO","rankPerfect":"LITERALMENTE UN STEPLER","rankPerfectText":"Puntuación perfecta. Conoces el universo Literally Steplers de principio a fin.","rankGreat":"STEPLER CERTIFICADO","rankGreatText":"Excelente partida. Claramente conoces la banda.","rankMid":"STEPLER EN ENTRENAMIENTO","rankMidText":"Nada mal. Conoces el universo, pero todavía hay más caos que estudiar.","rankLow":"DE VUELTA A LA DISCOGRAFÍA","rankLowText":"Es hora de estudiar los álbumes y volver más fuerte.","originalTheme":"Tema original","redWhite":"Rojo y blanco","goldRed":"Dorado y rojo","darkLightRed":"Rojo oscuro y rojo claro","whiteGold":"Blanco y dorado","goldPink":"Dorado y rosa neón"}};
-const QPAT={"pt":[["What was the band's second album?","Qual foi o segundo álbum da banda?"],["Which song appears on {x}?","Qual música aparece em {x}?"],["Which album contains the song '{x}'?","Qual álbum contém a música '{x}'?"],["Which album has 10 listed tracks?","Qual álbum tem 10 faixas listadas?"],["What is track {n} on the {x}?","Qual é a faixa {n} de {x}?"],["Which song is part of {x}?","Qual música faz parte de {x}?"],["Which album contains '{x}'?","Qual álbum contém '{x}'?"],["Which album is number {n} in the discography?","Qual é o álbum número {n} da discografia?"],["Which album came immediately after {x}?","Qual álbum veio imediatamente depois de {x}?"],["What is the first track on {x}?","Qual é a primeira faixa de {x}?"],["What is the final track on {x}?","Qual é a última faixa de {x}?"],["Which song is track {n} on {x}?","Qual música é a faixa {n} de {x}?"],["What is track {n} on {x}?","Qual é a faixa {n} de {x}?"],["Which song is the first track on {x}?","Qual música é a primeira faixa de {x}?"],["What is track {n} on {x}?","Qual é a faixa {n} de {x}?"],["What is the title track of album number {n}?","Qual é a faixa-título do álbum número {n}?"],["Which album cover is this?","De qual álbum é esta capa?"]],"es":[["What was the band's second album?","¿Cuál fue el segundo álbum de la banda?"],["Which song appears on {x}?","¿Qué canción aparece en {x}?"],["Which album contains the song '{x}'?","¿Qué álbum contiene la canción '{x}'?"],["Which album has 10 listed tracks?","¿Qué álbum tiene 10 canciones listadas?"],["What is track {n} on the {x}?","¿Cuál es la pista {n} de {x}?"],["Which song is part of {x}?","¿Qué canción forma parte de {x}?"],["Which album contains '{x}'?","¿Qué álbum contiene '{x}'?"],["Which album is number {n} in the discography?","¿Qué álbum es el número {n} de la discografía?"],["Which album came immediately after {x}?","¿Qué álbum vino inmediatamente después de {x}?"],["What is the first track on {x}?","¿Cuál es la primera pista de {x}?"],["What is the final track on {x}?","¿Cuál es la última pista de {x}?"],["Which song is track {n} on {x}?","¿Qué canción es la pista {n} de {x}?"],["What is track {n} on {x}?","¿Cuál es la pista {n} de {x}?"],["Which song is the first track on {x}?","¿Qué canción es la primera pista de {x}?"],["What is the title track of album number {n}?","¿Cuál es la canción titular del álbum número {n}?"],["Which album cover is this?","¿De qué álbum es esta portada?"]]};
+const I18N={"en": {"official": "THE OFFICIAL WEBSITE", "enter": "ENTER", "home": "HOME", "music": "MUSIC", "streaming": "STREAMING", "game": "GAME", "options": "OPTIONS", "bandLabel": "01 / THE BAND", "heroDesc": "Literally Steplers is a musical project built around chaos, absurdity, friendship, creativity and an unhealthy amount of questionable ideas.<br><br>From mysterious characters to entire fictional worlds, every album adds another piece to the Literally Steplers universe.", "explore": "EXPLORE THE DISCOGRAPHY", "youtubeChannel": "YOUTUBE CHANNEL", "discography": "02 / DISCOGRAPHY", "albums": "THE ALBUMS", "playlist": "YOUTUBE PLAYLIST", "minigame": "03 / MINIGAME", "quizTitle": "LITERALLY STEPLERS QUIZ", "gameIntro": "Think you know the Literally Steplers universe? Test your knowledge about the albums, songs and the band's discography in the official quiz.", "howKnow": "HOW WELL DO YOU KNOW THE BAND?", "gameSummary": "10 random questions per run. Three difficulties. No mercy.", "playQuiz": "PLAY QUIZ →", "listenNow": "04 / LISTEN NOW", "experience": "EXPERIENCE THE MUSIC", "streamIntro": "Take Hell's Aura and Stemers with you beyond YouTube.<br>Both albums are also available on Spotify and Apple Music.", "streamPlatform": "STREAMING PLATFORM", "listen": "LISTEN →", "visitChannel": "VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →", "siteTheme": "SITE THEME", "themeDesc": "Choose the visual theme of the site.", "effects": "EFFECTS", "effectsDesc": "Enable or disable the angelical The Home effect.", "language": "LANGUAGE", "languageDesc": "Choose the language of the site.", "on": "ON", "off": "OFF", "quizHeader": "LITERALLY STEPLERS / GAME", "officialQuiz": "THE OFFICIAL BAND QUIZ", "realStepler": "ARE YOU A REAL STEPLER?", "quizDesc": "Each run gives you 10 random questions from the full question bank. Choose your difficulty, answer fast, build a streak and chase the highest score.", "easy": "EASY", "normal": "NORMAL", "diabolical": "DIABOLICAL", "startGame": "START GAME", "easyInfo": "EASY — 20 seconds per question. More album and song recognition.", "normalInfo": "NORMAL — 15 seconds per question. Standard scoring.", "diabolicalInfo": "DIABOLICAL — 10 seconds per question. Harder questions and higher scores.", "question": "QUESTION", "time": "TIME", "streak": "STREAK", "points": "POINTS", "special": "DIABOLICAL QUESTION — ×2 POINTS", "next": "NEXT QUESTION →", "resultNext": "SEE RESULT →", "finalScore": "FINAL SCORE", "correct": "CORRECT", "wrong": "WRONG", "result": "RESULT", "playAgain": "PLAY AGAIN", "closeQuiz": "CLOSE QUIZ", "pointsWord": "POINTS", "correctPrefix": "CORRECT", "wrongPrefix": "WRONG", "timeUp": "TIME'S UP", "rankPerfect": "LITERALLY A STEPLER", "rankPerfectText": "Perfect score. You know the Literally Steplers universe inside out.", "rankGreat": "CERTIFIED STEPLER", "rankGreatText": "Excellent run. You clearly know the band.", "rankMid": "STEPLER IN TRAINING", "rankMidText": "Not bad. You know the universe, but there is still more chaos to study.", "rankLow": "BACK TO THE DISCOGRAPHY", "rankLowText": "Time to study the albums and come back stronger.", "originalTheme": "Original theme", "redWhite": "Red & white", "goldRed": "Gold & red", "darkLightRed": "Dark red & light red", "whiteGold": "White & gold", "goldPink": "Gold & neon pink"}, "pt": {"official": "O SITE OFICIAL", "enter": "ENTRAR", "home": "INÍCIO", "music": "MÚSICA", "streaming": "STREAMING", "game": "JOGO", "options": "OPÇÕES", "bandLabel": "01 / A BANDA", "heroDesc": "Literally Steplers é um projeto musical construído em torno de caos, absurdo, amizade, criatividade e uma quantidade nada saudável de ideias questionáveis.<br><br>De personagens misteriosos a mundos fictícios inteiros, cada álbum adiciona uma nova peça ao universo Literally Steplers.", "explore": "EXPLORAR A DISCOGRAFIA", "youtubeChannel": "CANAL NO YOUTUBE", "discography": "02 / DISCOGRAFIA", "albums": "OS ÁLBUNS", "playlist": "PLAYLIST NO YOUTUBE", "minigame": "03 / MINIJOGO", "quizTitle": "QUIZ LITERALLY STEPLERS", "gameIntro": "Acha que conhece o universo Literally Steplers? Teste seu conhecimento sobre os álbuns, músicas e a discografia da banda no quiz oficial.", "howKnow": "O QUANTO VOCÊ CONHECE A BANDA?", "gameSummary": "10 perguntas aleatórias por partida. Três dificuldades. Sem piedade.", "playQuiz": "JOGAR QUIZ →", "listenNow": "04 / OUÇA AGORA", "experience": "VIVA A MÚSICA", "streamIntro": "Leve Hell's Aura e Stemers para além do YouTube.<br>Os dois álbuns também estão disponíveis no Spotify e Apple Music.", "streamPlatform": "PLATAFORMA DE STREAMING", "listen": "OUVIR →", "visitChannel": "VISITAR O CANAL LITERALLY STEPLERS NO YOUTUBE →", "siteTheme": "TEMA DO SITE", "themeDesc": "Escolha o tema visual do site.", "effects": "EFEITOS", "effectsDesc": "Ative ou desative o efeito angelical de The Home.", "language": "IDIOMA", "languageDesc": "Escolha o idioma do site.", "on": "LIGADO", "off": "DESLIGADO", "quizHeader": "LITERALLY STEPLERS / JOGO", "officialQuiz": "O QUIZ OFICIAL DA BANDA", "realStepler": "VOCÊ É UM STEPLER DE VERDADE?", "quizDesc": "Cada partida traz 10 perguntas aleatórias do banco completo. Escolha a dificuldade, responda rápido, faça uma sequência e busque a maior pontuação.", "easy": "FÁCIL", "normal": "NORMAL", "diabolical": "DIABÓLICO", "startGame": "COMEÇAR JOGO", "easyInfo": "FÁCIL — 20 segundos por pergunta. Mais reconhecimento de álbuns e músicas.", "normalInfo": "NORMAL — 15 segundos por pergunta. Pontuação padrão.", "diabolicalInfo": "DIABÓLICO — 10 segundos por pergunta. Perguntas mais difíceis e pontuação maior.", "question": "PERGUNTA", "time": "TEMPO", "streak": "SEQUÊNCIA", "points": "PONTOS", "special": "PERGUNTA DIABÓLICA — ×2 PONTOS", "next": "PRÓXIMA PERGUNTA →", "resultNext": "VER RESULTADO →", "finalScore": "PLACAR FINAL", "correct": "ACERTOS", "wrong": "ERROS", "result": "RESULTADO", "playAgain": "JOGAR NOVAMENTE", "closeQuiz": "FECHAR QUIZ", "pointsWord": "PONTOS", "correctPrefix": "CERTO", "wrongPrefix": "ERRADO", "timeUp": "TEMPO ESGOTADO", "rankPerfect": "LITERALMENTE UM STEPLER", "rankPerfectText": "Pontuação perfeita. Você conhece o universo Literally Steplers por completo.", "rankGreat": "STEPLER CERTIFICADO", "rankGreatText": "Excelente partida. Você claramente conhece a banda.", "rankMid": "STEPLER EM TREINAMENTO", "rankMidText": "Nada mal. Você conhece o universo, mas ainda há mais caos para estudar.", "rankLow": "DE VOLTA À DISCOGRAFIA", "rankLowText": "Hora de estudar os álbuns e voltar mais forte.", "originalTheme": "Tema original", "redWhite": "Vermelho e branco", "goldRed": "Dourado e vermelho", "darkLightRed": "Vermelho escuro e claro", "whiteGold": "Branco e dourado", "goldPink": "Dourado e rosa neon"}, "de": {"official": "DIE OFFIZIELLE WEBSITE", "enter": "EINTRETEN", "home": "START", "music": "MUSIK", "streaming": "STREAMING", "game": "SPIEL", "options": "OPTIONEN", "bandLabel": "01 / DIE BAND", "heroDesc": "Literally Steplers ist ein Musikprojekt rund um Chaos, Absurdität, Freundschaft, Kreativität und eine ungesunde Menge fragwürdiger Ideen.<br><br>Von mysteriösen Figuren bis zu ganzen fiktiven Welten fügt jedes Album dem Literally-Steplers-Universum ein weiteres Stück hinzu.", "explore": "DISKOGRAFIE ENTDECKEN", "youtubeChannel": "YOUTUBE-KANAL", "discography": "02 / DISKOGRAFIE", "albums": "DIE ALBEN", "playlist": "YOUTUBE-PLAYLIST", "minigame": "03 / MINISPIEL", "quizTitle": "LITERALLY STEPLERS QUIZ", "gameIntro": "Glaubst du, das Literally-Steplers-Universum zu kennen? Teste dein Wissen über Alben, Songs und die Diskografie der Band im offiziellen Quiz.", "howKnow": "WIE GUT KENNST DU DIE BAND?", "gameSummary": "10 zufällige Fragen pro Runde. Drei Schwierigkeitsgrade. Keine Gnade.", "playQuiz": "QUIZ SPIELEN →", "listenNow": "04 / JETZT HÖREN", "experience": "ERLEBE DIE MUSIK", "streamIntro": "Nimm Hell's Aura und Stemers über YouTube hinaus mit.<br>Beide Alben sind auch auf Spotify und Apple Music verfügbar.", "streamPlatform": "STREAMING-PLATTFORM", "listen": "ANHÖREN →", "visitChannel": "LITERALLY STEPLERS AUF YOUTUBE BESUCHEN →", "siteTheme": "WEBSITE-THEMA", "themeDesc": "Wähle das visuelle Thema der Website.", "effects": "EFFEKTE", "effectsDesc": "Aktiviere oder deaktiviere den himmlischen The-Home-Effekt.", "language": "SPRACHE", "languageDesc": "Wähle die Sprache der Website.", "on": "AN", "off": "AUS", "quizHeader": "LITERALLY STEPLERS / SPIEL", "officialQuiz": "DAS OFFIZIELLE BAND-QUIZ", "realStepler": "BIST DU EIN ECHTER STEPLER?", "quizDesc": "Jede Runde enthält 10 zufällige Fragen aus dem gesamten Fragenpool. Wähle den Schwierigkeitsgrad, antworte schnell, baue eine Serie auf und jage den Highscore.", "easy": "LEICHT", "normal": "NORMAL", "diabolical": "DIABOLISCH", "startGame": "SPIEL STARTEN", "easyInfo": "LEICHT — 20 Sekunden pro Frage. Mehr Album- und Songerkennung.", "normalInfo": "NORMAL — 15 Sekunden pro Frage. Standardwertung.", "diabolicalInfo": "DIABOLISCH — 10 Sekunden pro Frage. Schwerere Fragen und mehr Punkte.", "question": "FRAGE", "time": "ZEIT", "streak": "SERIE", "points": "PUNKTE", "special": "DIABOLISCHE FRAGE — ×2 PUNKTE", "next": "NÄCHSTE FRAGE →", "resultNext": "ERGEBNIS ANZEIGEN →", "finalScore": "ENDSTAND", "correct": "RICHTIG", "wrong": "FALSCH", "result": "ERGEBNIS", "playAgain": "NOCHMAL SPIELEN", "closeQuiz": "QUIZ SCHLIESSEN", "pointsWord": "PUNKTE", "correctPrefix": "RICHTIG", "wrongPrefix": "FALSCH", "timeUp": "ZEIT ABGELAUFEN", "rankPerfect": "LITERALLY EIN STEPLER", "rankPerfectText": "Perfekte Punktzahl. Du kennst das Literally-Steplers-Universum in- und auswendig.", "rankGreat": "ZERTIFIZIERTER STEPLER", "rankGreatText": "Starke Runde. Du kennst die Band eindeutig.", "rankMid": "STEPLER IM TRAINING", "rankMidText": "Nicht schlecht. Du kennst das Universum, aber es gibt noch mehr Chaos zu lernen.", "rankLow": "ZURÜCK ZUR DISKOGRAFIE", "rankLowText": "Zeit, die Alben zu lernen und stärker zurückzukommen.", "originalTheme": "Originalthema", "redWhite": "Rot & Weiß", "goldRed": "Gold & Rot", "darkLightRed": "Dunkelrot & Hellrot", "whiteGold": "Weiß & Gold", "goldPink": "Gold & Neonpink"}, "ru": {"official": "ОФИЦИАЛЬНЫЙ САЙТ", "enter": "ВОЙТИ", "home": "ГЛАВНАЯ", "music": "МУЗЫКА", "streaming": "СТРИМИНГ", "game": "ИГРА", "options": "НАСТРОЙКИ", "bandLabel": "01 / ГРУППА", "heroDesc": "Literally Steplers — музыкальный проект о хаосе, абсурде, дружбе, творчестве и нездоровом количестве сомнительных идей.<br><br>От загадочных персонажей до целых вымышленных миров — каждый альбом добавляет новую часть во вселенную Literally Steplers.", "explore": "ИЗУЧИТЬ ДИСКОГРАФИЮ", "youtubeChannel": "КАНАЛ YOUTUBE", "discography": "02 / ДИСКОГРАФИЯ", "albums": "АЛЬБОМЫ", "playlist": "ПЛЕЙЛИСТ YOUTUBE", "minigame": "03 / МИНИ-ИГРА", "quizTitle": "ВИКТОРИНА LITERALLY STEPLERS", "gameIntro": "Думаешь, ты знаешь вселенную Literally Steplers? Проверь знания об альбомах, песнях и дискографии группы в официальной викторине.", "howKnow": "НАСKОЛЬКО ХОРОШО ТЫ ЗНАЕШЬ ГРУППУ?", "gameSummary": "10 случайных вопросов за игру. Три сложности. Без пощады.", "playQuiz": "ИГРАТЬ →", "listenNow": "04 / СЛУШАТЬ", "experience": "ПОЧУВСТВУЙ МУЗЫКУ", "streamIntro": "Слушай Hell's Aura и Stemers не только на YouTube.<br>Оба альбома также доступны в Spotify и Apple Music.", "streamPlatform": "СТРИМИНГОВАЯ ПЛАТФОРМА", "listen": "СЛУШАТЬ →", "visitChannel": "ПЕРЕЙТИ НА YOUTUBE-КАНАЛ LITERALLY STEPLERS →", "siteTheme": "ТЕМА САЙТА", "themeDesc": "Выберите визуальную тему сайта.", "effects": "ЭФФЕКТЫ", "effectsDesc": "Включить или выключить ангельский эффект The Home.", "language": "ЯЗЫК", "languageDesc": "Выберите язык сайта.", "on": "ВКЛ", "off": "ВЫКЛ", "quizHeader": "LITERALLY STEPLERS / ИГРА", "officialQuiz": "ОФИЦИАЛЬНАЯ ВИКТОРИНА ГРУППЫ", "realStepler": "ТЫ НАСТОЯЩИЙ STEPLER?", "quizDesc": "Каждая игра содержит 10 случайных вопросов из полного банка. Выбери сложность, отвечай быстро, набирай серию и стремись к рекорду.", "easy": "ЛЕГКО", "normal": "НОРМАЛЬНО", "diabolical": "ДЬЯВОЛЬСКИ", "startGame": "НАЧАТЬ ИГРУ", "easyInfo": "ЛЕГКО — 20 секунд на вопрос. Больше узнавания альбомов и песен.", "normalInfo": "НОРМАЛЬНО — 15 секунд на вопрос. Стандартные очки.", "diabolicalInfo": "ДЬЯВОЛЬСКИ — 10 секунд на вопрос. Сложнее вопросы и больше очков.", "question": "ВОПРОС", "time": "ВРЕМЯ", "streak": "СЕРИЯ", "points": "ОЧКИ", "special": "ДЬЯВОЛЬСКИЙ ВОПРОС — ×2 ОЧКОВ", "next": "СЛЕДУЮЩИЙ ВОПРОС →", "resultNext": "ПОКАЗАТЬ РЕЗУЛЬТАТ →", "finalScore": "ИТОГОВЫЙ СЧЁТ", "correct": "ВЕРНО", "wrong": "ОШИБКИ", "result": "РЕЗУЛЬТАТ", "playAgain": "ИГРАТЬ СНОВА", "closeQuiz": "ЗАКРЫТЬ ВИКТОРИНУ", "pointsWord": "ОЧКОВ", "correctPrefix": "ВЕРНО", "wrongPrefix": "НЕВЕРНО", "timeUp": "ВРЕМЯ ВЫШЛО", "rankPerfect": "LITERALLY STEPLER", "rankPerfectText": "Идеальный результат. Ты знаешь вселенную Literally Steplers вдоль и поперёк.", "rankGreat": "СЕРТИФИЦИРОВАННЫЙ STEPLER", "rankGreatText": "Отличная игра. Ты явно хорошо знаешь группу.", "rankMid": "STEPLER НА ОБУЧЕНИИ", "rankMidText": "Неплохо. Ты знаешь вселенную, но ещё есть чему учиться.", "rankLow": "НАЗАД К ДИСКОГРАФИИ", "rankLowText": "Пора изучить альбомы и вернуться сильнее.", "originalTheme": "Оригинальная тема", "redWhite": "Красный и белый", "goldRed": "Золотой и красный", "darkLightRed": "Тёмно-красный и светло-красный", "whiteGold": "Белый и золотой", "goldPink": "Золотой и неоново-розовый"}, "zh": {"official": "官方网站", "enter": "进入", "home": "主页", "music": "音乐", "streaming": "流媒体", "game": "游戏", "options": "设置", "bandLabel": "01 / 乐队", "heroDesc": "Literally Steplers 是一个围绕混乱、荒诞、友谊、创造力以及大量可疑点子打造的音乐项目。<br><br>从神秘角色到完整的虚构世界，每张专辑都会为 Literally Steplers 宇宙增加新的部分。", "explore": "探索作品目录", "youtubeChannel": "YOUTUBE 频道", "discography": "02 / 作品目录", "albums": "专辑", "playlist": "YOUTUBE 播放列表", "minigame": "03 / 小游戏", "quizTitle": "LITERALLY STEPLERS 问答", "gameIntro": "你真的了解 Literally Steplers 宇宙吗？在官方问答中测试你对专辑、歌曲和乐队作品目录的了解。", "howKnow": "你有多了解这支乐队？", "gameSummary": "每局 10 道随机题。三种难度。毫不留情。", "playQuiz": "开始问答 →", "listenNow": "04 / 立即收听", "experience": "感受音乐", "streamIntro": "让 Hell's Aura 和 Stemers 不只存在于 YouTube。<br>这两张专辑也可以在 Spotify 和 Apple Music 收听。", "streamPlatform": "流媒体平台", "listen": "收听 →", "visitChannel": "访问 LITERALLY STEPLERS YOUTUBE 频道 →", "siteTheme": "网站主题", "themeDesc": "选择网站的视觉主题。", "effects": "效果", "effectsDesc": "启用或关闭 The Home 的天使效果。", "language": "语言", "languageDesc": "选择网站语言。", "on": "开", "off": "关", "quizHeader": "LITERALLY STEPLERS / 游戏", "officialQuiz": "官方乐队问答", "realStepler": "你是真正的 STEPLER 吗？", "quizDesc": "每局会从完整题库随机抽取 10 道题。选择难度，快速回答，累积连胜并冲击最高分。", "easy": "简单", "normal": "普通", "diabolical": "地狱", "startGame": "开始游戏", "easyInfo": "简单 — 每题 20 秒。更多专辑和歌曲识别题。", "normalInfo": "普通 — 每题 15 秒。标准计分。", "diabolicalInfo": "地狱 — 每题 10 秒。更难的问题和更高分数。", "question": "问题", "time": "时间", "streak": "连胜", "points": "分数", "special": "地狱问题 — ×2 分数", "next": "下一题 →", "resultNext": "查看结果 →", "finalScore": "最终成绩", "correct": "正确", "wrong": "错误", "result": "结果", "playAgain": "再玩一次", "closeQuiz": "关闭问答", "pointsWord": "分", "correctPrefix": "正确", "wrongPrefix": "错误", "timeUp": "时间到", "rankPerfect": "真正的 STEPLER", "rankPerfectText": "满分。你对 Literally Steplers 宇宙了如指掌。", "rankGreat": "认证 STEPLER", "rankGreatText": "非常出色。你显然很了解这支乐队。", "rankMid": "训练中的 STEPLER", "rankMidText": "不错。你了解这个宇宙，但还有更多混乱需要学习。", "rankLow": "回到作品目录", "rankLowText": "该研究专辑并更强地回来了。", "originalTheme": "原始主题", "redWhite": "红色与白色", "goldRed": "金色与红色", "darkLightRed": "深红与浅红", "whiteGold": "白色与金色", "goldPink": "金色与霓虹粉"}, "ja": {"official": "公式サイト", "enter": "入る", "home": "ホーム", "music": "音楽", "streaming": "ストリーミング", "game": "ゲーム", "options": "設定", "bandLabel": "01 / バンド", "heroDesc": "Literally Steplers は、混沌、不条理、友情、創造性、そして大量の怪しいアイデアを中心に作られた音楽プロジェクトです。<br><br>謎のキャラクターから架空の世界全体まで、各アルバムが Literally Steplers の世界に新しい要素を加えます。", "explore": "ディスコグラフィーを見る", "youtubeChannel": "YOUTUBE チャンネル", "discography": "02 / ディスコグラフィー", "albums": "アルバム", "playlist": "YOUTUBE プレイリスト", "minigame": "03 / ミニゲーム", "quizTitle": "LITERALLY STEPLERS クイズ", "gameIntro": "Literally Steplers の世界を知っていると思う？公式クイズでアルバム、曲、バンドのディスコグラフィーに関する知識を試そう。", "howKnow": "バンドをどれだけ知っている？", "gameSummary": "1回10問のランダム問題。3段階の難易度。容赦なし。", "playQuiz": "クイズをプレイ →", "listenNow": "04 / 今すぐ聴く", "experience": "音楽を体験", "streamIntro": "Hell's Aura と Stemers を YouTube の外でも楽しもう。<br>両アルバムは Spotify と Apple Music でも配信中です。", "streamPlatform": "ストリーミングサービス", "listen": "聴く →", "visitChannel": "LITERALLY STEPLERS の YOUTUBE チャンネルへ →", "siteTheme": "サイトテーマ", "themeDesc": "サイトのビジュアルテーマを選択します。", "effects": "エフェクト", "effectsDesc": "The Home の天使風エフェクトをオン／オフします。", "language": "言語", "languageDesc": "サイトの言語を選択します。", "on": "オン", "off": "オフ", "quizHeader": "LITERALLY STEPLERS / ゲーム", "officialQuiz": "公式バンドクイズ", "realStepler": "本物の STEPLER か？", "quizDesc": "毎回、全問題からランダムに10問出題。難易度を選び、素早く答え、連続正解を伸ばしてハイスコアを狙おう。", "easy": "イージー", "normal": "ノーマル", "diabolical": "ディアボリカル", "startGame": "ゲーム開始", "easyInfo": "イージー — 1問20秒。アルバムや曲の識別が中心。", "normalInfo": "ノーマル — 1問15秒。標準スコア。", "diabolicalInfo": "ディアボリカル — 1問10秒。難問と高得点。", "question": "問題", "time": "時間", "streak": "連続", "points": "ポイント", "special": "ディアボリカル問題 — ×2 ポイント", "next": "次の問題 →", "resultNext": "結果を見る →", "finalScore": "最終スコア", "correct": "正解", "wrong": "不正解", "result": "結果", "playAgain": "もう一度", "closeQuiz": "クイズを閉じる", "pointsWord": "ポイント", "correctPrefix": "正解", "wrongPrefix": "不正解", "timeUp": "時間切れ", "rankPerfect": "LITERALLY A STEPLER", "rankPerfectText": "パーフェクト。Literally Steplers の世界を完全に理解している。", "rankGreat": "認定 STEPLER", "rankGreatText": "素晴らしい成績。バンドをよく知っている。", "rankMid": "STEPLER 修行中", "rankMidText": "悪くない。世界観は知っているが、まだ学ぶべき混沌がある。", "rankLow": "ディスコグラフィーへ戻れ", "rankLowText": "アルバムを勉強して、もっと強くなって戻ってこよう。", "originalTheme": "オリジナルテーマ", "redWhite": "赤と白", "goldRed": "金と赤", "darkLightRed": "濃い赤と明るい赤", "whiteGold": "白と金", "goldPink": "金とネオンピンク"}, "ko": {"official": "공식 웹사이트", "enter": "입장", "home": "홈", "music": "음악", "streaming": "스트리밍", "game": "게임", "options": "설정", "bandLabel": "01 / 밴드", "heroDesc": "Literally Steplers는 혼돈, 부조리, 우정, 창의성, 그리고 건강하지 않을 정도로 많은 수상한 아이디어를 중심으로 만들어진 음악 프로젝트입니다.<br><br>미스터리한 캐릭터부터 완전한 가상 세계까지, 각 앨범은 Literally Steplers 세계에 새로운 조각을 더합니다.", "explore": "디스코그래피 보기", "youtubeChannel": "YOUTUBE 채널", "discography": "02 / 디스코그래피", "albums": "앨범", "playlist": "YOUTUBE 재생목록", "minigame": "03 / 미니게임", "quizTitle": "LITERALLY STEPLERS 퀴즈", "gameIntro": "Literally Steplers 세계를 안다고 생각하나요? 공식 퀴즈에서 앨범, 노래, 밴드 디스코그래피 지식을 시험해 보세요.", "howKnow": "밴드를 얼마나 잘 아나요?", "gameSummary": "한 판에 무작위 10문제. 세 가지 난이도. 자비 없음.", "playQuiz": "퀴즈 플레이 →", "listenNow": "04 / 지금 듣기", "experience": "음악을 경험하세요", "streamIntro": "Hell's Aura와 Stemers를 YouTube 밖에서도 즐겨보세요.<br>두 앨범 모두 Spotify와 Apple Music에서 들을 수 있습니다.", "streamPlatform": "스트리밍 플랫폼", "listen": "듣기 →", "visitChannel": "LITERALLY STEPLERS YOUTUBE 채널 방문 →", "siteTheme": "사이트 테마", "themeDesc": "사이트의 비주얼 테마를 선택하세요.", "effects": "효과", "effectsDesc": "The Home의 천사 효과를 켜거나 끕니다.", "language": "언어", "languageDesc": "사이트 언어를 선택하세요.", "on": "켜짐", "off": "꺼짐", "quizHeader": "LITERALLY STEPLERS / 게임", "officialQuiz": "공식 밴드 퀴즈", "realStepler": "진짜 STEPLER인가요?", "quizDesc": "매 게임마다 전체 문제에서 무작위 10문제가 나옵니다. 난이도를 선택하고 빠르게 답해 연속 정답과 최고 점수를 노려보세요.", "easy": "쉬움", "normal": "보통", "diabolical": "악마", "startGame": "게임 시작", "easyInfo": "쉬움 — 문제당 20초. 앨범과 노래 식별 중심.", "normalInfo": "보통 — 문제당 15초. 표준 점수.", "diabolicalInfo": "악마 — 문제당 10초. 더 어려운 문제와 더 높은 점수.", "question": "문제", "time": "시간", "streak": "연속", "points": "점수", "special": "악마 문제 — ×2 점수", "next": "다음 문제 →", "resultNext": "결과 보기 →", "finalScore": "최종 점수", "correct": "정답", "wrong": "오답", "result": "결과", "playAgain": "다시 플레이", "closeQuiz": "퀴즈 닫기", "pointsWord": "점", "correctPrefix": "정답", "wrongPrefix": "오답", "timeUp": "시간 초과", "rankPerfect": "LITERALLY A STEPLER", "rankPerfectText": "만점입니다. Literally Steplers 세계를 완전히 알고 있습니다.", "rankGreat": "인증 STEPLER", "rankGreatText": "훌륭한 경기입니다. 밴드를 정말 잘 알고 있습니다.", "rankMid": "훈련 중인 STEPLER", "rankMidText": "나쁘지 않습니다. 세계관을 알지만 아직 더 배울 혼돈이 있습니다.", "rankLow": "디스코그래피로 돌아가기", "rankLowText": "앨범을 공부하고 더 강하게 돌아오세요.", "originalTheme": "기본 테마", "redWhite": "빨강 & 흰색", "goldRed": "금색 & 빨강", "darkLightRed": "진한 빨강 & 밝은 빨강", "whiteGold": "흰색 & 금색", "goldPink": "금색 & 네온 핑크"}, "fr": {"official": "LE SITE OFFICIEL", "enter": "ENTRER", "home": "ACCUEIL", "music": "MUSIQUE", "streaming": "STREAMING", "game": "JEU", "options": "OPTIONS", "bandLabel": "01 / LE GROUPE", "heroDesc": "Literally Steplers est un projet musical construit autour du chaos, de l'absurde, de l'amitié, de la créativité et d'une quantité malsaine d'idées discutables.<br><br>Des personnages mystérieux aux mondes fictifs entiers, chaque album ajoute une nouvelle pièce à l'univers Literally Steplers.", "explore": "EXPLORER LA DISCOGRAPHIE", "youtubeChannel": "CHAÎNE YOUTUBE", "discography": "02 / DISCOGRAPHIE", "albums": "LES ALBUMS", "playlist": "PLAYLIST YOUTUBE", "minigame": "03 / MINI-JEU", "quizTitle": "QUIZ LITERALLY STEPLERS", "gameIntro": "Tu penses connaître l'univers Literally Steplers ? Teste tes connaissances sur les albums, les chansons et la discographie du groupe dans le quiz officiel.", "howKnow": "CONNAIS-TU VRAIMENT LE GROUPE ?", "gameSummary": "10 questions aléatoires par partie. Trois difficultés. Aucune pitié.", "playQuiz": "JOUER AU QUIZ →", "listenNow": "04 / ÉCOUTER", "experience": "VIVEZ LA MUSIQUE", "streamIntro": "Emportez Hell's Aura et Stemers au-delà de YouTube.<br>Les deux albums sont aussi disponibles sur Spotify et Apple Music.", "streamPlatform": "PLATEFORME DE STREAMING", "listen": "ÉCOUTER →", "visitChannel": "VISITER LA CHAÎNE YOUTUBE LITERALLY STEPLERS →", "siteTheme": "THÈME DU SITE", "themeDesc": "Choisissez le thème visuel du site.", "effects": "EFFETS", "effectsDesc": "Activez ou désactivez l'effet angélique de The Home.", "language": "LANGUE", "languageDesc": "Choisissez la langue du site.", "on": "ACTIVÉ", "off": "DÉSACTIVÉ", "quizHeader": "LITERALLY STEPLERS / JEU", "officialQuiz": "LE QUIZ OFFICIEL DU GROUPE", "realStepler": "ES-TU UN VRAI STEPLER ?", "quizDesc": "Chaque partie propose 10 questions aléatoires de la banque complète. Choisis la difficulté, réponds vite, enchaîne les bonnes réponses et vise le meilleur score.", "easy": "FACILE", "normal": "NORMAL", "diabolical": "DIABOLIQUE", "startGame": "COMMENCER", "easyInfo": "FACILE — 20 secondes par question. Plus de reconnaissance d'albums et de chansons.", "normalInfo": "NORMAL — 15 secondes par question. Score standard.", "diabolicalInfo": "DIABOLIQUE — 10 secondes par question. Questions plus dures et scores plus élevés.", "question": "QUESTION", "time": "TEMPS", "streak": "SÉRIE", "points": "POINTS", "special": "QUESTION DIABOLIQUE — ×2 POINTS", "next": "QUESTION SUIVANTE →", "resultNext": "VOIR LE RÉSULTAT →", "finalScore": "SCORE FINAL", "correct": "BONNES", "wrong": "FAUSSES", "result": "RÉSULTAT", "playAgain": "REJOUER", "closeQuiz": "FERMER LE QUIZ", "pointsWord": "POINTS", "correctPrefix": "BONNE RÉPONSE", "wrongPrefix": "MAUVAISE RÉPONSE", "timeUp": "TEMPS ÉCOULÉ", "rankPerfect": "LITTÉRALEMENT UN STEPLER", "rankPerfectText": "Score parfait. Tu connais l'univers Literally Steplers sur le bout des doigts.", "rankGreat": "STEPLER CERTIFIÉ", "rankGreatText": "Excellente partie. Tu connais clairement le groupe.", "rankMid": "STEPLER EN FORMATION", "rankMidText": "Pas mal. Tu connais l'univers, mais il reste encore du chaos à étudier.", "rankLow": "RETOUR À LA DISCOGRAPHIE", "rankLowText": "Il est temps d'étudier les albums et de revenir plus fort.", "originalTheme": "Thème original", "redWhite": "Rouge et blanc", "goldRed": "Or et rouge", "darkLightRed": "Rouge foncé et rouge clair", "whiteGold": "Blanc et or", "goldPink": "Or et rose néon"}, "es": {"official": "EL SITIO OFICIAL", "enter": "ENTRAR", "home": "INICIO", "music": "MÚSICA", "streaming": "STREAMING", "game": "JUEGO", "options": "OPCIONES", "bandLabel": "01 / LA BANDA", "heroDesc": "Literally Steplers es un proyecto musical construido alrededor del caos, el absurdo, la amistad, la creatividad y una cantidad poco saludable de ideas cuestionables.<br><br>Desde personajes misteriosos hasta mundos ficticios completos, cada álbum añade otra pieza al universo Literally Steplers.", "explore": "EXPLORAR LA DISCOGRAFÍA", "youtubeChannel": "CANAL DE YOUTUBE", "discography": "02 / DISCOGRAFÍA", "albums": "LOS ÁLBUMES", "playlist": "PLAYLIST DE YOUTUBE", "minigame": "03 / MINIJUEGO", "quizTitle": "QUIZ LITERALLY STEPLERS", "gameIntro": "¿Crees que conoces el universo Literally Steplers? Pon a prueba tus conocimientos sobre los álbumes, canciones y la discografía de la banda en el quiz oficial.", "howKnow": "¿QUÉ TANTO CONOCES A LA BANDA?", "gameSummary": "10 preguntas aleatorias por partida. Tres dificultades. Sin piedad.", "playQuiz": "JUGAR QUIZ →", "listenNow": "04 / ESCUCHA AHORA", "experience": "VIVE LA MÚSICA", "streamIntro": "Lleva Hell's Aura y Stemers más allá de YouTube.<br>Ambos álbumes también están disponibles en Spotify y Apple Music.", "streamPlatform": "PLATAFORMA DE STREAMING", "listen": "ESCUCHAR →", "visitChannel": "VISITAR EL CANAL DE YOUTUBE DE LITERALLY STEPLERS →", "siteTheme": "TEMA DEL SITIO", "themeDesc": "Elige el tema visual del sitio.", "effects": "EFECTOS", "effectsDesc": "Activa o desactiva el efecto angelical de The Home.", "language": "IDIOMA", "languageDesc": "Elige el idioma del sitio.", "on": "ACTIVADO", "off": "DESACTIVADO", "quizHeader": "LITERALLY STEPLERS / JUEGO", "officialQuiz": "EL QUIZ OFICIAL DE LA BANDA", "realStepler": "¿ERES UN STEPLER DE VERDAD?", "quizDesc": "Cada partida presenta 10 preguntas aleatorias del banco completo. Elige la dificultad, responde rápido, crea una racha y busca la puntuación más alta.", "easy": "FÁCIL", "normal": "NORMAL", "diabolical": "DIABÓLICO", "startGame": "EMPEZAR JUEGO", "easyInfo": "FÁCIL — 20 segundos por pregunta. Más reconocimiento de álbumes y canciones.", "normalInfo": "NORMAL — 15 segundos por pregunta. Puntuación estándar.", "diabolicalInfo": "DIABÓLICO — 10 segundos por pregunta. Preguntas más difíciles y más puntos.", "question": "PREGUNTA", "time": "TIEMPO", "streak": "RACHA", "points": "PUNTOS", "special": "PREGUNTA DIABÓLICA — ×2 PUNTOS", "next": "SIGUIENTE PREGUNTA →", "resultNext": "VER RESULTADO →", "finalScore": "PUNTUACIÓN FINAL", "correct": "ACIERTOS", "wrong": "ERRORES", "result": "RESULTADO", "playAgain": "JUGAR DE NUEVO", "closeQuiz": "CERRAR QUIZ", "pointsWord": "PUNTOS", "correctPrefix": "CORRECTO", "wrongPrefix": "INCORRECTO", "timeUp": "TIEMPO AGOTADO", "rankPerfect": "LITERALMENTE UN STEPLER", "rankPerfectText": "Puntuación perfecta. Conoces el universo Literally Steplers de principio a fin.", "rankGreat": "STEPLER CERTIFICADO", "rankGreatText": "Excelente partida. Claramente conoces la banda.", "rankMid": "STEPLER EN ENTRENAMIENTO", "rankMidText": "Nada mal. Conoces el universo, pero todavía hay más caos que estudiar.", "rankLow": "DE VUELTA A LA DISCOGRAFÍA", "rankLowText": "Es hora de estudiar los álbumes y volver más fuerte.", "originalTheme": "Tema original", "redWhite": "Rojo y blanco", "goldRed": "Dorado y rojo", "darkLightRed": "Rojo oscuro y rojo claro", "whiteGold": "Blanco y dorado", "goldPink": "Dorado y rosa neón"}};
+const QPAT={"pt": [["What was the band's second album?", "Qual foi o segundo álbum da banda?"], ["Which song appears on {x}?", "Qual música aparece em {x}?"], ["Which album contains the song '{x}'?", "Qual álbum contém a música '{x}'?"], ["Which album has 10 listed tracks?", "Qual álbum tem 10 faixas listadas?"], ["What is track {n} on the {x}?", "Qual é a faixa {n} de {x}?"], ["Which song is part of {x}?", "Qual música faz parte de {x}?"], ["Which album contains '{x}'?", "Qual álbum contém '{x}'?"], ["Which album is number {n} in the discography?", "Qual é o álbum número {n} da discografia?"], ["Which album came immediately after {x}?", "Qual álbum veio imediatamente depois de {x}?"], ["What is the first track on {x}?", "Qual é a primeira faixa de {x}?"], ["What is the final track on {x}?", "Qual é a última faixa de {x}?"], ["Which song is track {n} on {x}?", "Qual música é a faixa {n} de {x}?"], ["What is track {n} on {x}?", "Qual é a faixa {n} de {x}?"], ["Which song is the first track on {x}?", "Qual música é a primeira faixa de {x}?"], ["What is track {n} on {x}?", "Qual é a faixa {n} de {x}?"], ["What is the title track of album number {n}?", "Qual é a faixa-título do álbum número {n}?"], ["Which album cover is this?", "De qual álbum é esta capa?"]], "de": [["What was the band's second album?", "Was war das zweite Album der Band?"], ["Which song appears on {x}?", "Welcher Song ist auf {x}?"], ["Which album contains the song '{x}'?", "Welches Album enthält den Song '{x}'?"], ["Which album has 10 listed tracks?", "Welches Album hat 10 aufgelistete Tracks?"], ["What is track {n} on the {x}?", "Welcher Song ist Track {n} auf {x}?"], ["Which song is part of {x}?", "Welcher Song gehört zu {x}?"], ["Which album contains '{x}'?", "Welches Album enthält '{x}'?"], ["Which album is number {n} in the discography?", "Welches Album ist Nummer {n} in der Diskografie?"], ["Which album came immediately after {x}?", "Welches Album kam direkt nach {x}?"], ["What is the first track on {x}?", "Was ist der erste Track auf {x}?"], ["What is the final track on {x}?", "Was ist der letzte Track auf {x}?"], ["Which song is track {n} on {x}?", "Welcher Song ist Track {n} auf {x}?"], ["What is track {n} on {x}?", "Was ist Track {n} auf {x}?"], ["Which song is the first track on {x}?", "Welcher Song ist der erste Track auf {x}?"], ["What is the title track of album number {n}?", "Wie heißt der Titeltrack von Album Nummer {n}?"], ["Which album cover is this?", "Zu welchem Album gehört dieses Cover?"]], "ru": [["What was the band's second album?", "Какой альбом был вторым у группы?"], ["Which song appears on {x}?", "Какая песня есть на {x}?"], ["Which album contains the song '{x}'?", "На каком альбоме находится песня '{x}'?"], ["Which album has 10 listed tracks?", "В каком альбоме указано 10 треков?"], ["What is track {n} on the {x}?", "Какой трек под номером {n} на {x}?"], ["Which song is part of {x}?", "Какая песня входит в {x}?"], ["Which album contains '{x}'?", "Какой альбом содержит '{x}'?"], ["Which album is number {n} in the discography?", "Какой альбом имеет номер {n} в дискографии?"], ["Which album came immediately after {x}?", "Какой альбом вышел сразу после {x}?"], ["What is the first track on {x}?", "Какой первый трек на {x}?"], ["What is the final track on {x}?", "Какой последний трек на {x}?"], ["Which song is track {n} on {x}?", "Какая песня является треком {n} на {x}?"], ["What is track {n} on {x}?", "Какой трек под номером {n} на {x}?"], ["Which song is the first track on {x}?", "Какая песня открывает {x}?"], ["What is the title track of album number {n}?", "Какой заглавный трек у альбома номер {n}?"], ["Which album cover is this?", "Обложка какого это альбома?"]], "zh": [["What was the band's second album?", "乐队的第二张专辑是哪一张？"], ["Which song appears on {x}?", "哪首歌收录在 {x}？"], ["Which album contains the song '{x}'?", "哪张专辑收录了歌曲 '{x}'？"], ["Which album has 10 listed tracks?", "哪张专辑列出了 10 首歌？"], ["What is track {n} on the {x}?", "{x} 的第 {n} 首歌是什么？"], ["Which song is part of {x}?", "哪首歌属于 {x}？"], ["Which album contains '{x}'?", "哪张专辑收录了 '{x}'？"], ["Which album is number {n} in the discography?", "作品目录中的第 {n} 张专辑是哪张？"], ["Which album came immediately after {x}?", "紧接在 {x} 之后的是哪张专辑？"], ["What is the first track on {x}?", "{x} 的第一首歌是什么？"], ["What is the final track on {x}?", "{x} 的最后一首歌是什么？"], ["Which song is track {n} on {x}?", "{x} 的第 {n} 首歌是哪首？"], ["What is track {n} on {x}?", "{x} 的第 {n} 首歌是什么？"], ["Which song is the first track on {x}?", "哪首歌是 {x} 的第一首？"], ["What is the title track of album number {n}?", "第 {n} 张专辑的同名主打歌是什么？"], ["Which album cover is this?", "这是哪张专辑的封面？"]], "ja": [["What was the band's second album?", "バンドの2枚目のアルバムは？"], ["Which song appears on {x}?", "{x} に収録されている曲は？"], ["Which album contains the song '{x}'?", "'{x}' が収録されているアルバムは？"], ["Which album has 10 listed tracks?", "10曲収録されているアルバムは？"], ["What is track {n} on the {x}?", "{x} のトラック{n}は？"], ["Which song is part of {x}?", "{x} に収録されている曲は？"], ["Which album contains '{x}'?", "'{x}' が収録されているアルバムは？"], ["Which album is number {n} in the discography?", "ディスコグラフィーの{n}番目のアルバムは？"], ["Which album came immediately after {x}?", "{x} の直後に出たアルバムは？"], ["What is the first track on {x}?", "{x} の1曲目は？"], ["What is the final track on {x}?", "{x} の最後の曲は？"], ["Which song is track {n} on {x}?", "{x} のトラック{n}はどの曲？"], ["What is track {n} on {x}?", "{x} のトラック{n}は？"], ["Which song is the first track on {x}?", "{x} の1曲目はどの曲？"], ["What is the title track of album number {n}?", "アルバム番号{n}のタイトル曲は？"], ["Which album cover is this?", "これはどのアルバムのジャケット？"]], "ko": [["What was the band's second album?", "밴드의 두 번째 앨범은 무엇인가요?"], ["Which song appears on {x}?", "{x}에 수록된 곡은 무엇인가요?"], ["Which album contains the song '{x}'?", "'{x}'가 수록된 앨범은 무엇인가요?"], ["Which album has 10 listed tracks?", "10곡이 수록된 앨범은 무엇인가요?"], ["What is track {n} on the {x}?", "{x}의 {n}번 트랙은 무엇인가요?"], ["Which song is part of {x}?", "{x}에 포함된 곡은 무엇인가요?"], ["Which album contains '{x}'?", "'{x}'가 수록된 앨범은 무엇인가요?"], ["Which album is number {n} in the discography?", "디스코그래피의 {n}번째 앨범은 무엇인가요?"], ["Which album came immediately after {x}?", "{x} 바로 다음 앨범은 무엇인가요?"], ["What is the first track on {x}?", "{x}의 첫 번째 트랙은 무엇인가요?"], ["What is the final track on {x}?", "{x}의 마지막 트랙은 무엇인가요?"], ["Which song is track {n} on {x}?", "{x}의 {n}번 트랙은 어떤 곡인가요?"], ["What is track {n} on {x}?", "{x}의 {n}번 트랙은 무엇인가요?"], ["Which song is the first track on {x}?", "{x}의 첫 곡은 무엇인가요?"], ["What is the title track of album number {n}?", "{n}번 앨범의 타이틀 트랙은 무엇인가요?"], ["Which album cover is this?", "이 앨범 커버는 무엇인가요?"]], "fr": [["What was the band's second album?", "Quel était le deuxième album du groupe ?"], ["Which song appears on {x}?", "Quelle chanson apparaît sur {x} ?"], ["Which album contains the song '{x}'?", "Quel album contient la chanson '{x}' ?"], ["Which album has 10 listed tracks?", "Quel album contient 10 pistes ?"], ["What is track {n} on the {x}?", "Quelle est la piste {n} de {x} ?"], ["Which song is part of {x}?", "Quelle chanson fait partie de {x} ?"], ["Which album contains '{x}'?", "Quel album contient '{x}' ?"], ["Which album is number {n} in the discography?", "Quel album est le numéro {n} de la discographie ?"], ["Which album came immediately after {x}?", "Quel album est sorti juste après {x} ?"], ["What is the first track on {x}?", "Quelle est la première piste de {x} ?"], ["What is the final track on {x}?", "Quelle est la dernière piste de {x} ?"], ["Which song is track {n} on {x}?", "Quelle chanson est la piste {n} de {x} ?"], ["What is track {n} on {x}?", "Quelle est la piste {n} de {x} ?"], ["Which song is the first track on {x}?", "Quelle chanson ouvre {x} ?"], ["What is the title track of album number {n}?", "Quelle est la chanson-titre de l'album numéro {n} ?"], ["Which album cover is this?", "De quel album est cette pochette ?"]], "es": [["What was the band's second album?", "¿Cuál fue el segundo álbum de la banda?"], ["Which song appears on {x}?", "¿Qué canción aparece en {x}?"], ["Which album contains the song '{x}'?", "¿Qué álbum contiene la canción '{x}'?"], ["Which album has 10 listed tracks?", "¿Qué álbum tiene 10 canciones listadas?"], ["What is track {n} on the {x}?", "¿Cuál es la pista {n} de {x}?"], ["Which song is part of {x}?", "¿Qué canción forma parte de {x}?"], ["Which album contains '{x}'?", "¿Qué álbum contiene '{x}'?"], ["Which album is number {n} in the discography?", "¿Qué álbum es el número {n} de la discografía?"], ["Which album came immediately after {x}?", "¿Qué álbum vino inmediatamente después de {x}?"], ["What is the first track on {x}?", "¿Cuál es la primera pista de {x}?"], ["What is the final track on {x}?", "¿Cuál es la última pista de {x}?"], ["Which song is track {n} on {x}?", "¿Qué canción es la pista {n} de {x}?"], ["What is track {n} on {x}?", "¿Cuál es la pista {n} de {x}?"], ["Which song is the first track on {x}?", "¿Qué canción es la primera pista de {x}?"], ["What is the title track of album number {n}?", "¿Cuál es la canción titular del álbum número {n}?"], ["Which album cover is this?", "¿De qué álbum es esta portada?"]]};
 let currentLanguage=localStorage.getItem("literallySteplersLanguage")||"en";
+if(!["en","pt","es"].includes(currentLanguage)){currentLanguage="en";localStorage.setItem("literallySteplersLanguage","en");}
 if(!I18N[currentLanguage]) currentLanguage="en";
 
 function t(key){return (I18N[currentLanguage]&&I18N[currentLanguage][key])||I18N.en[key]||key}
@@ -3834,12 +3413,19 @@ document.querySelectorAll(".album-theme-action").forEach(btn=>{
 const albumThemeLabels={
   en:"USE THIS ALBUM AS THEME",
   pt:"USAR ESTE ÁLBUM COMO TEMA",
+  de:"DIESES ALBUM ALS THEMA VERWENDEN",
+  ru:"ИСПОЛЬЗОВАТЬ АЛЬБОМ КАК ТЕМУ",
+  zh:"使用此专辑主题",
+  ja:"このアルバムをテーマにする",
+  ko:"이 앨범을 테마로 사용",
+  fr:"UTILISER CET ALBUM COMME THÈME",
   es:"USAR ESTE ÁLBUM COMO TEMA"
 };
 const selectEraLabels={
-  en:["ERA THEME","Choose a released album era for the entire site.","SELECT ERA →","SITE PERSONALIZATION","SELECT ERA","Choose an album era and transform the entire visual identity of the site.","19 RELEASED ERAS","HOVER TO PREVIEW · CLICK TO SELECT","USE THIS ERA"],
-  pt:["TEMA DE ERA","Escolha a era de um álbum lançado para todo o site.","ESCOLHER ERA →","PERSONALIZAÇÃO DO SITE","ESCOLHER ERA","Escolha uma era e transforme toda a identidade visual do site.","19 ERAS LANÇADAS","PASSE O MOUSE PARA PRÉ-VISUALIZAR · CLIQUE PARA SELECIONAR","USAR ESTA ERA"],
-  es:["TEMA DE ERA","Elige la era de un álbum publicado para todo el sitio.","ELEGIR ERA →","PERSONALIZACIÓN DEL SITIO","ELEGIR ERA","Elige una era de álbum y transforma toda la identidad visual del sitio.","19 ERAS PUBLICADAS","PASA EL CURSOR PARA PREVISUALIZAR · HAZ CLIC PARA SELECCIONAR","USAR ESTA ERA"]
+  en:["ERA THEME","Choose a released album era for the entire site.","SELECT ERA →","SITE PERSONALIZATION","SELECT ERA","Choose an album era and transform the entire visual identity of the site.","20 RELEASED ERAS","HOVER TO PREVIEW · CLICK TO SELECT","USE THIS ERA"],
+  pt:["TEMA DE ERA","Escolha a era de um álbum lançado para todo o site.","ESCOLHER ERA →","PERSONALIZAÇÃO DO SITE","ESCOLHER ERA","Escolha uma era e transforme toda a identidade visual do site.","20 ERAS LANÇADAS","PASSE O MOUSE PARA PRÉ-VISUALIZAR · CLIQUE PARA SELECIONAR","USAR ESTA ERA"],
+
+  es:["TEMA DE ERA","Elige la era de un álbum publicado para todo el sitio.","ELEGIR ERA →","PERSONALIZACIÓN DEL SITIO","ELEGIR ERA","Elige una era de álbum y transforma toda la identidad visual del sitio.","20 ERAS PUBLICADAS","PASA EL CURSOR PARA PREVISUALIZAR · HAZ CLIC PARA SELECCIONAR","USAR ESTA ERA"]
 };
 
 function refreshAlbumThemeButtonLabels(){
@@ -4103,6 +3689,7 @@ document.addEventListener("click",e=>{
   const translations={
     en:{name:"PERFORMANCE MODE",desc:"Reduce heavy visual effects and animations to make the site lighter.",on:"ON",off:"OFF"},
     pt:{name:"MODO DESEMPENHO",desc:"Reduz efeitos visuais pesados e animações para deixar o site mais leve.",on:"LIGADO",off:"DESLIGADO"},
+
     es:{name:"MODO RENDIMIENTO",desc:"Reduce los efectos visuales pesados y las animaciones para hacer el sitio más ligero.",on:"ACTIVADO",off:"DESACTIVADO"}
   };
 
@@ -4185,12 +3772,7 @@ function addXP(amount){data.xp=Math.max(0,Math.round((data.xp||0)+amount));save(
 function addMastery(era,amount=1){era=normEra(era);data.mastery[era]=(data.mastery[era]||0)+amount;save()}
 function achievementState(){try{return JSON.parse(localStorage.getItem(ACH_KEY)||"{}")}catch(e){return{}}}
 function achievementCount(){const a=achievementState();return a.unlocked?Object.keys(a.unlocked).length:0}
-function guessAchievementCount(){
-  try{
-    const g=JSON.parse(localStorage.getItem("literallySteplersGuessAchievementsV1")||"{}");
-    return g.unlocked?Object.keys(g.unlocked).length:0;
-  }catch(e){return 0}
-}
+function guessAchievementCount(){try{const g=JSON.parse(localStorage.getItem("literallySteplersGuessAchievementsV1")||"{}");return g.unlocked?Object.keys(g.unlocked).length:0}catch(e){return 0}}
 function unlockedThemeCount(){
   const a=achievementState(), set=new Set(["debut-album"]);
   const rewardMap={
@@ -4322,13 +3904,8 @@ function renderGuess(){
   const item=guessRun[gIndex], cover=document.getElementById("guessCover"), opts=document.getElementById("guessOptions");
   document.getElementById("guessRound").textContent=String(gIndex+1).padStart(2,"0")+" / 05";
   document.getElementById("guessFeedback").textContent="";document.getElementById("guessNext").style.display="none";
-  cover.style.visibility="hidden";
-  cover.style.filter="blur(24px) brightness(.72)";
-  cover.src=item.img;
-  // Force the fully blurred state before the image becomes visible.
-  requestAnimationFrame(()=>{
-    cover.style.visibility="visible";
-  });
+  cover.style.visibility="hidden";cover.style.filter="blur(24px) brightness(.72)";cover.src=item.img;
+  requestAnimationFrame(()=>{cover.style.visibility="visible"});
   const distract=shuffle(albumPool.filter(a=>a.name!==item.name)).slice(0,3).map(a=>a.name), choices=shuffle([item.name,...distract]);
   opts.innerHTML=choices.map(c=>`<button class="guess-option" type="button">${c}</button>`).join("");
   opts.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>answerGuess(b.textContent,b)));
@@ -4403,229 +3980,97 @@ renderProfile();
 <script id="guess-album-achievements">
 (function(){
   const KEY="literallySteplersGuessAchievementsV1";
-
-  function fresh(){
-    return {
-      unlocked:{},
-      uniqueCorrect:[],
-      totalRuns:0,
-      perfectRuns:0,
-      fastestCorrect:null
-    };
-  }
-
-  let state;
-  try{
-    state=Object.assign(fresh(),JSON.parse(localStorage.getItem(KEY)||"{}"));
-  }catch(e){
-    state=fresh();
-  }
-  state.unlocked=state.unlocked||{};
-  state.uniqueCorrect=Array.isArray(state.uniqueCorrect)?state.uniqueCorrect:[];
-
-  function save(){
-    try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}
-  }
-
+  function fresh(){return{unlocked:{},uniqueCorrect:[],totalRuns:0,perfectRuns:0,fastestCorrect:null}}
+  let state;try{state=Object.assign(fresh(),JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){state=fresh()}
+  state.unlocked=state.unlocked||{};state.uniqueCorrect=Array.isArray(state.uniqueCorrect)?state.uniqueCorrect:[];
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
   const defs=[
-    {
-      id:"sharp_eyes",
-      name:"SHARP EYES",
-      hint:"Finish a Guess the Album run without missing a single cover."
-    },
-    {
-      id:"no_blur_needed",
-      name:"NO BLUR NEEDED",
-      hint:"Recognize a cover almost immediately, before the blur has much time to fade."
-    },
-    {
-      id:"cover_collector",
-      name:"COVER COLLECTOR",
-      hint:"Correctly identify 10 different album covers."
-    },
-    {
-      id:"visual_master",
-      name:"VISUAL MASTER",
-      hint:"Correctly identify every album cover available in Guess the Album."
-    }
+    {id:"sharp_eyes",name:"SHARP EYES",hint:"Finish a Guess the Album run without missing a single cover."},
+    {id:"no_blur_needed",name:"NO BLUR NEEDED",hint:"Recognize a cover almost immediately, before the blur has much time to fade."},
+    {id:"cover_collector",name:"COVER COLLECTOR",hint:"Correctly identify 10 different album covers."},
+    {id:"visual_master",name:"VISUAL MASTER",hint:"Correctly identify every album cover available in Guess the Album."}
   ];
-
-  function normalizeName(name){
-    return String(name||"")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g,"")
-      .replace(/[^a-z0-9]+/g,"-")
-      .replace(/^-|-$/g,"");
-  }
-
+  function normalizeName(name){return String(name||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
   function albumPoolCount(){
-    try{
-      const cards=[...document.querySelectorAll(".album")].filter(card=>{
-        const name=card.querySelector("h3")?.textContent.trim().toLowerCase();
-        const img=card.querySelector(".album-cover")?.getAttribute("src")||"";
-        return name && name!=="coming soon" && !img.toLowerCase().includes("soon");
-      });
-      return cards.length;
-    }catch(e){
-      return 0;
-    }
+    try{return [...document.querySelectorAll(".album")].filter(card=>{
+      const name=card.querySelector("h3")?.textContent.trim().toLowerCase();
+      const img=card.querySelector(".album-cover")?.getAttribute("src")||"";
+      return name&&name!=="coming soon"&&!img.toLowerCase().includes("soon");
+    }).length}catch(e){return 0}
   }
-
+  let guessToastTimer=null;
   function toast(name,hint){
     const existing=document.getElementById("achievementToast");
-    if(existing){
-      const small=existing.querySelector("small");
-      const strong=existing.querySelector("strong");
-      const div=existing.querySelector("div");
-      if(small) small.textContent="ACHIEVEMENT UNLOCKED";
-      if(strong) strong.textContent=name;
-      if(div) div.textContent=hint;
-      existing.classList.add("show");
-      setTimeout(()=>existing.classList.remove("show"),4200);
-      return;
+    if(!existing)return;
+
+    if(guessToastTimer){
+      clearTimeout(guessToastTimer);
+      guessToastTimer=null;
     }
 
-    const el=document.createElement("div");
-    el.style.cssText="position:fixed;right:22px;bottom:22px;z-index:30000;width:min(360px,calc(100vw - 44px));padding:16px 18px;background:#090909;border:1px solid var(--custom-accent,#c8b38a);color:#fff";
-    el.innerHTML='<small style="display:block;color:var(--custom-accent,#c8b38a);font-size:7px;letter-spacing:2px;margin-bottom:5px">ACHIEVEMENT UNLOCKED</small><strong style="font-size:14px">'+name+'</strong><div style="font-size:9px;color:#999;margin-top:5px">'+hint+'</div>';
-    document.body.appendChild(el);
-    setTimeout(()=>el.remove(),4200);
+    const small=existing.querySelector("small");
+    const strong=existing.querySelector("strong");
+    const div=existing.querySelector("div");
+
+    if(small)small.textContent=(window.getGuessAchievementToastLabel?window.getGuessAchievementToastLabel():"ACHIEVEMENT UNLOCKED");
+    if(strong)strong.textContent=name;
+    if(div)div.textContent=hint;
+
+    // Restart the popup even if another achievement toast is already visible.
+    existing.classList.remove("show");
+    void existing.offsetWidth;
+    existing.classList.add("show");
+
+    guessToastTimer=setTimeout(()=>{
+      existing.classList.remove("show");
+      guessToastTimer=null;
+    },4200);
   }
-
-  function unlock(id){
-    if(state.unlocked[id]) return;
-    const def=defs.find(d=>d.id===id);
-    if(!def) return;
-    state.unlocked[id]=Date.now();
-    save();
-    toast(def.name,def.hint);
-    renderIntoAchievements();
-    window.dispatchEvent(new CustomEvent("steplersAchievementChanged"));
-    try{
-      if(typeof renderProfile==="function") renderProfile();
-    }catch(e){}
-  }
-
-  function registerCorrect(albumName,elapsedSeconds){
-    const slug=normalizeName(albumName);
-    if(slug && !state.uniqueCorrect.includes(slug)){
-      state.uniqueCorrect.push(slug);
-    }
-
-    if(typeof elapsedSeconds==="number"){
-      state.fastestCorrect=state.fastestCorrect===null
-        ? elapsedSeconds
-        : Math.min(state.fastestCorrect,elapsedSeconds);
-
-      if(elapsedSeconds<=2.0) unlock("no_blur_needed");
-    }
-
-    if(state.uniqueCorrect.length>=10) unlock("cover_collector");
-
-    const total=albumPoolCount();
-    if(total>0 && state.uniqueCorrect.length>=total){
-      unlock("visual_master");
-    }
-
-    save();
-  }
-
-  function registerRun(correctCount){
-    state.totalRuns++;
-    if(correctCount===5){
-      state.perfectRuns++;
-      unlock("sharp_eyes");
-    }
-    save();
-  }
-
   function renderIntoAchievements(){
-    const grid=document.getElementById("achievementsGrid");
-    if(!grid) return;
-
-    // Remove previous extension cards so rerenders don't duplicate them.
+    const grid=document.getElementById("achievementsGrid");if(!grid)return;
     grid.querySelectorAll('[data-guess-achievement="true"]').forEach(el=>el.remove());
-
     defs.forEach((a,index)=>{
-      const done=!!state.unlocked[a.id];
-      const card=document.createElement("div");
-      card.className="achievement-card "+(done?"unlocked":"");
-      card.dataset.guessAchievement="true";
-      card.innerHTML=`
-        <div class="achievement-icon">${done?"✓":"?"}</div>
-        <div>
-          <div class="achievement-status">${done?"UNLOCKED":"LOCKED"} · G${String(index+1).padStart(2,"0")}</div>
-          <div class="achievement-name">${done?a.name:"SECRET ACHIEVEMENT"}</div>
-          <div class="achievement-hint">${done?"Completed — "+a.hint:"HINT — "+a.hint}</div>
-          <div class="achievement-reward">GUESS THE ALBUM ACHIEVEMENT</div>
-        </div>
-      `;
+      const done=!!state.unlocked[a.id],card=document.createElement("div");
+      card.className="achievement-card "+(done?"unlocked":"");card.dataset.guessAchievement="true";
+      card.innerHTML=`<div class="achievement-icon">${done?"✓":"?"}</div><div>
+      <div class="achievement-status">${done?"UNLOCKED":"LOCKED"} · G${String(index+1).padStart(2,"0")}</div>
+      <div class="achievement-name">${done?a.name:"SECRET ACHIEVEMENT"}</div>
+      <div class="achievement-hint">${done?"Completed — "+a.hint:"HINT — "+a.hint}</div>
+      <div class="achievement-reward">GUESS THE ALBUM ACHIEVEMENT</div></div>`;
       grid.appendChild(card);
     });
-
-    // Update visible achievement count to include the 4 Guess achievements.
-    const baseState=(()=>{
-      try{return JSON.parse(localStorage.getItem("literallySteplersAchievementsV1")||"{}")}catch(e){return{}}
-    })();
-    const baseUnlocked=baseState.unlocked?Object.keys(baseState.unlocked).length:0;
-    const guessUnlocked=Object.keys(state.unlocked).length;
-    const count=document.getElementById("achievementCount");
-    if(count) count.textContent=`${baseUnlocked+guessUnlocked} / 14`;
+    let base=0;try{const b=JSON.parse(localStorage.getItem("literallySteplersAchievementsV1")||"{}");base=b.unlocked?Object.keys(b.unlocked).length:0}catch(e){}
+    const count=document.getElementById("achievementCount");if(count)count.textContent=`${base+Object.keys(state.unlocked).length} / 14`;
   }
-
-  // Observe the Achievements modal opening/rerendering.
-  const achievementsOpen=document.getElementById("achievementsOpen");
-  if(achievementsOpen){
-    achievementsOpen.addEventListener("click",()=>setTimeout(renderIntoAchievements,0));
+  function unlock(id){
+    if(state.unlocked[id])return;const def=defs.find(d=>d.id===id);if(!def)return;
+    state.unlocked[id]=Date.now();save();toast(def.name,def.hint);renderIntoAchievements();
+    window.dispatchEvent(new CustomEvent("steplersAchievementChanged"));
   }
-
-  // Hook Guess the Album without replacing its existing logic.
-  // answerGuess has access to gElapsed and the selected item; finishGuess has gCorrect.
-  window.addEventListener("load",function(){
-    try{
-      if(typeof answerGuess==="function" && !answerGuess.__guessAchievementsWrapped){
-        const originalAnswer=answerGuess;
-        window.answerGuess=function(choice,button){
-          const item=(typeof guessRun!=="undefined" && typeof gIndex!=="undefined") ? guessRun[gIndex] : null;
-          const elapsed=(typeof gElapsed!=="undefined") ? gElapsed : null;
-          const wasCorrect=item && choice===item.name;
-          const result=originalAnswer.apply(this,arguments);
-          if(wasCorrect) registerCorrect(item.name,elapsed);
-          return result;
-        };
-        window.answerGuess.__guessAchievementsWrapped=true;
-      }
-
-      if(typeof finishGuess==="function" && !finishGuess.__guessAchievementsWrapped){
-        const originalFinish=finishGuess;
-        window.finishGuess=function(){
-          const correct=(typeof gCorrect!=="undefined") ? gCorrect : 0;
-          const result=originalFinish.apply(this,arguments);
-          registerRun(correct);
-          return result;
-        };
-        window.finishGuess.__guessAchievementsWrapped=true;
-      }
-    }catch(e){}
-  });
-
-  // Fallback event tracking in case functions are lexical rather than window globals.
+  function registerCorrect(albumName,elapsedSeconds){
+    const slug=normalizeName(albumName);if(slug&&!state.uniqueCorrect.includes(slug))state.uniqueCorrect.push(slug);
+    if(typeof elapsedSeconds==="number"){
+      state.fastestCorrect=state.fastestCorrect===null?elapsedSeconds:Math.min(state.fastestCorrect,elapsedSeconds);
+      if(elapsedSeconds<=2.0)unlock("no_blur_needed");
+    }
+    if(state.uniqueCorrect.length>=10)unlock("cover_collector");
+    const total=albumPoolCount();if(total>0&&state.uniqueCorrect.length>=total)unlock("visual_master");
+    save();
+  }
+  function registerRun(correctCount){
+    state.totalRuns++;if(correctCount===5){state.perfectRuns++;unlock("sharp_eyes")}save();
+  }
+  document.getElementById("achievementsOpen")?.addEventListener("click",()=>setTimeout(renderIntoAchievements,0));
   document.addEventListener("click",function(e){
-    const btn=e.target.closest(".guess-option");
-    if(!btn) return;
-
+    const btn=e.target.closest(".guess-option");if(!btn)return;
     setTimeout(function(){
       try{
         if(btn.classList.contains("correct")){
-          const cover=document.getElementById("guessCover");
-          const src=cover?.getAttribute("src")||"";
+          const cover=document.getElementById("guessCover"),src=cover?.getAttribute("src")||"";
           const card=[...document.querySelectorAll(".album")].find(a=>a.querySelector(".album-cover")?.getAttribute("src")===src);
           const name=card?.querySelector("h3")?.textContent.trim();
           if(name){
-            // Derive elapsed from the current displayed score where possible.
-            const ptsText=document.getElementById("guessLivePoints")?.textContent||"";
-            const pts=parseInt(ptsText,10);
+            const pts=parseInt(document.getElementById("guessLivePoints")?.textContent||"",10);
             const elapsed=Number.isFinite(pts)?Math.max(0,(1000-pts)/70):null;
             registerCorrect(name,elapsed);
           }
@@ -4633,490 +4078,143 @@ renderProfile();
       }catch(err){}
     },0);
   },true);
-
-  document.getElementById("guessResult")?.addEventListener("click",function(){},true);
-
-  // Detect run completion from the result screen becoming active.
   const result=document.getElementById("guessResult");
-  if(result){
-    new MutationObserver(function(){
-      if(result.classList.contains("active")){
-        const scoreText=document.getElementById("guessScore")?.textContent||"0/5";
-        const correct=parseInt(scoreText.split("/")[0],10)||0;
-        const stamp=result.dataset.guessAchievementStamp;
-        const current=scoreText+"|"+(document.getElementById("guessTotalPoints")?.textContent||"");
-        if(stamp!==current){
-          result.dataset.guessAchievementStamp=current;
-          registerRun(correct);
-        }
-      }
-    }).observe(result,{attributes:true,attributeFilter:["class"]});
-  }
-
+  if(result)new MutationObserver(function(){
+    if(result.classList.contains("active")){
+      const scoreText=document.getElementById("guessScore")?.textContent||"0/5";
+      const correct=parseInt(scoreText.split("/")[0],10)||0;
+      const current=scoreText+"|"+(document.getElementById("guessTotalPoints")?.textContent||"");
+      if(result.dataset.guessAchievementStamp!==current){result.dataset.guessAchievementStamp=current;registerRun(correct)}
+    }
+  }).observe(result,{attributes:true,attributeFilter:["class"]});
+  window.renderGuessAchievements=renderIntoAchievements;
   renderIntoAchievements();
-})();
-</script>
-
-
-<script id="site-version-script">
-(function(){
-  const button=document.getElementById("siteVersionToggle");
-  const history=document.getElementById("siteVersionHistory");
-  if(!button||!history)return;
-
-  button.addEventListener("click",function(){
-    const open=history.classList.toggle("open");
-    button.classList.toggle("open",open);
-    button.childNodes[0].nodeValue=open?"HIDE UPDATE HISTORY ":"VIEW UPDATE HISTORY ";
-  });
-})();
-</script>
-
-
-<script id="complete-language-v141">
-(function(){
-const UI={"en":{"games":"GAMES","gamesIntro":"Test how well you know Literally Steplers with two different challenges.","knowledgeQuiz":"KNOWLEDGE QUIZ","quizCardDesc":"10 random questions per run. Three difficulties, streaks, timers and score multipliers.","questions10":"10 QUESTIONS","visualChallenge":"VISUAL CHALLENGE","guessAlbum":"GUESS THE ALBUM","guessCardDesc":"A blurred album cover slowly reveals itself. Identify it early to earn more points.","covers5":"5 COVERS","timeScore":"TIME-BASED SCORE","playGuess":"PLAY GUESS THE ALBUM →","achievements":"ACHIEVEMENTS","achIntro":"Complete challenges to unlock album era themes.","themesUnlocked":"THEMES UNLOCKED","progress":"LITERALLY STEPLERS / PROGRESS","playerData":"LITERALLY STEPLERS / PLAYER DATA","playerProfile":"PLAYER PROFILE","currentLevel":"CURRENT LEVEL","siteCompletion":"SITE COMPLETION","completionHelp":"Reach 100% by mastering the site.","overview":"OVERVIEW","quizStats":"QUIZ STATS","themeMastery":"THEME MASTERY","eraThemes":"ERA THEMES","quizzesPlayed":"QUIZZES PLAYED","guessRuns":"GUESS RUNS","secretsFound":"SECRETS FOUND","bestQuiz":"BEST QUIZ SCORE","correctAnswers":"CORRECT ANSWERS","wrongAnswers":"WRONG ANSWERS","accuracy":"ACCURACY","perfectRuns":"PERFECT RUNS","normalRuns":"NORMAL RUNS","diabolicalRuns":"DIABOLICAL RUNS","masteryIntro":"Complete quizzes and Guess the Album runs while using an Era Theme to increase its mastery.","visualGame":"LITERALLY STEPLERS / VISUAL GAME","fiveCovers":"5 COVERS.<br>ONE CHANCE EACH.","guessIntro":"The cover begins heavily blurred and becomes clearer every second. Answer early for maximum points.","startRun":"START RUN","nextCover":"NEXT COVER →","seeResult":"SEE RESULT →","finalResult":"FINAL RESULT","runComplete":"RUN COMPLETE","perfectVision":"PERFECT VISION","sharpEyesResult":"SHARP EYES","studyCovers":"KEEP STUDYING THE COVERS","everyCover":"Every cover recognized.","solidVisual":"Solid visual knowledge.","stillSecrets":"The eras still have a few secrets.","close":"CLOSE","eraTheme":"ERA THEME","eraThemeDesc":"Choose a released album era for the entire site.","selectEra":"SELECT ERA →","sitePersonalization":"SITE PERSONALIZATION","selectEraTitle":"SELECT ERA","eraSubtitle":"Choose an album era and transform the entire visual identity of the site.","releasedEras":"19 RELEASED ERAS","hoverPreview":"HOVER TO PREVIEW · CLICK TO SELECT","selectedEra":"SELECTED ERA","useEra":"USE THIS ERA","locked":"LOCKED","lockedHint":"LOCKED — HINT: ","eraGeneric":"Visual identity inspired by this album era.","achOptionDesc":"View your progress, secret challenges and unlocked Era Themes.","viewAchievements":"VIEW ACHIEVEMENTS →","profileOptionDesc":"View your level, quiz statistics, theme mastery and total site completion.","viewProfile":"VIEW PROFILE →","performance":"PERFORMANCE MODE","performanceDesc":"Reduce heavy visual effects and animations to make the site lighter.","language":"LANGUAGE","languageDesc":"Choose the language of the site.","achievementUnlocked":"ACHIEVEMENT UNLOCKED","secretAchievement":"SECRET ACHIEVEMENT","unlocked":"UNLOCKED","hint":"HINT","reward":"REWARD","themeLocked":"THEME LOCKED","themeActive":"THEME ACTIVE","runs":"RUNS","mastery":"MASTERY","nextLevel":"NEXT LEVEL","correctWord":"CORRECT","wrongWord":"WRONG","pointsWord":"POINTS","lore":"LORE","loreTitle":"THE STORY BEHIND THE CHAOS","coming":"COMING SOON","siteVersion":"SITE VERSION","viewHistory":"VIEW UPDATE HISTORY","hideHistory":"HIDE UPDATE HISTORY","currentBuild":"CURRENT BUILD"},"pt":{"games":"JOGOS","gamesIntro":"Teste o quanto você conhece Literally Steplers em dois desafios diferentes.","knowledgeQuiz":"QUIZ DE CONHECIMENTO","quizCardDesc":"10 perguntas aleatórias por partida. Três dificuldades, sequências, cronômetros e multiplicadores de pontos.","questions10":"10 PERGUNTAS","visualChallenge":"DESAFIO VISUAL","guessAlbum":"ADIVINHE O ÁLBUM","guessCardDesc":"Uma capa borrada vai sendo revelada aos poucos. Identifique cedo para ganhar mais pontos.","covers5":"5 CAPAS","timeScore":"PONTUAÇÃO POR TEMPO","playGuess":"JOGAR ADIVINHE O ÁLBUM →","achievements":"CONQUISTAS","achIntro":"Complete desafios para desbloquear temas de eras dos álbuns.","themesUnlocked":"TEMAS DESBLOQUEADOS","progress":"LITERALLY STEPLERS / PROGRESSO","playerData":"LITERALLY STEPLERS / DADOS DO JOGADOR","playerProfile":"PERFIL DO JOGADOR","currentLevel":"NÍVEL ATUAL","siteCompletion":"CONCLUSÃO DO SITE","completionHelp":"Chegue a 100% dominando tudo no site.","overview":"VISÃO GERAL","quizStats":"ESTATÍSTICAS DO QUIZ","themeMastery":"MAESTRIA DE TEMAS","eraThemes":"TEMAS DE ERA","quizzesPlayed":"QUIZZES JOGADOS","guessRuns":"PARTIDAS VISUAIS","secretsFound":"SEGREDOS ENCONTRADOS","bestQuiz":"MELHOR PONTUAÇÃO","correctAnswers":"RESPOSTAS CERTAS","wrongAnswers":"RESPOSTAS ERRADAS","accuracy":"PRECISÃO","perfectRuns":"PARTIDAS PERFEITAS","normalRuns":"PARTIDAS NORMAIS","diabolicalRuns":"PARTIDAS DIABÓLICAS","masteryIntro":"Complete quizzes e partidas de Adivinhe o Álbum usando um Tema de Era para aumentar sua maestria.","visualGame":"LITERALLY STEPLERS / JOGO VISUAL","fiveCovers":"5 CAPAS.<br>UMA CHANCE CADA.","guessIntro":"A capa começa muito borrada e fica mais nítida a cada segundo. Responda cedo para ganhar mais pontos.","startRun":"COMEÇAR PARTIDA","nextCover":"PRÓXIMA CAPA →","seeResult":"VER RESULTADO →","finalResult":"RESULTADO FINAL","runComplete":"PARTIDA CONCLUÍDA","perfectVision":"VISÃO PERFEITA","sharpEyesResult":"OLHOS AFIADOS","studyCovers":"ESTUDE MAIS AS CAPAS","everyCover":"Você reconheceu todas as capas.","solidVisual":"Bom conhecimento visual.","stillSecrets":"As eras ainda guardam alguns segredos.","close":"FECHAR","eraTheme":"TEMA DE ERA","eraThemeDesc":"Escolha a era de um álbum lançado para todo o site.","selectEra":"ESCOLHER ERA →","sitePersonalization":"PERSONALIZAÇÃO DO SITE","selectEraTitle":"ESCOLHER ERA","eraSubtitle":"Escolha uma era de álbum e transforme toda a identidade visual do site.","releasedEras":"19 ERAS LANÇADAS","hoverPreview":"PASSE O MOUSE PARA PRÉ-VISUALIZAR · CLIQUE PARA SELECIONAR","selectedEra":"ERA SELECIONADA","useEra":"USAR ESTA ERA","locked":"BLOQUEADO","lockedHint":"BLOQUEADO — DICA: ","eraGeneric":"Identidade visual inspirada nesta era do álbum.","achOptionDesc":"Veja seu progresso, desafios secretos e Temas de Era desbloqueados.","viewAchievements":"VER CONQUISTAS →","profileOptionDesc":"Veja seu nível, estatísticas do quiz, maestria de temas e conclusão total do site.","viewProfile":"VER PERFIL →","performance":"MODO DESEMPENHO","performanceDesc":"Reduz efeitos visuais pesados e animações para deixar o site mais leve.","language":"IDIOMA","languageDesc":"Escolha o idioma do site.","achievementUnlocked":"CONQUISTA DESBLOQUEADA","secretAchievement":"CONQUISTA SECRETA","unlocked":"DESBLOQUEADA","hint":"DICA","reward":"RECOMPENSA","themeLocked":"TEMA BLOQUEADO","themeActive":"TEMA ATIVO","runs":"PARTIDAS","mastery":"MAESTRIA","nextLevel":"PRÓXIMO NÍVEL","correctWord":"CERTO","wrongWord":"ERRADO","pointsWord":"PONTOS","lore":"LORE","loreTitle":"A HISTÓRIA POR TRÁS DO CAOS","coming":"EM BREVE","siteVersion":"VERSÃO DO SITE","viewHistory":"VER HISTÓRICO DE ATUALIZAÇÕES","hideHistory":"OCULTAR HISTÓRICO","currentBuild":"VERSÃO ATUAL"},"es":{"games":"JUEGOS","gamesIntro":"Pon a prueba cuánto conoces Literally Steplers con dos desafíos diferentes.","knowledgeQuiz":"QUIZ DE CONOCIMIENTO","quizCardDesc":"10 preguntas aleatorias por partida. Tres dificultades, rachas, temporizadores y multiplicadores de puntuación.","questions10":"10 PREGUNTAS","visualChallenge":"DESAFÍO VISUAL","guessAlbum":"ADIVINA EL ÁLBUM","guessCardDesc":"Una portada borrosa se revela poco a poco. Identifícala pronto para ganar más puntos.","covers5":"5 PORTADAS","timeScore":"PUNTUACIÓN POR TIEMPO","playGuess":"JUGAR ADIVINA EL ÁLBUM →","achievements":"LOGROS","achIntro":"Completa desafíos para desbloquear temas de eras de álbumes.","themesUnlocked":"TEMAS DESBLOQUEADOS","progress":"LITERALLY STEPLERS / PROGRESO","playerData":"LITERALLY STEPLERS / DATOS DEL JUGADOR","playerProfile":"PERFIL DEL JUGADOR","currentLevel":"NIVEL ACTUAL","siteCompletion":"PROGRESO DEL SITIO","completionHelp":"Alcanza el 100 % dominando el sitio.","overview":"RESUMEN","quizStats":"ESTADÍSTICAS DEL QUIZ","themeMastery":"DOMINIO DE TEMAS","eraThemes":"TEMAS DE ERA","quizzesPlayed":"QUIZZES JUGADOS","guessRuns":"PARTIDAS VISUALES","secretsFound":"SECRETOS ENCONTRADOS","bestQuiz":"MEJOR PUNTUACIÓN","correctAnswers":"RESPUESTAS CORRECTAS","wrongAnswers":"RESPUESTAS INCORRECTAS","accuracy":"PRECISIÓN","perfectRuns":"PARTIDAS PERFECTAS","normalRuns":"PARTIDAS NORMALES","diabolicalRuns":"PARTIDAS DIABÓLICAS","masteryIntro":"Completa quizzes y partidas de Adivina el álbum usando un Tema de Era para aumentar su dominio.","visualGame":"LITERALLY STEPLERS / JUEGO VISUAL","fiveCovers":"5 PORTADAS.<br>UNA OPORTUNIDAD CADA UNA.","guessIntro":"La portada empieza muy borrosa y se vuelve más clara cada segundo. Responde pronto para obtener el máximo de puntos.","startRun":"INICIAR PARTIDA","nextCover":"SIGUIENTE PORTADA →","seeResult":"VER RESULTADO →","finalResult":"RESULTADO FINAL","runComplete":"PARTIDA COMPLETADA","perfectVision":"VISIÓN PERFECTA","sharpEyesResult":"OJOS AFILADOS","studyCovers":"ESTUDIA MÁS LAS PORTADAS","everyCover":"Reconociste todas las portadas.","solidVisual":"Buen conocimiento visual.","stillSecrets":"Las eras todavía guardan algunos secretos.","close":"CERRAR","eraTheme":"TEMA DE ERA","eraThemeDesc":"Elige la era de un álbum publicado para todo el sitio.","selectEra":"ELEGIR ERA →","sitePersonalization":"PERSONALIZACIÓN DEL SITIO","selectEraTitle":"ELEGIR ERA","eraSubtitle":"Elige una era de álbum y transforma toda la identidad visual del sitio.","releasedEras":"19 ERAS PUBLICADAS","hoverPreview":"PASA EL CURSOR PARA PREVISUALIZAR · HAZ CLIC PARA SELECCIONAR","selectedEra":"ERA SELECCIONADA","useEra":"USAR ESTA ERA","locked":"BLOQUEADO","lockedHint":"BLOQUEADO — PISTA: ","eraGeneric":"Identidad visual inspirada en esta era del álbum.","achOptionDesc":"Consulta tu progreso, desafíos secretos y Temas de Era desbloqueados.","viewAchievements":"VER LOGROS →","profileOptionDesc":"Consulta tu nivel, estadísticas del quiz, dominio de temas y progreso total del sitio.","viewProfile":"VER PERFIL →","performance":"MODO RENDIMIENTO","performanceDesc":"Reduce los efectos visuales pesados y las animaciones para hacer el sitio más ligero.","language":"IDIOMA","languageDesc":"Elige el idioma del sitio.","achievementUnlocked":"LOGRO DESBLOQUEADO","secretAchievement":"LOGRO SECRETO","unlocked":"DESBLOQUEADO","hint":"PISTA","reward":"RECOMPENSA","themeLocked":"TEMA BLOQUEADO","themeActive":"TEMA ACTIVO","runs":"PARTIDAS","mastery":"DOMINIO","nextLevel":"SIGUIENTE NIVEL","correctWord":"CORRECTO","wrongWord":"INCORRECTO","pointsWord":"PUNTOS","lore":"LORE","loreTitle":"LA HISTORIA DETRÁS DEL CAOS","coming":"PRÓXIMAMENTE","siteVersion":"VERSIÓN DEL SITIO","viewHistory":"VER HISTORIAL DE ACTUALIZACIONES","hideHistory":"OCULTAR HISTORIAL","currentBuild":"VERSIÓN ACTUAL"}};
-const ACH_EN=[["FIRST STEP", "Play your first quiz match."], ["NO MISTAKES", "Get every question right in a Normal quiz."], ["HELL KNOWS YOUR NAME", "Survive a Diabolical quiz without a single mistake."], ["GETTING SERIOUS", "Finish 5 quiz matches."], ["NO LIFE DETECTED", "Finish 25 quiz matches."], ["POINT HUNTER", "Score at least 2,500 points in a single quiz match."], ["SOMETHING IS WATCHING", "A certain five-letter word can wake something on desktop."], ["HEAVEN CALLED", "Sometimes HOME has other plans. Keep visiting it."], ["ALL OR NOTHING", "Complete a match on Easy, Normal and Diabolical."], ["ERA COLLECTOR", "Use 10 different unlocked Era Themes."], ["SHARP EYES", "Finish a Guess the Album run without missing a single cover."], ["NO BLUR NEEDED", "Recognize a cover almost immediately, before the blur has much time to fade."], ["COVER COLLECTOR", "Correctly identify 10 different album covers."], ["VISUAL MASTER", "Correctly identify every album cover available in Guess the Album."]];
-const ACH_TR={"pt":[["PRIMEIRO PASSO","Jogue sua primeira partida do quiz."],["SEM ERROS","Acerte todas as perguntas em um quiz Normal."],["O INFERNO SABE SEU NOME","Complete um quiz Diabólico sem errar nenhuma pergunta."],["LEVANDO A SÉRIO","Conclua 5 partidas do quiz."],["VIDA SOCIAL NÃO DETECTADA","Conclua 25 partidas do quiz."],["CAÇADOR DE PONTOS","Faça pelo menos 2.500 pontos em uma única partida."],["ALGO ESTÁ OBSERVANDO","Uma certa palavra de cinco letras pode acordar algo no desktop."],["O CÉU CHAMOU","Às vezes HOME tem outros planos. Continue visitando."],["TUDO OU NADA","Conclua uma partida no Fácil, Normal e Diabólico."],["COLECIONADOR DE ERAS","Use 10 Temas de Era desbloqueados diferentes."],["OLHOS AFIADOS","Faça uma partida de Adivinhe o Álbum sem errar nenhuma capa."],["NEM PRECISA DESFOCAR","Reconheça uma capa quase imediatamente, antes que o desfoque desapareça muito."],["COLECIONADOR DE CAPAS","Acerte 10 capas de álbuns diferentes."],["MESTRE VISUAL","Acerte todas as capas disponíveis em Adivinhe o Álbum."]],"es":[["PRIMER PASO","Juega tu primera partida del quiz."],["SIN ERRORES","Acierta todas las preguntas de un quiz Normal."],["EL INFIERNO SABE TU NOMBRE","Supera un quiz Diabólico sin cometer ningún error."],["ESTO VA EN SERIO","Completa 5 partidas del quiz."],["VIDA NO DETECTADA","Completa 25 partidas del quiz."],["CAZADOR DE PUNTOS","Consigue al menos 2.500 puntos en una sola partida."],["ALGO ESTÁ MIRANDO","Cierta palabra de cinco letras puede despertar algo en escritorio."],["EL CIELO LLAMÓ","A veces HOME tiene otros planes. Sigue visitándolo."],["TODO O NADA","Completa una partida en Fácil, Normal y Diabólico."],["COLECCIONISTA DE ERAS","Usa 10 Temas de Era desbloqueados diferentes."],["OJOS AFILADOS","Completa Adivina el álbum sin fallar ninguna portada."],["SIN NECESIDAD DE DESENFOQUE","Reconoce una portada casi de inmediato, antes de que desaparezca mucho el desenfoque."],["COLECCIONISTA DE PORTADAS","Identifica correctamente 10 portadas diferentes."],["MAESTRO VISUAL","Identifica correctamente todas las portadas disponibles."]],"en":[["FIRST STEP","Play your first quiz match."],["NO MISTAKES","Get every question right in a Normal quiz."],["HELL KNOWS YOUR NAME","Survive a Diabolical quiz without a single mistake."],["GETTING SERIOUS","Finish 5 quiz matches."],["NO LIFE DETECTED","Finish 25 quiz matches."],["POINT HUNTER","Score at least 2,500 points in a single quiz match."],["SOMETHING IS WATCHING","A certain five-letter word can wake something on desktop."],["HEAVEN CALLED","Sometimes HOME has other plans. Keep visiting it."],["ALL OR NOTHING","Complete a match on Easy, Normal and Diabolical."],["ERA COLLECTOR","Use 10 different unlocked Era Themes."],["SHARP EYES","Finish a Guess the Album run without missing a single cover."],["NO BLUR NEEDED","Recognize a cover almost immediately, before the blur has much time to fade."],["COVER COLLECTOR","Correctly identify 10 different album covers."],["VISUAL MASTER","Correctly identify every album cover available in Guess the Album."]]};
-
-function lang(){
-  try{ return (window.getSiteLanguage&&window.getSiteLanguage()) || localStorage.getItem("literallySteplersLanguage") || "en"; }
-  catch(e){return "en"}
-}
-function tr(k){const l=lang(); return (UI[l]&&UI[l][k]) || UI.en[k] || k;}
-window.fullSiteT=tr;
-
-function txt(sel,k){
-  const e=document.querySelector(sel); if(e)e.textContent=tr(k);
-}
-function htmltxt(sel,k){
-  const e=document.querySelector(sel); if(e)e.innerHTML=tr(k);
-}
-function all(sel,k){document.querySelectorAll(sel).forEach(e=>e.textContent=tr(k));}
-
-function translateStatic(){
-  txt(".games-zone .section-title","games");
-  txt(".games-zone-intro","gamesIntro");
-  const cards=document.querySelectorAll(".game-card");
-  if(cards[0]){
-    const type=cards[0].querySelector(".game-card-type"),desc=cards[0].querySelector("p"),meta=cards[0].querySelectorAll(".game-card-meta span");
-    if(type)type.textContent=tr("knowledgeQuiz"); if(desc)desc.textContent=tr("quizCardDesc");
-    if(meta[0])meta[0].textContent=tr("questions10");
-  }
-  if(cards[1]){
-    const type=cards[1].querySelector(".game-card-type"),title=cards[1].querySelector("h3"),desc=cards[1].querySelector("p"),meta=cards[1].querySelectorAll(".game-card-meta span");
-    if(type)type.textContent=tr("visualChallenge"); if(title)title.textContent=tr("guessAlbum"); if(desc)desc.textContent=tr("guessCardDesc");
-    if(meta[0])meta[0].textContent=tr("covers5"); if(meta[1])meta[1].textContent=tr("timeScore");
-    const b=document.getElementById("openGuessButton");if(b)b.textContent=tr("playGuess");
-  }
-
-  txt(".achievements-kicker","progress"); txt(".achievements-header h2","achievements"); txt(".achievements-header p","achIntro");
-  const pr=document.querySelectorAll(".achievements-progress-row span"); if(pr[0])pr[0].textContent=tr("achievements"); if(pr[1])pr[1].textContent=tr("themesUnlocked");
-
-  txt("#profileModal .meta-kicker","playerData"); txt("#profileModal .meta-header h2","playerProfile"); txt(".profile-level-label","currentLevel");
-  const comp=document.querySelector(".profile-completion strong"); if(comp)comp.textContent=tr("siteCompletion");
-  const comps=document.querySelector(".profile-completion small"); if(comps)comps.textContent=tr("completionHelp");
-  const tabs=document.querySelectorAll(".profile-tab"); if(tabs[0])tabs[0].textContent=tr("overview");if(tabs[1])tabs[1].textContent=tr("quizStats");if(tabs[2])tabs[2].textContent=tr("themeMastery");
-  const statLabels=document.querySelectorAll("#profileModal .stat-box span");
-  const keys=["achievements","eraThemes","quizzesPlayed","guessRuns","secretsFound","bestQuiz","correctAnswers","wrongAnswers","accuracy","perfectRuns","normalRuns","diabolicalRuns"];
-  statLabels.forEach((e,i)=>{if(keys[i])e.textContent=tr(keys[i])});
-  txt(".mastery-intro","masteryIntro");
-
-  txt("#guessModal .meta-kicker","visualGame"); txt("#guessModal .meta-header h2","guessAlbum");
-  htmltxt(".guess-intro-big","fiveCovers"); txt("#guessIntro p","guessIntro"); txt("#guessStart","startRun");
-  txt("#guessResult .quiz-kicker","finalResult"); txt("#guessRestart","playAgain"); txt("#guessResultClose","close");
-
-  txt("#eraThemeOptionName","eraTheme"); txt("#eraThemeOptionDescription","eraThemeDesc"); txt("#eraPickerOpen","selectEra");
-  txt("#eraPickerKicker","sitePersonalization"); txt("#eraPickerTitle","selectEraTitle"); txt("#eraPickerSubtitle","eraSubtitle");
-  txt("#eraBrowserCount","releasedEras"); txt("#eraBrowserHint","hoverPreview"); txt("#eraPreviewLabel","selectedEra");
-  if(document.getElementById("eraPreviewApply")&&!document.getElementById("eraPreviewApply").classList.contains("locked"))document.getElementById("eraPreviewApply").textContent=tr("useEra");
-
-  const achRow=document.querySelector(".achievements-option-row"); if(achRow){const n=achRow.querySelector(".option-name"),d=achRow.querySelector(".option-description"),b=achRow.querySelector("button");if(n)n.textContent=tr("achievements");if(d)d.textContent=tr("achOptionDesc");if(b)b.textContent=tr("viewAchievements")}
-  const proRow=document.querySelector(".player-profile-option-row"); if(proRow){const n=proRow.querySelector(".option-name"),d=proRow.querySelector(".option-description"),b=proRow.querySelector("button");if(n)n.textContent=tr("playerProfile");if(d)d.textContent=tr("profileOptionDesc");if(b)b.textContent=tr("viewProfile")}
-  txt("#performanceOptionName","performance"); txt("#performanceOptionDescription","performanceDesc");
-  txt("#languageOptionName","language"); txt("#languageOptionDescription","languageDesc");
-
-  txt(".lore-inline-kicker","lore"); txt(".lore-inline-head h2","loreTitle"); txt(".lore-inline-status","coming");
-  txt(".site-version-label","siteVersion");
-  const hist=document.getElementById("siteVersionHistory"),tog=document.getElementById("siteVersionToggle");
-  if(tog)tog.childNodes[0].nodeValue=((hist&&hist.classList.contains("open"))?tr("hideHistory"):tr("viewHistory"))+" ";
-  const cb=document.querySelector(".version-history-head span:last-child");if(cb)cb.textContent=tr("currentBuild");
-}
-
-function translateAchievementText(){
-  const l=lang(), arr=ACH_TR[l]||ACH_TR.en;
-  document.querySelectorAll(".achievement-card").forEach(card=>{
-    const name=card.querySelector(".achievement-name"),hint=card.querySelector(".achievement-hint"),status=card.querySelector(".achievement-status"),reward=card.querySelector(".achievement-reward");
-    if(!name||!hint)return;
-    let idx=-1;
-    // Find by either original achievement name or hint.
-    ACH_EN.forEach((a,i)=>{if(name.textContent.trim()===a[0] || hint.textContent.includes(a[1]))idx=i;});
-    // Guess cards can be SECRET until unlocked; identify by G01-G04.
-    if(idx<0&&status){
-      const m=status.textContent.match(/G(\d+)/);if(m)idx=9+parseInt(m[1],10);
-      else {
-        const m2=status.textContent.match(/·\s*(\d+)/);if(m2)idx=parseInt(m2[1],10)-1;
-      }
-    }
-    if(idx>=0&&arr[idx]){
-      const done=card.classList.contains("unlocked");
-      name.textContent=done?arr[idx][0]:tr("secretAchievement");
-      hint.textContent=(done?"":tr("hint")+" — ")+arr[idx][1];
-      if(status){
-        const suffix=status.textContent.includes("G")?status.textContent.slice(status.textContent.indexOf("·")):status.textContent.includes("·")?status.textContent.slice(status.textContent.indexOf("·")):"";
-        status.textContent=(done?tr("unlocked"):tr("locked"))+" "+suffix;
-      }
-      if(reward){
-        if(reward.textContent.includes("GUESS THE ALBUM"))reward.textContent=tr("reward")+": "+tr("guessAlbum");
-        else reward.textContent=reward.textContent.replace(/^REWARD:/i,tr("reward")+":");
-      }
-    }
-  });
-}
-
-function translateEraDynamic(){
-  const desc=document.getElementById("eraPreviewDescription");
-  if(desc && lang()!=="en") desc.textContent=tr("eraGeneric");
-  const lock=document.getElementById("eraPreviewLock");
-  if(lock&&lock.classList.contains("show")){
-    const old=lock.textContent.replace(/^.*?(?:HINT|DICA|HINWEIS|ПОДСКАЗКА|提示|ヒント|힌트|INDICE|PISTA)\s*[:：]?\s*/i,"");
-    lock.textContent=tr("lockedHint")+old;
-  }
-  document.querySelectorAll(".era-lock-overlay").forEach(e=>{
-    let rest=e.textContent.replace(/^.*?·\s*/,"");
-    e.textContent=tr("locked")+" · "+rest;
-  });
-}
-
-function translateGuessDynamic(){
-  const fb=document.getElementById("guessFeedback");
-  if(fb){
-    let s=fb.textContent;
-    s=s.replace(/^CORRECT\s*—/i,tr("correctWord")+" —").replace(/^WRONG\s*—/i,tr("wrongWord")+" —");
-    fb.textContent=s;
-  }
-  const pts=[document.getElementById("guessLivePoints"),document.getElementById("guessTotalPoints")];
-  pts.forEach(e=>{if(e)e.textContent=e.textContent.replace(/\bPTS\b|\bPOINTS\b/g,tr("pointsWord"))});
-  const next=document.getElementById("guessNext");if(next)next.textContent=(next.textContent.includes("RESULT")||next.textContent.includes("RESULTADO"))?tr("seeResult"):tr("nextCover");
-  const title=document.getElementById("guessResultTitle");
-  if(title){
-    const map={"PERFECT VISION":"perfectVision","SHARP EYES":"sharpEyesResult","KEEP STUDYING THE COVERS":"studyCovers","RUN COMPLETE":"runComplete"};
-    if(map[title.textContent])title.textContent=tr(map[title.textContent]);
-  }
-  const text=document.getElementById("guessResultText");
-  if(text){
-    const map={"Every cover recognized.":"everyCover","Solid visual knowledge.":"solidVisual","The eras still have a few secrets.":"stillSecrets"};
-    if(map[text.textContent])text.textContent=tr(map[text.textContent]);
-  }
-}
-
-function translateProfileDynamic(){
-  const level=document.getElementById("profileLevel");if(level)level.textContent=level.textContent.replace(/^LEVEL\s*/i,(lang()==="en"?"LEVEL ":tr("currentLevel")+" "));
-  const next=document.getElementById("profileNextXP");if(next)next.textContent=next.textContent.replace(/^NEXT LEVEL:/i,tr("nextLevel")+":");
-  document.querySelectorAll(".mastery-level").forEach(e=>e.textContent=e.textContent.replace(/^MASTERY/i,tr("mastery")));
-  document.querySelectorAll(".mastery-xp").forEach(e=>e.textContent=e.textContent.replace(/RUNS$/i,tr("runs")));
-  document.querySelectorAll(".completion-line > span").forEach(e=>{
-    const map={"ACHIEVEMENTS":"achievements","ERA THEMES":"eraThemes","QUIZ PROGRESS":"quizStats","GUESS THE ALBUM":"guessAlbum","THEME MASTERY":"themeMastery","SECRETS":"secretsFound"};
-    if(map[e.textContent])e.textContent=tr(map[e.textContent]);
-  });
-}
-
-function applyAll(){
-  translateStatic(); translateAchievementText(); translateEraDynamic(); translateGuessDynamic(); translateProfileDynamic();
-}
-window.applyCompleteLanguage=applyAll;
-
-// Re-apply after the original language system has changed the page.
-document.querySelectorAll(".language-button").forEach(b=>b.addEventListener("click",()=>setTimeout(applyAll,60)));
-window.addEventListener("load",()=>setTimeout(applyAll,80));
-
-// Dynamic UI translation refresh without recursive DOM observers.
-["achievementsOpen","profileOpen","eraPickerOpen","openGuessButton","guessNext","guessRestart"].forEach(id=>{
-  document.getElementById(id)?.addEventListener("click",()=>setTimeout(applyAll,60));
-});
-window.addEventListener("steplersAchievementChanged",()=>setTimeout(applyAll,60));
 })();
 </script>
 
 
 <script id="era-lock-visual-refresh-fix">
 (function(){
-  const openBtn=document.getElementById("eraPickerOpen");
-  const modal=document.getElementById("eraPickerModal");
-
+  const openBtn=document.getElementById("eraPickerOpen"),modal=document.getElementById("eraPickerModal");
   function refreshLocksNow(){
     try{
-      if(window.steplersAchievements && typeof window.steplersAchievements.refreshEraLocks==="function"){
-        window.steplersAchievements.refreshEraLocks();
-      }
-
-      if(window.steplersAchievements && typeof window.steplersAchievements.updatePreviewLock==="function"){
-        window.steplersAchievements.updatePreviewLock();
-      }
-
-      // Defensive visual pass in case the achievement renderer hasn't painted yet.
-      document.querySelectorAll(".era-card").forEach(function(card){
-        const era=card.dataset.eraTheme;
-        if(!era || !window.steplersAchievements || typeof window.steplersAchievements.isThemeUnlocked!=="function") return;
-
-        const locked=!window.steplersAchievements.isThemeUnlocked(era);
-        card.classList.toggle("locked",locked);
-
+      if(window.steplersAchievements?.refreshEraLocks)window.steplersAchievements.refreshEraLocks();
+      if(window.steplersAchievements?.updatePreviewLock)window.steplersAchievements.updatePreviewLock();
+      document.querySelectorAll(".era-card").forEach(card=>{
+        const era=card.dataset.eraTheme;if(!era||!window.steplersAchievements?.isThemeUnlocked)return;
+        const locked=!window.steplersAchievements.isThemeUnlocked(era);card.classList.toggle("locked",locked);
         let overlay=card.querySelector(".era-lock-overlay");
-
-        if(locked){
-          if(!overlay){
-            overlay=document.createElement("div");
-            overlay.className="era-lock-overlay";
-            overlay.textContent="LOCKED";
-            card.appendChild(overlay);
-          }
-        }else if(overlay){
-          overlay.remove();
-        }
+        if(locked&&!overlay){overlay=document.createElement("div");overlay.className="era-lock-overlay";overlay.textContent="LOCKED";card.appendChild(overlay)}
+        else if(!locked&&overlay)overlay.remove();
       });
     }catch(e){}
   }
-
-  if(openBtn){
-    openBtn.addEventListener("click",function(){
-      // First pass immediately, then once more after the original picker builds its cards.
-      refreshLocksNow();
-      setTimeout(refreshLocksNow,0);
-      setTimeout(refreshLocksNow,30);
-    },true);
-  }
-
-  // If the modal is opened by any other code path, refresh as soon as its class changes.
-  if(modal){
-    new MutationObserver(function(){
-      if(modal.classList.contains("open")){
-        refreshLocksNow();
-        setTimeout(refreshLocksNow,0);
-      }
-    }).observe(modal,{attributes:true,attributeFilter:["class"]});
-  }
-
-  // Initial pass for already-rendered cards.
-  window.addEventListener("load",function(){
-    setTimeout(refreshLocksNow,50);
-  });
+  openBtn?.addEventListener("click",()=>{refreshLocksNow();setTimeout(refreshLocksNow,0);setTimeout(refreshLocksNow,30)},true);
+  if(modal)new MutationObserver(()=>{if(modal.classList.contains("open")){refreshLocksNow();setTimeout(refreshLocksNow,0)}}).observe(modal,{attributes:true,attributeFilter:["class"]});
+  window.addEventListener("load",()=>setTimeout(refreshLocksNow,50));
 })();
 </script>
 
 
-
-
-
-<script id="achievement-immediate-ui-refresh">
-(function(){
-  function refreshAchievementUI(){
-    try{
-      if(window.steplersAchievements){
-        if(typeof window.steplersAchievements.refreshEraLocks==="function"){
-          window.steplersAchievements.refreshEraLocks();
-        }
-        if(typeof window.steplersAchievements.updatePreviewLock==="function"){
-          window.steplersAchievements.updatePreviewLock();
-        }
-      }
-
-      // Re-render base achievement grid if the original renderer is accessible.
-      if(typeof render==="function") render();
-      if(typeof renderIntoAchievements==="function") renderIntoAchievements();
-      if(typeof renderProfile==="function") renderProfile();
-
-      if(window.applyCompleteLanguage) window.applyCompleteLanguage();
-      if(window.applyV139Language) window.applyV139Language();
-    }catch(e){}
-  }
-
-  window.addEventListener("steplersAchievementChanged",function(){
-    refreshAchievementUI();
-    setTimeout(refreshAchievementUI,0);
-    setTimeout(refreshAchievementUI,60);
-  });
-
-  // Also refresh whenever the Achievements/Profile panels are opened.
-  document.getElementById("achievementsOpen")?.addEventListener("click",()=>setTimeout(refreshAchievementUI,0));
-  document.getElementById("profileOpen")?.addEventListener("click",()=>setTimeout(refreshAchievementUI,0));
-})();
-</script>
-
-
-<script id="idle-optimization-v145">
-(function(){
-  const idle=window.requestIdleCallback || function(cb){return setTimeout(cb,120)};
-  window.addEventListener("load",function(){
-    idle(function(){
-      try{
-        if(window.steplersAchievements?.refreshEraLocks) window.steplersAchievements.refreshEraLocks();
-        if(window.applyCompleteLanguage) window.applyCompleteLanguage();
-      }catch(e){}
-    });
-  },{once:true});
-})();
-</script>
-
-
-<script id="combined-achievements-fix-v146">
-(function(){
-  const GUESS_KEY="literallySteplersGuessAchievementsV1";
-
-  const guessDefs=[
-    {id:"sharp_eyes",name:"SHARP EYES",hint:"Finish a Guess the Album run without missing a single cover."},
-    {id:"no_blur_needed",name:"NO BLUR NEEDED",hint:"Recognize a cover almost immediately, before the blur has much time to fade."},
-    {id:"cover_collector",name:"COVER COLLECTOR",hint:"Correctly identify 10 different album covers."},
-    {id:"visual_master",name:"VISUAL MASTER",hint:"Correctly identify every album cover available in Guess the Album."}
-  ];
-
-  function getGuessState(){
-    try{
-      const data=JSON.parse(localStorage.getItem(GUESS_KEY)||"{}");
-      return {unlocked:data.unlocked||{}};
-    }catch(e){
-      return {unlocked:{}};
-    }
-  }
-
-  function renderGuessAchievementCards(){
-    const grid=document.getElementById("achievementsGrid");
-    if(!grid)return;
-
-    // Do not duplicate.
-    grid.querySelectorAll('[data-guess-achievement="v146"]').forEach(el=>el.remove());
-
-    const state=getGuessState();
-
-    guessDefs.forEach((a,index)=>{
-      const done=!!state.unlocked[a.id];
-      const card=document.createElement("div");
-      card.className="achievement-card "+(done?"unlocked":"");
-      card.dataset.guessAchievement="v146";
-      card.innerHTML=`
-        <div class="achievement-icon">${done?"✓":"?"}</div>
-        <div>
-          <div class="achievement-status">${done?"UNLOCKED":"LOCKED"} · G${String(index+1).padStart(2,"0")}</div>
-          <div class="achievement-name">${done?a.name:"SECRET ACHIEVEMENT"}</div>
-          <div class="achievement-hint">${done?"Completed — "+a.hint:"HINT — "+a.hint}</div>
-          <div class="achievement-reward">GUESS THE ALBUM ACHIEVEMENT</div>
-        </div>`;
-      grid.appendChild(card);
-    });
-
-    let baseUnlocked=0;
-    try{
-      const base=JSON.parse(localStorage.getItem("literallySteplersAchievementsV1")||"{}");
-      baseUnlocked=base.unlocked?Object.keys(base.unlocked).length:0;
-    }catch(e){}
-
-    const guessUnlocked=Object.keys(state.unlocked).length;
-    const count=document.getElementById("achievementCount");
-    if(count)count.textContent=(baseUnlocked+guessUnlocked)+" / 14";
-
-    const stat=document.getElementById("statAchievements");
-    if(stat)stat.textContent=(baseUnlocked+guessUnlocked)+" / 14";
-
-    try{
-      if(window.applyCompleteLanguage)window.applyCompleteLanguage();
-    }catch(e){}
-  }
-
-  document.getElementById("achievementsOpen")?.addEventListener("click",function(){
-    setTimeout(renderGuessAchievementCards,40);
-    setTimeout(renderGuessAchievementCards,120);
-  });
-
-  document.getElementById("profileOpen")?.addEventListener("click",function(){
-    setTimeout(renderGuessAchievementCards,40);
-  });
-
-  window.addEventListener("steplersAchievementChanged",function(){
-    setTimeout(renderGuessAchievementCards,20);
-  });
-
-  window.addEventListener("load",function(){
-    setTimeout(renderGuessAchievementCards,120);
-  });
-
-  window.renderCombinedAchievements=renderGuessAchievementCards;
-})();
-</script>
-
-
-<style id="achievement-toast-stable-v146">
-#achievementToast{
-  display:block!important;
-  visibility:visible;
-  pointer-events:none!important;
-  transition:opacity .28s ease,transform .28s ease!important;
-}
-#achievementToast:not(.show){
-  opacity:0!important;
-  transform:translateY(35px)!important;
-  visibility:hidden!important;
-}
-#achievementToast.show{
-  opacity:1!important;
-  transform:translateY(0)!important;
-  visibility:visible!important;
-}
-</style>
-
-<script id="achievement-toast-stable-v146">
+<script id="achievement-toast-lifecycle-fix">
 (function(){
   const toast=document.getElementById("achievementToast");
   if(!toast)return;
 
-  let timer=null;
+  let fallbackTimer=null;
 
   function arm(){
-    clearTimeout(timer);
-    // Undo any legacy inline hiding from previous implementations.
-    toast.style.removeProperty("display");
-    toast.style.removeProperty("visibility");
-    toast.classList.remove("toast-force-hidden");
-
-    timer=setTimeout(function(){
-      toast.classList.remove("show","active","visible","open");
-    },3600);
+    if(fallbackTimer)clearTimeout(fallbackTimer);
+    fallbackTimer=setTimeout(()=>{
+      toast.classList.remove("show");
+      fallbackTimer=null;
+    },4700);
   }
 
-  new MutationObserver(function(){
-    if(toast.classList.contains("show")){
-      arm();
-    }
+  new MutationObserver(()=>{
+    if(toast.classList.contains("show"))arm();
   }).observe(toast,{attributes:true,attributeFilter:["class"]});
 
-  window.showStableAchievementToast=function(){
-    toast.classList.remove("toast-force-hidden");
-    toast.style.removeProperty("display");
-    toast.classList.add("show");
-    arm();
-  };
-
-  window.hideStableAchievementToast=function(){
-    clearTimeout(timer);
-    toast.classList.remove("show","active","visible","open");
-  };
+  window.addEventListener("blur",()=>{
+    if(toast.classList.contains("show"))arm();
+  });
+})();
+</script>
+<script id="achievement-immediate-ui-refresh">
+(function(){
+  function refresh(){
+    try{
+      window.steplersAchievements?.refreshEraLocks?.();
+      window.steplersAchievements?.updatePreviewLock?.();
+      if(typeof renderProfile==="function")renderProfile();
+      if(typeof window.renderGuessAchievements==="function")window.renderGuessAchievements();
+    }catch(e){}
+  }
+  window.addEventListener("steplersAchievementChanged",()=>{refresh();setTimeout(refresh,0);setTimeout(refresh,60)});
+  document.getElementById("achievementsOpen")?.addEventListener("click",()=>setTimeout(refresh,0));
+  document.getElementById("profileOpen")?.addEventListener("click",()=>setTimeout(refresh,0));
 })();
 </script>
 
 
-<script id="secret-delete-word-reset-v146">
+<script id="three-language-new-ui">
+(function(){
+const X={
+en:{games:"GAMES",guess:"GUESS THE ALBUM",visual:"VISUAL CHALLENGE",playGuess:"PLAY GUESS THE ALBUM →",
+ach:"ACHIEVEMENTS",profile:"PLAYER PROFILE",lore:"LORE",loreTitle:"THE STORY BEHIND THE CHAOS",coming:"COMING SOON",
+themes:"THEMES UNLOCKED",siteCompletion:"SITE COMPLETION",overview:"OVERVIEW",quizStats:"QUIZ STATS",mastery:"THEME MASTERY",
+perf:"PERFORMANCE MODE",perfDesc:"Reduce heavy visual effects and animations to make the site lighter.",
+viewAch:"VIEW ACHIEVEMENTS →",viewProfile:"VIEW PROFILE →",locked:"LOCKED",secret:"SECRET ACHIEVEMENT",hint:"HINT"},
+pt:{games:"JOGOS",guess:"ADIVINHE O ÁLBUM",visual:"DESAFIO VISUAL",playGuess:"JOGAR ADIVINHE O ÁLBUM →",
+ach:"CONQUISTAS",profile:"PERFIL DO JOGADOR",lore:"LORE",loreTitle:"A HISTÓRIA POR TRÁS DO CAOS",coming:"EM BREVE",
+themes:"TEMAS DESBLOQUEADOS",siteCompletion:"CONCLUSÃO DO SITE",overview:"VISÃO GERAL",quizStats:"ESTATÍSTICAS DO QUIZ",mastery:"MAESTRIA DE TEMAS",
+perf:"MODO DESEMPENHO",perfDesc:"Reduz efeitos visuais pesados e animações para deixar o site mais leve.",
+viewAch:"VER CONQUISTAS →",viewProfile:"VER PERFIL →",locked:"BLOQUEADO",secret:"CONQUISTA SECRETA",hint:"DICA"},
+es:{games:"JUEGOS",guess:"ADIVINA EL ÁLBUM",visual:"DESAFÍO VISUAL",playGuess:"JUGAR ADIVINA EL ÁLBUM →",
+ach:"LOGROS",profile:"PERFIL DEL JUGADOR",lore:"LORE",loreTitle:"LA HISTORIA DETRÁS DEL CAOS",coming:"PRÓXIMAMENTE",
+themes:"TEMAS DESBLOQUEADOS",siteCompletion:"PROGRESO DEL SITIO",overview:"RESUMEN",quizStats:"ESTADÍSTICAS DEL QUIZ",mastery:"DOMINIO DE TEMAS",
+perf:"MODO RENDIMIENTO",perfDesc:"Reduce los efectos visuales pesados y las animaciones para hacer el sitio más ligero.",
+viewAch:"VER LOGROS →",viewProfile:"VER PERFIL →",locked:"BLOQUEADO",secret:"LOGRO SECRETO",hint:"PISTA"}
+};
+function l(){const x=(window.getSiteLanguage&&window.getSiteLanguage())||localStorage.getItem("literallySteplersLanguage")||"en";return ["en","pt","es"].includes(x)?x:"en"}
+function t(k){return X[l()][k]||X.en[k]||k}
+function apply(){
+  const cards=document.querySelectorAll(".game-card");
+  const games=document.querySelector(".games-zone .section-title");if(games)games.textContent=t("games");
+  if(cards[1]){const ty=cards[1].querySelector(".game-card-type"),h=cards[1].querySelector("h3"),b=cards[1].querySelector("#openGuessButton");if(ty)ty.textContent=t("visual");if(h)h.textContent=t("guess");if(b)b.textContent=t("playGuess")}
+  const ah=document.querySelector(".achievements-header h2");if(ah)ah.textContent=t("ach");
+  const spans=document.querySelectorAll(".achievements-progress-row span");if(spans[0])spans[0].textContent=t("ach");if(spans[1])spans[1].textContent=t("themes");
+  const ph=document.querySelector("#profileModal .meta-header h2");if(ph)ph.textContent=t("profile");
+  const sc=document.querySelector(".profile-completion strong");if(sc)sc.textContent=t("siteCompletion");
+  const tabs=document.querySelectorAll(".profile-tab");if(tabs[0])tabs[0].textContent=t("overview");if(tabs[1])tabs[1].textContent=t("quizStats");if(tabs[2])tabs[2].textContent=t("mastery");
+  const gr=document.querySelector("#guessModal .meta-header h2");if(gr)gr.textContent=t("guess");
+  const ak=document.querySelector(".lore-inline-kicker");if(ak)ak.textContent=t("lore");
+  const at=document.querySelector(".lore-inline-head h2");if(at)at.textContent=t("loreTitle");
+  const as=document.querySelector(".lore-inline-status");if(as)as.textContent=t("coming");
+  const ar=document.querySelector(".achievements-option-row");if(ar){const n=ar.querySelector(".option-name"),b=ar.querySelector("button");if(n)n.textContent=t("ach");if(b)b.textContent=t("viewAch")}
+  const pr=document.querySelector(".player-profile-option-row");if(pr){const n=pr.querySelector(".option-name"),b=pr.querySelector("button");if(n)n.textContent=t("profile");if(b)b.textContent=t("viewProfile")}
+  const pn=document.getElementById("performanceOptionName"),pd=document.getElementById("performanceOptionDescription");if(pn)pn.textContent=t("perf");if(pd)pd.textContent=t("perfDesc");
+}
+window.applyThreeLanguageUI=apply;
+document.querySelectorAll(".language-button").forEach(b=>b.addEventListener("click",()=>setTimeout(apply,40)));
+window.addEventListener("load",()=>setTimeout(apply,60));
+})();
+</script>
+
+
+<script id="secret-type-delete-reset">
 (function(){
   let buffer="";
-  let clearTimer=null;
+  let lastKeyTime=0;
+  const WORD="delete";
+  const RESET_GAP=2500;
 
   function resetSiteData(){
     try{
       const keys=[];
       for(let i=0;i<localStorage.length;i++){
         const key=localStorage.key(i);
-        if(key && (
-          key.toLowerCase().includes("literallysteplers") ||
-          key.toLowerCase().includes("steplers")
-        )){
+        if(key && (key.toLowerCase().includes("literallysteplers") || key.toLowerCase().includes("steplers"))){
           keys.push(key);
         }
       }
@@ -5127,32 +4225,48 @@ window.addEventListener("steplersAchievementChanged",()=>setTimeout(applyAll,60)
 
   document.addEventListener("keydown",function(event){
     if(event.ctrlKey||event.metaKey||event.altKey)return;
-    if(event.key.length!==1)return;
+    if(typeof event.key!=="string"||event.key.length!==1)return;
 
-    buffer=(buffer+event.key.toLowerCase()).slice(-6);
+    const now=Date.now();
+    if(now-lastKeyTime>RESET_GAP)buffer="";
+    lastKeyTime=now;
 
-    clearTimeout(clearTimer);
-    clearTimer=setTimeout(()=>buffer="",1800);
+    const c=event.key.toLowerCase();
+    if(!/[a-z]/.test(c)){buffer="";return}
 
-    if(buffer==="delete"){
+    buffer=(buffer+c).slice(-WORD.length);
+
+    if(buffer===WORD){
       buffer="";
-      clearTimeout(clearTimer);
       resetSiteData();
     }
-  });
+  },true);
 })();
 </script>
 
 
-<script id="language-three-only-v149">
+<script id="site-version-script">
 (function(){
-  const allowed=["en","pt","es"];
-  try{
-    const saved=localStorage.getItem("literallySteplersLanguage");
-    if(saved && !allowed.includes(saved)){
-      localStorage.setItem("literallySteplersLanguage","en");
-    }
-  }catch(e){}
+const b=document.getElementById("siteVersionToggle"),h=document.getElementById("siteVersionHistory");if(!b||!h)return;
+b.addEventListener("click",()=>{const o=h.classList.toggle("open");b.classList.toggle("open",o);b.childNodes[0].nodeValue=(o?"HIDE UPDATE HISTORY ":"VIEW UPDATE HISTORY ")});
+})();
+</script>
+
+
+<script id="guess-toast-language-fix">
+(function(){
+  const labels={
+    en:"ACHIEVEMENT UNLOCKED",
+    pt:"CONQUISTA DESBLOQUEADA",
+    es:"LOGRO DESBLOQUEADO"
+  };
+  window.getGuessAchievementToastLabel=function(){
+    let lang="en";
+    try{
+      lang=(window.getSiteLanguage&&window.getSiteLanguage())||localStorage.getItem("literallySteplersLanguage")||"en";
+    }catch(e){}
+    return labels[lang]||labels.en;
+  };
 })();
 </script>
 
