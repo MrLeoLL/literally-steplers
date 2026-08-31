@@ -1961,6 +1961,243 @@ body.performance-mode .album::after{
 }
 </style>
 
+
+<style id="pathtracing-mode-style">
+.pathtracing-toggle{
+  min-width:142px!important;
+  width:auto!important;
+  margin:0!important;
+  padding:11px 14px!important;
+  border:1px solid #333!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.025),transparent),#101010!important;
+  color:#ddd!important;
+  font-size:8px!important;
+  font-weight:900!important;
+  letter-spacing:1.45px!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+  transition:.2s!important;
+}
+.pathtracing-toggle:hover{
+  color:#fff!important;
+  border-color:var(--custom-accent,#c8b38a)!important;
+  box-shadow:0 0 22px color-mix(in srgb,var(--custom-accent,#c8b38a) 16%,transparent)!important;
+  transform:translateY(-1px)!important;
+}
+.pathtracing-toggle.on{
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--custom-accent,#c8b38a) 65%,#fff),
+    color-mix(in srgb,var(--custom-accent,#c8b38a) 75%,#000))!important;
+  border-color:var(--custom-accent,#c8b38a)!important;
+  color:#fff!important;
+  box-shadow:
+    0 0 20px color-mix(in srgb,var(--custom-accent,#c8b38a) 38%,transparent),
+    0 0 46px color-mix(in srgb,var(--custom-accent,#c8b38a) 20%,transparent)!important;
+}
+
+/* =========================================================
+   PATH TRACING MODE — MAXIMUM VISUAL QUALITY
+   ========================================================= */
+
+body.pathtracing-mode{
+  background:
+    radial-gradient(circle at 18% 10%,color-mix(in srgb,var(--custom-accent,#c8b38a) 11%,transparent),transparent 30%),
+    radial-gradient(circle at 82% 18%,color-mix(in srgb,var(--custom-accent,#c8b38a) 7%,transparent),transparent 26%),
+    var(--custom-bg,#050505)!important;
+}
+
+body.pathtracing-mode header{
+  backdrop-filter:blur(22px) saturate(1.25)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(1.25)!important;
+  box-shadow:0 8px 35px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.03) inset!important;
+}
+
+body.pathtracing-mode .hero::before,
+body.pathtracing-mode .hero::after,
+body.pathtracing-mode .streaming-section::before,
+body.pathtracing-mode .game-section::before{
+  display:block!important;
+  filter:blur(180px)!important;
+  opacity:.11!important;
+}
+
+body.pathtracing-mode .home-rays,
+body.pathtracing-mode .home-ring,
+body.pathtracing-mode .home-glow,
+body.pathtracing-mode .home-particles,
+body.pathtracing-mode .era-preview-shine{
+  display:block!important;
+}
+
+body.pathtracing-mode .album,
+body.pathtracing-mode .platform-card,
+body.pathtracing-mode .game-card,
+body.pathtracing-mode .options-panel,
+body.pathtracing-mode .meta-panel,
+body.pathtracing-mode .quiz-panel,
+body.pathtracing-mode .era-picker-panel,
+body.pathtracing-mode .achievements-panel,
+body.pathtracing-mode .lore-inline-card{
+  box-shadow:
+    0 24px 65px rgba(0,0,0,.32),
+    0 0 36px color-mix(in srgb,var(--custom-accent,#c8b38a) 8%,transparent)!important;
+}
+
+body.pathtracing-mode .album,
+body.pathtracing-mode .platform-card,
+body.pathtracing-mode .game-card{
+  background:
+    linear-gradient(145deg,
+      color-mix(in srgb,var(--custom-accent,#c8b38a) 6%,transparent),
+      transparent 42%),
+    linear-gradient(180deg,rgba(255,255,255,.025),transparent 32%),
+    var(--custom-panel,#090909)!important;
+}
+
+body.pathtracing-mode .album-cover,
+body.pathtracing-mode .era-card img,
+body.pathtracing-mode .era-preview-cover,
+body.pathtracing-mode .lore-inline-card img{
+  transition:
+    transform .42s cubic-bezier(.2,.7,.2,1),
+    filter .42s ease,
+    box-shadow .42s ease!important;
+  filter:contrast(1.05) saturate(1.08) brightness(1.03)!important;
+}
+
+body.pathtracing-mode .album:hover .album-cover,
+body.pathtracing-mode .era-card:hover img,
+body.pathtracing-mode .era-preview-cover-wrap:hover .era-preview-cover{
+  transform:scale(1.045)!important;
+  filter:contrast(1.08) saturate(1.13) brightness(1.08)!important;
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.38),
+    0 0 30px color-mix(in srgb,var(--custom-accent,#c8b38a) 18%,transparent)!important;
+}
+
+body.pathtracing-mode .album:hover,
+body.pathtracing-mode .platform-card:hover,
+body.pathtracing-mode .game-card:hover,
+body.pathtracing-mode .era-card:hover{
+  transform:translateY(-7px)!important;
+  box-shadow:
+    0 32px 80px rgba(0,0,0,.42),
+    0 0 45px color-mix(in srgb,var(--custom-accent,#c8b38a) 18%,transparent)!important;
+}
+
+body.pathtracing-mode .hero-button,
+body.pathtracing-mode .game-play-button,
+body.pathtracing-mode .era-picker-open,
+body.pathtracing-mode .achievements-open-options,
+body.pathtracing-mode .profile-open-options,
+body.pathtracing-mode .platform-link{
+  transition:
+    transform .28s ease,
+    box-shadow .28s ease,
+    background .28s ease,
+    border-color .28s ease,
+    color .28s ease!important;
+}
+
+body.pathtracing-mode .hero-button:hover,
+body.pathtracing-mode .game-play-button:hover,
+body.pathtracing-mode .era-picker-open:hover,
+body.pathtracing-mode .achievements-open-options:hover,
+body.pathtracing-mode .profile-open-options:hover,
+body.pathtracing-mode .platform-link:hover{
+  transform:translateY(-3px) scale(1.012)!important;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.24),
+    0 0 28px color-mix(in srgb,var(--custom-accent,#c8b38a) 20%,transparent)!important;
+}
+
+body.pathtracing-mode .options-modal,
+body.pathtracing-mode .quiz-modal,
+body.pathtracing-mode .era-picker-modal,
+body.pathtracing-mode .achievements-modal,
+body.pathtracing-mode .meta-modal,
+body.pathtracing-mode .cover-modal{
+  backdrop-filter:blur(24px) saturate(1.2)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(1.2)!important;
+}
+
+body.pathtracing-mode .achievement-toast{
+  box-shadow:
+    0 18px 60px rgba(0,0,0,.5),
+    0 0 35px color-mix(in srgb,var(--custom-accent,#c8b38a) 28%,transparent)!important;
+}
+
+body.pathtracing-mode .completion-ring,
+body.pathtracing-mode .achievement-icon,
+body.pathtracing-mode .option-name::before{
+  box-shadow:
+    0 0 18px color-mix(in srgb,var(--custom-accent,#c8b38a) 32%,transparent)!important;
+}
+
+body.pathtracing-mode .section-title,
+body.pathtracing-mode .hero h1,
+body.pathtracing-mode .game-card h3,
+body.pathtracing-mode .meta-header h2{
+  text-shadow:
+    0 12px 38px rgba(0,0,0,.28),
+    0 0 22px color-mix(in srgb,var(--custom-accent,#c8b38a) 7%,transparent)!important;
+}
+
+/* Fancy highlight sweep on major cards */
+body.pathtracing-mode .album::after,
+body.pathtracing-mode .game-card::after,
+body.pathtracing-mode .platform-card::after{
+  content:""!important;
+  position:absolute!important;
+  inset:-40% auto -40% -35%!important;
+  width:28%!important;
+  transform:rotate(16deg)!important;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent)!important;
+  pointer-events:none!important;
+  animation:pathSweep 7s ease-in-out infinite!important;
+}
+
+@keyframes pathSweep{
+  0%,58%{left:-35%;opacity:0}
+  66%{opacity:1}
+  84%{left:120%;opacity:.9}
+  100%{left:120%;opacity:0}
+}
+
+/* Mutually exclusive with Performance Mode */
+body.performance-mode.pathtracing-mode{
+  /* JS prevents this state, defensive only */
+}
+</style>
+
+
+<style id="pathtracing-options-spacing-fix">
+/* Give the visual-mode controls their own group and keep them away from Language. */
+.pathtracing-option-row{
+  margin-bottom:28px!important;
+  padding-bottom:24px!important;
+  border-bottom:1px solid #242424!important;
+}
+
+/* The section immediately following Path Tracing (Language) gets extra breathing room. */
+.pathtracing-option-row + .option-row,
+.pathtracing-option-row + .options-section,
+.pathtracing-option-row + .language-options,
+.pathtracing-option-row + *{
+  margin-top:18px!important;
+}
+
+@media(max-width:650px){
+  .pathtracing-option-row{
+    margin-bottom:22px!important;
+    padding-bottom:20px!important;
+  }
+  .pathtracing-option-row + *{
+    margin-top:14px!important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -2627,6 +2864,15 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <div class="option-row" style="display:block">
   <div class="option-name" id="languageOptionName">LANGUAGE</div>
+
+<div class="option-row pathtracing-option-row">
+  <div>
+    <div class="option-name" id="pathtracingOptionName">PATH TRACING MODE</div>
+    <div class="option-description" id="pathtracingOptionDescription">Maximum visual quality. Enables heavier glows, blur, shadows, animations and premium effects.</div>
+  </div>
+  <button class="pathtracing-toggle" id="pathtracingToggle" type="button">OFF</button>
+</div>
+
   <div class="option-description" id="languageOptionDescription">Choose the language of the site.</div>
   <div class="language-options" id="languageOptions">
     <button class="language-button active" type="button" data-language="en">ENGLISH</button>
@@ -2640,10 +2886,10 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <section class="site-version-section" id="siteVersion">
   <div class="site-version-inner">
-    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.51</strong></div>
+    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.53</strong></div>
     <button class="site-version-toggle" id="siteVersionToggle" type="button">VIEW UPDATE HISTORY <span>+</span></button>
     <div class="site-version-history" id="siteVersionHistory">
-      <div class="version-history-head"><span>VERSION 1.51</span><span>CURRENT BUILD</span></div>
+      <div class="version-history-head"><span>VERSION 1.53</span><span>CURRENT BUILD</span></div>
       <div class="version-update-grid">
         <div class="version-update"><b>01</b><span>Custom Era Themes system</span></div>
         <div class="version-update"><b>02</b><span>Theme-aware colors and readability</span></div>
@@ -2676,6 +2922,8 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>29</b><span>Album-to-track mapping corrected using each album title track</span></div>
         <div class="version-update"><b>30</b><span>Obvious title-track quiz clues removed and order-question timers increased</span></div>
         <div class="version-update"><b>31</b><span>All quiz question templates translated into Portuguese and Spanish</span></div>
+        <div class="version-update"><b>32</b><span>Path Tracing Mode added for maximum visual quality</span></div>
+        <div class="version-update"><b>33</b><span>Path Tracing option spacing improved in Options</span></div>
       </div>
     </div>
   </div>
@@ -4565,6 +4813,87 @@ b.addEventListener("click",()=>{const o=h.classList.toggle("open");b.classList.t
   document.querySelectorAll(".language-button").forEach(btn=>{
     btn.addEventListener("click",()=>setTimeout(refresh,70));
   });
+})();
+</script>
+
+
+<script id="pathtracing-mode-script">
+(function(){
+  const KEY="literallySteplersPathTracing";
+  const btn=document.getElementById("pathtracingToggle");
+  const perf=document.getElementById("performanceToggle");
+  if(!btn)return;
+
+  function lang(){
+    try{
+      const x=(window.getSiteLanguage&&window.getSiteLanguage())||
+        localStorage.getItem("literallySteplersLanguage")||"en";
+      return ["en","pt","es"].includes(x)?x:"en";
+    }catch(e){return"en"}
+  }
+
+  const labels={
+    en:{
+      name:"PATH TRACING MODE",
+      desc:"Maximum visual quality. Enables heavier glows, blur, shadows, animations and premium effects.",
+      on:"ON",off:"OFF"
+    },
+    pt:{
+      name:"MODO PATH TRACING",
+      desc:"Qualidade visual máxima. Ativa brilhos, desfoques, sombras, animações e efeitos mais pesados.",
+      on:"LIGADO",off:"DESLIGADO"
+    },
+    es:{
+      name:"MODO PATH TRACING",
+      desc:"Calidad visual máxima. Activa brillos, desenfoques, sombras, animaciones y efectos más pesados.",
+      on:"ACTIVADO",off:"DESACTIVADO"
+    }
+  };
+
+  function applyText(){
+    const t=labels[lang()]||labels.en;
+    const name=document.getElementById("pathtracingOptionName");
+    const desc=document.getElementById("pathtracingOptionDescription");
+    if(name)name.textContent=t.name;
+    if(desc)desc.textContent=t.desc;
+    btn.textContent=document.body.classList.contains("pathtracing-mode")?t.on:t.off;
+  }
+
+  function setPath(on){
+    document.body.classList.toggle("pathtracing-mode",on);
+    btn.classList.toggle("on",on);
+    try{localStorage.setItem(KEY,on?"1":"0")}catch(e){}
+
+    if(on && document.body.classList.contains("performance-mode")){
+      document.body.classList.remove("performance-mode");
+      perf?.classList.remove("on");
+      if(perf){
+        const l=lang();
+        perf.textContent=l==="pt"?"DESLIGADO":l==="es"?"DESACTIVADO":"OFF";
+      }
+      try{localStorage.setItem("literallySteplersPerformanceMode","0")}catch(e){}
+    }
+    applyText();
+  }
+
+  btn.addEventListener("click",()=>setPath(!document.body.classList.contains("pathtracing-mode")));
+
+  if(perf){
+    perf.addEventListener("click",()=>{
+      setTimeout(()=>{
+        if(document.body.classList.contains("performance-mode") &&
+           document.body.classList.contains("pathtracing-mode")){
+          setPath(false);
+        }
+      },0);
+    });
+  }
+
+  let saved=false;
+  try{saved=localStorage.getItem(KEY)==="1"}catch(e){}
+  setPath(saved);
+
+  document.querySelectorAll(".language-button").forEach(b=>b.addEventListener("click",()=>setTimeout(applyText,50)));
 })();
 </script>
 
