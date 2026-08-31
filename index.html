@@ -1771,6 +1771,196 @@ body[data-era-light="true"] .lore-inline-head h2{color:#111!important}
 @media(max-width:650px){.version-update-grid{grid-template-columns:1fr}}
 </style>
 
+
+<style id="performance-tier-v146">
+/* =========================================================
+   NORMAL MODE = the previous Performance Mode.
+   These optimizations now apply to everyone by default.
+   ========================================================= */
+
+header,
+.options-modal,
+.quiz-modal,
+.era-picker-modal,
+.achievements-modal,
+.meta-modal{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+.hero::before,
+.hero::after,
+.streaming-section::before,
+.game-section::before{
+  filter:none!important;
+  opacity:.025!important;
+}
+
+.home-rays,
+.home-ring,
+.home-glow,
+.home-particles,
+.era-preview-shine{
+  display:none!important;
+}
+
+.album-cover,
+.era-card,
+.era-preview-cover,
+.hero-button,
+.game-play-button,
+.era-picker-open,
+.achievements-open-options,
+.profile-open-options{
+  transition:none!important;
+}
+
+.album:hover .album-cover,
+.era-card:hover,
+.era-card:hover img,
+.era-preview-cover-wrap:hover .era-preview-cover,
+.game-play-button:hover,
+.era-picker-open:hover,
+.achievements-open-options:hover,
+.profile-open-options:hover{
+  transform:none!important;
+  box-shadow:none!important;
+}
+
+.quiz-visual img{
+  filter:blur(9px) brightness(.82)!important;
+  transform:scale(1.03)!important;
+}
+
+.achievement-toast,
+.options-panel,
+.era-card,
+.quiz-progress{
+  transition-duration:.08s!important;
+}
+
+/* =========================================================
+   NEW PERFORMANCE MODE = aggressive.
+   Core features stay functional, but most decorative work is cut.
+   ========================================================= */
+
+body.performance-mode *,
+body.performance-mode *::before,
+body.performance-mode *::after{
+  animation-duration:.001ms!important;
+  animation-delay:0ms!important;
+  animation-iteration-count:1!important;
+  transition-duration:.001ms!important;
+  transition-delay:0ms!important;
+  scroll-behavior:auto!important;
+}
+
+body.performance-mode{
+  background:var(--custom-bg,#050505)!important;
+}
+
+body.performance-mode header,
+body.performance-mode .options-modal,
+body.performance-mode .quiz-modal,
+body.performance-mode .era-picker-modal,
+body.performance-mode .achievements-modal,
+body.performance-mode .meta-modal,
+body.performance-mode .cover-modal{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+body.performance-mode .hero::before,
+body.performance-mode .hero::after,
+body.performance-mode .streaming-section::before,
+body.performance-mode .game-section::before,
+body.performance-mode .games-zone::before,
+body.performance-mode .games-zone::after,
+body.performance-mode .music-section::before,
+body.performance-mode .music-section::after,
+body.performance-mode .lore-inline-section::before,
+body.performance-mode .lore-inline-section::after{
+  display:none!important;
+}
+
+body.performance-mode .home-rays,
+body.performance-mode .home-ring,
+body.performance-mode .home-glow,
+body.performance-mode .home-particles,
+body.performance-mode .era-preview-shine{
+  display:none!important;
+}
+
+/* Remove expensive hover decoration. */
+body.performance-mode .album:hover,
+body.performance-mode .album:hover .album-cover,
+body.performance-mode .era-card:hover,
+body.performance-mode .era-card:hover img,
+body.performance-mode .platform-card:hover,
+body.performance-mode .game-card:hover,
+body.performance-mode .hero-button:hover,
+body.performance-mode .game-play-button:hover,
+body.performance-mode .era-picker-open:hover,
+body.performance-mode .achievements-open-options:hover,
+body.performance-mode .profile-open-options:hover,
+body.performance-mode .platform-link:hover,
+body.performance-mode .channel:hover{
+  transform:none!important;
+  filter:none!important;
+  box-shadow:none!important;
+}
+
+/* Flatten decorative shadows/glows while retaining structure. */
+body.performance-mode .album,
+body.performance-mode .platform-card,
+body.performance-mode .game-card,
+body.performance-mode .options-panel,
+body.performance-mode .meta-panel,
+body.performance-mode .quiz-panel,
+body.performance-mode .era-picker-panel,
+body.performance-mode .achievements-panel,
+body.performance-mode .lore-inline-card,
+body.performance-mode .site-version-section{
+  box-shadow:none!important;
+}
+
+body.performance-mode .achievement-icon,
+body.performance-mode .completion-ring,
+body.performance-mode .option-name::before{
+  box-shadow:none!important;
+}
+
+/* Reduce gradients and transparent compositing on major panels. */
+body.performance-mode .album,
+body.performance-mode .platform-card,
+body.performance-mode .game-card,
+body.performance-mode .options-panel,
+body.performance-mode .meta-panel,
+body.performance-mode .quiz-panel,
+body.performance-mode .achievements-panel{
+  background-image:none!important;
+}
+
+/* Keep Guess the Album playable: blur remains, but no animated interpolation. */
+body.performance-mode #guessCover,
+body.performance-mode .guess-cover-frame img{
+  transition:none!important;
+}
+
+/* Avoid smooth scrolling and expensive cursor effects. */
+body.performance-mode html,
+body.performance-mode{
+  scroll-behavior:auto!important;
+}
+
+/* Hide nonessential decorative labels/effects without touching controls/content. */
+body.performance-mode .game-card::before,
+body.performance-mode .album::before,
+body.performance-mode .album::after{
+  display:none!important;
+}
+</style>
+
 </head>
 
 <body>
@@ -2431,7 +2621,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <div class="option-row performance-option-row" style="display:block">
   <div class="option-name" id="performanceOptionName">PERFORMANCE MODE</div>
-  <div class="option-description" id="performanceOptionDescription">Reduce heavy visual effects and animations to make the site lighter.</div>
+  <div class="option-description" id="performanceOptionDescription">Aggressively reduces animations, glows, blur and decorative effects for maximum performance.</div>
   <button class="performance-toggle" id="performanceToggle" type="button">OFF</button>
 </div>
 
@@ -2450,10 +2640,10 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <section class="site-version-section" id="siteVersion">
   <div class="site-version-inner">
-    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.45</strong></div>
+    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.46</strong></div>
     <button class="site-version-toggle" id="siteVersionToggle" type="button">VIEW UPDATE HISTORY <span>+</span></button>
     <div class="site-version-history" id="siteVersionHistory">
-      <div class="version-history-head"><span>VERSION 1.45</span><span>CURRENT BUILD</span></div>
+      <div class="version-history-head"><span>VERSION 1.46</span><span>CURRENT BUILD</span></div>
       <div class="version-update-grid">
         <div class="version-update"><b>01</b><span>Custom Era Themes system</span></div>
         <div class="version-update"><b>02</b><span>Theme-aware colors and readability</span></div>
@@ -2480,6 +2670,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>23</b><span>Languages reduced to English, Portuguese and Spanish</span></div>
         <div class="version-update"><b>24</b><span>Secret data reset changed to typing a word</span></div>
         <div class="version-update"><b>25</b><span>Guess the Album achievement popup fixed</span></div>
+        <div class="version-update"><b>26</b><span>Previous Performance Mode became the default; new Performance Mode is more aggressive</span></div>
       </div>
     </div>
   </div>
@@ -3687,10 +3878,10 @@ document.addEventListener("click",e=>{
   if(!toggle) return;
 
   const translations={
-    en:{name:"PERFORMANCE MODE",desc:"Reduce heavy visual effects and animations to make the site lighter.",on:"ON",off:"OFF"},
-    pt:{name:"MODO DESEMPENHO",desc:"Reduz efeitos visuais pesados e animações para deixar o site mais leve.",on:"LIGADO",off:"DESLIGADO"},
+    en:{name:"PERFORMANCE MODE",desc:"Aggressively reduces animations, glows, blur and decorative effects for maximum performance.",on:"ON",off:"OFF"},
+    pt:{name:"MODO DESEMPENHO",desc:"Reduz drasticamente animações, brilhos, desfoques e efeitos decorativos para máximo desempenho.",on:"LIGADO",off:"DESLIGADO"},
 
-    es:{name:"MODO RENDIMIENTO",desc:"Reduce los efectos visuales pesados y las animaciones para hacer el sitio más ligero.",on:"ACTIVADO",off:"DESACTIVADO"}
+    es:{name:"MODO RENDIMIENTO",desc:"Reduce drásticamente animaciones, brillos, desenfoques y efectos decorativos para el máximo rendimiento.",on:"ACTIVADO",off:"DESACTIVADO"}
   };
 
   let enabled=false;
@@ -4163,17 +4354,17 @@ const X={
 en:{games:"GAMES",guess:"GUESS THE ALBUM",visual:"VISUAL CHALLENGE",playGuess:"PLAY GUESS THE ALBUM →",
 ach:"ACHIEVEMENTS",profile:"PLAYER PROFILE",lore:"LORE",loreTitle:"THE STORY BEHIND THE CHAOS",coming:"COMING SOON",
 themes:"THEMES UNLOCKED",siteCompletion:"SITE COMPLETION",overview:"OVERVIEW",quizStats:"QUIZ STATS",mastery:"THEME MASTERY",
-perf:"PERFORMANCE MODE",perfDesc:"Reduce heavy visual effects and animations to make the site lighter.",
+perf:"PERFORMANCE MODE",perfDesc:"Aggressively reduces animations, glows, blur and decorative effects for maximum performance.",
 viewAch:"VIEW ACHIEVEMENTS →",viewProfile:"VIEW PROFILE →",locked:"LOCKED",secret:"SECRET ACHIEVEMENT",hint:"HINT"},
 pt:{games:"JOGOS",guess:"ADIVINHE O ÁLBUM",visual:"DESAFIO VISUAL",playGuess:"JOGAR ADIVINHE O ÁLBUM →",
 ach:"CONQUISTAS",profile:"PERFIL DO JOGADOR",lore:"LORE",loreTitle:"A HISTÓRIA POR TRÁS DO CAOS",coming:"EM BREVE",
 themes:"TEMAS DESBLOQUEADOS",siteCompletion:"CONCLUSÃO DO SITE",overview:"VISÃO GERAL",quizStats:"ESTATÍSTICAS DO QUIZ",mastery:"MAESTRIA DE TEMAS",
-perf:"MODO DESEMPENHO",perfDesc:"Reduz efeitos visuais pesados e animações para deixar o site mais leve.",
+perf:"MODO DESEMPENHO",perfDesc:"Reduz drasticamente animações, brilhos, desfoques e efeitos decorativos para máximo desempenho.",
 viewAch:"VER CONQUISTAS →",viewProfile:"VER PERFIL →",locked:"BLOQUEADO",secret:"CONQUISTA SECRETA",hint:"DICA"},
 es:{games:"JUEGOS",guess:"ADIVINA EL ÁLBUM",visual:"DESAFÍO VISUAL",playGuess:"JUGAR ADIVINA EL ÁLBUM →",
 ach:"LOGROS",profile:"PERFIL DEL JUGADOR",lore:"LORE",loreTitle:"LA HISTORIA DETRÁS DEL CAOS",coming:"PRÓXIMAMENTE",
 themes:"TEMAS DESBLOQUEADOS",siteCompletion:"PROGRESO DEL SITIO",overview:"RESUMEN",quizStats:"ESTADÍSTICAS DEL QUIZ",mastery:"DOMINIO DE TEMAS",
-perf:"MODO RENDIMIENTO",perfDesc:"Reduce los efectos visuales pesados y las animaciones para hacer el sitio más ligero.",
+perf:"MODO RENDIMIENTO",perfDesc:"Reduce drásticamente animaciones, brillos, desenfoques y efectos decorativos para el máximo rendimiento.",
 viewAch:"VER LOGROS →",viewProfile:"VER PERFIL →",locked:"BLOQUEADO",secret:"LOGRO SECRETO",hint:"PISTA"}
 };
 function l(){const x=(window.getSiteLanguage&&window.getSiteLanguage())||localStorage.getItem("literallySteplersLanguage")||"en";return ["en","pt","es"].includes(x)?x:"en"}
