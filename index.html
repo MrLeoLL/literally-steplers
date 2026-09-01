@@ -2671,6 +2671,22 @@ body.pathtracing-mode .home-ring{
 }
 </style>
 
+
+<style id="era-click-lock-selection-style-v157">
+.era-card.click-locked{
+  border-color:var(--custom-accent,#c8b38a)!important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb,var(--custom-accent,#c8b38a) 55%,transparent),
+    0 0 28px color-mix(in srgb,var(--custom-accent,#c8b38a) 18%,transparent)!important;
+}
+.era-card.click-locked::after{
+  transform:scaleX(1)!important;
+}
+.era-card.click-locked .era-card-active{
+  display:block!important;
+}
+</style>
+
 </head>
 
 <body>
@@ -3358,10 +3374,10 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <section class="site-version-section" id="siteVersion">
   <div class="site-version-inner">
-    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.56</strong></div>
+    <div class="site-version-main"><span class="site-version-label">SITE VERSION</span><strong>1.57</strong></div>
     <button class="site-version-toggle" id="siteVersionToggle" type="button">VIEW UPDATE HISTORY <span>+</span></button>
     <div class="site-version-history" id="siteVersionHistory">
-      <div class="version-history-head"><span>VERSION 1.56</span><span>CURRENT BUILD</span></div>
+      <div class="version-history-head"><span>VERSION 1.57</span><span>CURRENT BUILD</span></div>
       <div class="version-update-grid">
         <div class="version-update"><b>01</b><span>Custom Era Themes system</span></div>
         <div class="version-update"><b>02</b><span>Theme-aware colors and readability</span></div>
@@ -3399,6 +3415,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <div class="version-update"><b>34</b><span>Path Tracing graphics upgraded with cinematic lighting and reflections</span></div>
         <div class="version-update"><b>35</b><span>Path Tracing and Language layout overlap fixed</span></div>
         <div class="version-update"><b>36</b><span>Options DOM structure corrected so Path Tracing no longer nests inside Language</span></div>
+        <div class="version-update"><b>37</b><span>Era preview selection now locks on click until another Era is clicked</span></div>
       </div>
     </div>
   </div>
@@ -5369,6 +5386,92 @@ b.addEventListener("click",()=>{const o=h.classList.toggle("open");b.classList.t
   setPath(saved);
 
   document.querySelectorAll(".language-button").forEach(b=>b.addEventListener("click",()=>setTimeout(applyText,50)));
+})();
+</script>
+
+
+<script id="era-click-lock-selection-v157">
+(function(){
+  const modal=document.getElementById("eraPickerModal");
+  if(!modal)return;
+
+  let lockedEra=null;
+  let restoring=false;
+
+  function getCardEra(card){
+    return card?.dataset?.eraTheme || card?.dataset?.era || null;
+  }
+
+  function getLockedCard(){
+    if(!lockedEra)return null;
+    return [...document.querySelectorAll(".era-card")]
+      .find(c=>getCardEra(c)===lockedEra) || null;
+  }
+
+  function showCardPreview(card){
+    if(!card)return;
+    restoring=true;
+    try{
+      card.dispatchEvent(new MouseEvent("mouseenter",{bubbles:false}));
+      card.dispatchEvent(new MouseEvent("mouseover",{bubbles:true}));
+    }catch(e){}
+    restoring=false;
+  }
+
+  function lockCard(card){
+    if(!card || card.classList.contains("locked"))return;
+    const era=getCardEra(card);
+    if(!era)return;
+
+    lockedEra=era;
+    document.querySelectorAll(".era-card").forEach(c=>{
+      const active=c===card;
+      c.classList.toggle("click-locked",active);
+      c.classList.toggle("selected",active);
+    });
+
+    showCardPreview(card);
+  }
+
+  // Click = permanent temporary selection until another card is clicked.
+  modal.addEventListener("click",function(e){
+    const card=e.target.closest(".era-card");
+    if(!card || card.classList.contains("locked"))return;
+    lockCard(card);
+  },true);
+
+  // If an era is locked by click, hovering another card can no longer steal the preview.
+  modal.addEventListener("mouseover",function(e){
+    if(!lockedEra || restoring)return;
+    const card=e.target.closest(".era-card");
+    if(!card)return;
+
+    const era=getCardEra(card);
+    if(era && era!==lockedEra){
+      e.stopImmediatePropagation();
+      e.stopPropagation();
+
+      const lockedCard=getLockedCard();
+      if(lockedCard){
+        requestAnimationFrame(()=>showCardPreview(lockedCard));
+      }
+    }
+  },true);
+
+  modal.addEventListener("mouseenter",function(){
+    if(lockedEra){
+      const lockedCard=getLockedCard();
+      if(lockedCard)requestAnimationFrame(()=>showCardPreview(lockedCard));
+    }
+  },true);
+
+  // Reset only when the era picker closes. Next open starts fresh.
+  new MutationObserver(()=>{
+    if(!modal.classList.contains("open")){
+      lockedEra=null;
+      document.querySelectorAll(".era-card").forEach(c=>c.classList.remove("click-locked"));
+    }
+  }).observe(modal,{attributes:true,attributeFilter:["class"]});
 })();
 </script>
 
