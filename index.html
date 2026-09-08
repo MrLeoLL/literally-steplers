@@ -5475,5 +5475,81 @@ b.addEventListener("click",()=>{const o=h.classList.toggle("open");b.classList.t
 })();
 </script>
 
+
+<script id="secret-type-full-unlock">
+(function(){
+  let buffer="";
+  let lastKeyTime=0;
+  const WORD="full";
+  const RESET_GAP=2500;
+
+  const BASE_IDS=["first_run","normal_perfect","diabolical_perfect","five_games","twentyfive_games","score_2500","sahur","angelical","three_difficulties","collector"];
+  const GUESS_IDS=["sharp_eyes","no_blur_needed","cover_collector","visual_master"];
+  const ERAS=["debut-album","yamers","stemers","hell-s-aura","the-home","diabolical-dog","return-to-the-boat","steplers","herborine","armless-john","the-cashier","the-guy-from-picture","the-tchola","mausoleum","the-page","real-south","canada","laminhapal","one-team-one-dream"];
+
+  function unlockFullSite(){
+    const now=Date.now();
+    try{
+      let a={};
+      try{a=JSON.parse(localStorage.getItem("literallySteplersAchievementsV1")||"{}")}catch(e){}
+      a.unlocked=a.unlocked||{};
+      BASE_IDS.forEach(id=>a.unlocked[id]=a.unlocked[id]||now);
+      a.games=Math.max(Number(a.games)||0,25);
+      a.difficulties={easy:true,normal:true,diabolical:true};
+      a.themesUsed=[...ERAS];
+      a.best=Math.max(Number(a.best)||0,2500);
+      localStorage.setItem("literallySteplersAchievementsV1",JSON.stringify(a));
+
+      let g={};
+      try{g=JSON.parse(localStorage.getItem("literallySteplersGuessAchievementsV1")||"{}")}catch(e){}
+      g.unlocked=g.unlocked||{};
+      GUESS_IDS.forEach(id=>g.unlocked[id]=g.unlocked[id]||now);
+      g.uniqueCorrect=[...ERAS];
+      g.totalRuns=Math.max(Number(g.totalRuns)||0,10);
+      g.perfectRuns=Math.max(Number(g.perfectRuns)||0,1);
+      g.fastestCorrect=(typeof g.fastestCorrect==="number")?Math.min(g.fastestCorrect,1):1;
+      localStorage.setItem("literallySteplersGuessAchievementsV1",JSON.stringify(g));
+
+      let profile={};
+      try{profile=JSON.parse(localStorage.getItem("literallySteplersProfileV2")||"{}")}catch(e){}
+      profile.xp=Math.max(Number(profile.xp)||0,56250); // Level 16+.
+      profile.quiz=Object.assign({games:25,correct:100,wrong:0,perfect:1,easy:1,normal:1,diabolical:1,best:2500},profile.quiz||{});
+      profile.quiz.games=Math.max(Number(profile.quiz.games)||0,25);
+      profile.quiz.correct=Math.max(Number(profile.quiz.correct)||0,100);
+      profile.quiz.perfect=Math.max(Number(profile.quiz.perfect)||0,1);
+      profile.quiz.easy=Math.max(Number(profile.quiz.easy)||0,1);
+      profile.quiz.normal=Math.max(Number(profile.quiz.normal)||0,1);
+      profile.quiz.diabolical=Math.max(Number(profile.quiz.diabolical)||0,1);
+      profile.quiz.best=Math.max(Number(profile.quiz.best)||0,2500);
+      profile.guess=Object.assign({runs:10,correct:25,wrong:0,best:5,perfect:1},profile.guess||{});
+      profile.guess.runs=Math.max(Number(profile.guess.runs)||0,10);
+      profile.guess.correct=Math.max(Number(profile.guess.correct)||0,25);
+      profile.guess.best=Math.max(Number(profile.guess.best)||0,5);
+      profile.guess.perfect=Math.max(Number(profile.guess.perfect)||0,1);
+      profile.mastery=profile.mastery||{};
+      ERAS.forEach(era=>profile.mastery[era]=Math.max(Number(profile.mastery[era])||0,15));
+      profile.secrets=Object.assign({},profile.secrets||{},{sahur:true,angelical:true});
+      localStorage.setItem("literallySteplersProfileV2",JSON.stringify(profile));
+      localStorage.setItem("literallySteplersFullUnlock","1");
+    }catch(e){}
+
+    // Reload so every engine reads the completed save from the start.
+    location.reload();
+  }
+
+  document.addEventListener("keydown",function(event){
+    if(event.ctrlKey||event.metaKey||event.altKey)return;
+    if(typeof event.key!=="string"||event.key.length!==1)return;
+    const now=Date.now();
+    if(now-lastKeyTime>RESET_GAP)buffer="";
+    lastKeyTime=now;
+    const c=event.key.toLowerCase();
+    if(!/[a-z]/.test(c)){buffer="";return}
+    buffer=(buffer+c).slice(-WORD.length);
+    if(buffer===WORD){buffer="";unlockFullSite()}
+  },true);
+})();
+</script>
+
 </body>
 </html>
