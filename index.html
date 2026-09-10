@@ -2687,6 +2687,55 @@ body.pathtracing-mode .home-ring{
 }
 </style>
 
+
+<style id="literally-steplers-clicker-feature">
+.games-grid .clicker-featured{
+  grid-column:1 / -1;
+  min-height:330px;
+  background:
+    radial-gradient(circle at 88% 20%,color-mix(in srgb,var(--custom-accent,#c8b38a) 16%,transparent),transparent 34%),
+    linear-gradient(135deg,var(--custom-panel,#080808),#050505)!important;
+  border-color:color-mix(in srgb,var(--custom-accent,#c8b38a) 55%,#222)!important;
+  overflow:hidden;
+}
+.games-grid .clicker-featured::after{
+  content:"";
+  position:absolute;
+  width:340px;height:340px;border-radius:50%;
+  right:-150px;bottom:-190px;
+  border:1px solid color-mix(in srgb,var(--custom-accent,#c8b38a) 28%,transparent);
+  box-shadow:0 0 90px color-mix(in srgb,var(--custom-accent,#c8b38a) 10%,transparent);
+  pointer-events:none;
+}
+.clicker-crown{
+  width:max-content;
+  max-width:100%;
+  margin:-8px 0 18px;
+  padding:7px 10px;
+  border:1px solid color-mix(in srgb,var(--custom-accent,#c8b38a) 45%,#222);
+  color:var(--custom-accent,#c8b38a)!important;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.clicker-featured h3{font-size:clamp(30px,4vw,52px)}
+.clicker-play-link{
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  text-align:center;
+}
+body[data-era-light="true"] .games-grid .clicker-featured{
+  background:
+    radial-gradient(circle at 88% 20%,color-mix(in srgb,var(--custom-accent,#b28a18) 13%,transparent),transparent 34%),
+    linear-gradient(135deg,#fff,#f7f7f7)!important;
+}
+@media(max-width:760px){
+  .games-grid .clicker-featured{grid-column:auto;min-height:300px}
+}
+</style>
+
 </head>
 
 <body>
@@ -3036,7 +3085,7 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
 
 <section class="games-zone" id="game">
   <h2 class="section-title">GAMES</h2>
-  <p class="games-zone-intro">Test how well you know Literally Steplers with two different challenges.</p>
+  <p class="games-zone-intro">Enter the Literally Steplers game zone: test your knowledge, recognize the albums or play the full Clicker experience.</p>
 
   <div class="games-grid">
     <article class="game-card">
@@ -3065,6 +3114,23 @@ VISIT THE LITERALLY STEPLERS YOUTUBE CHANNEL →
         <span>TIME-BASED SCORE</span>
       </div>
       <button class="game-play-button" id="openGuessButton" type="button">PLAY GUESS THE ALBUM →</button>
+    </article>
+
+    <article class="game-card clicker-featured">
+      <div class="game-card-top">
+        <div class="game-card-number">03</div>
+        <div class="game-card-type">MAIN GAME</div>
+      </div>
+      <div class="clicker-crown">★ BIGGEST LITERALLY STEPLERS GAME</div>
+      <h3>LITERALLY STEPLERS CLICKER</h3>
+      <p>The biggest Literally Steplers game. Click, buy upgrades, grow your production and push through Ascension, Super Ascension and the Void.</p>
+      <div class="game-card-meta">
+        <span>CLICKER</span>
+        <span>UPGRADES</span>
+        <span>ASCENSIONS</span>
+        <span>PROGRESSION</span>
+      </div>
+      <a class="game-play-button clicker-play-link" href="https://mrleoll.github.io/literally-steplers-clicker/" target="_blank" rel="noopener">PLAY LITERALLY STEPLERS CLICKER →</a>
     </article>
   </div>
 </section>
@@ -5577,6 +5643,72 @@ b.addEventListener("click",()=>{const o=h.classList.toggle("open");b.classList.t
     buffer=(buffer+c).slice(-WORD.length);
     if(buffer===WORD){buffer="";unlockFullSite()}
   },true);
+})();
+</script>
+
+
+<script id="games-clicker-localization">
+(function(){
+ const T={
+  en:{
+   intro:"Enter the Literally Steplers game zone: test your knowledge, recognize the albums or play the full Clicker experience.",
+   quizType:"KNOWLEDGE QUIZ",quizDesc:"10 random questions per run. Three difficulties, streaks, timers and score multipliers.",
+   quizMeta1:"10 QUESTIONS",quizMeta2:"EASY / NORMAL / DIABOLICAL",quizPlay:"PLAY QUIZ →",
+   guessType:"VISUAL CHALLENGE",guessDesc:"A blurred album cover slowly reveals itself. Identify it early to earn more points.",
+   guessMeta1:"5 COVERS",guessMeta2:"TIME-BASED SCORE",guessPlay:"PLAY GUESS THE ALBUM →",
+   main:"MAIN GAME",badge:"★ BIGGEST LITERALLY STEPLERS GAME",
+   clickDesc:"The biggest Literally Steplers game. Click, buy upgrades, grow your production and push through Ascension, Super Ascension and the Void.",
+   click:"CLICKER",up:"UPGRADES",asc:"ASCENSIONS",prog:"PROGRESSION",play:"PLAY LITERALLY STEPLERS CLICKER →"
+  },
+  pt:{
+   intro:"Entre na zona de jogos Literally Steplers: teste seu conhecimento, reconheça os álbuns ou jogue a experiência completa do Clicker.",
+   quizType:"QUIZ DE CONHECIMENTO",quizDesc:"10 perguntas aleatórias por partida. Três dificuldades, sequências, cronômetros e multiplicadores de pontos.",
+   quizMeta1:"10 PERGUNTAS",quizMeta2:"FÁCIL / NORMAL / DIABÓLICO",quizPlay:"JOGAR QUIZ →",
+   guessType:"DESAFIO VISUAL",guessDesc:"Uma capa borrada vai ficando nítida. Identifique o álbum cedo para ganhar mais pontos.",
+   guessMeta1:"5 CAPAS",guessMeta2:"PONTUAÇÃO POR TEMPO",guessPlay:"JOGAR ADIVINHE O ÁLBUM →",
+   main:"JOGO PRINCIPAL",badge:"★ MAIOR JOGO DE LITERALLY STEPLERS",
+   clickDesc:"O maior jogo de Literally Steplers. Clique, compre upgrades, aumente sua produção e avance por Ascension, Super Ascension e o Void.",
+   click:"CLICKER",up:"UPGRADES",asc:"ASCENSÕES",prog:"PROGRESSÃO",play:"JOGAR LITERALLY STEPLERS CLICKER →"
+  },
+  es:{
+   intro:"Entra en la zona de juegos de Literally Steplers: pon a prueba tus conocimientos, reconoce los álbumes o juega la experiencia completa del Clicker.",
+   quizType:"QUIZ DE CONOCIMIENTO",quizDesc:"10 preguntas aleatorias por partida. Tres dificultades, rachas, temporizadores y multiplicadores de puntos.",
+   quizMeta1:"10 PREGUNTAS",quizMeta2:"FÁCIL / NORMAL / DIABÓLICO",quizPlay:"JUGAR QUIZ →",
+   guessType:"DESAFÍO VISUAL",guessDesc:"Una portada borrosa se vuelve más clara. Identifica el álbum pronto para conseguir más puntos.",
+   guessMeta1:"5 PORTADAS",guessMeta2:"PUNTUACIÓN POR TIEMPO",guessPlay:"JUGAR ADIVINA EL ÁLBUM →",
+   main:"JUEGO PRINCIPAL",badge:"★ EL JUEGO MÁS GRANDE DE LITERALLY STEPLERS",
+   clickDesc:"El juego más grande de Literally Steplers. Haz clic, compra mejoras, aumenta tu producción y avanza por Ascension, Super Ascension y el Void.",
+   click:"CLICKER",up:"MEJORAS",asc:"ASCENSIONES",prog:"PROGRESO",play:"JUGAR LITERALLY STEPLERS CLICKER →"
+  }
+ };
+ function lang(){
+   try{
+    const x=(window.getSiteLanguage&&window.getSiteLanguage())||localStorage.getItem("literallySteplersLanguage")||"en";
+    return ["en","pt","es"].includes(x)?x:"en";
+   }catch(e){return"en"}
+ }
+ function applyGamesClickerLanguage(){
+   const t=T[lang()]||T.en, zone=document.querySelector(".games-zone");
+   if(!zone)return;
+   const cards=zone.querySelectorAll(".game-card");
+   const intro=zone.querySelector(".games-zone-intro"); if(intro)intro.textContent=t.intro;
+   if(cards[0]){
+    const type=cards[0].querySelector(".game-card-type"), p=cards[0].querySelector("p"), m=cards[0].querySelectorAll(".game-card-meta span"), b=cards[0].querySelector(".game-play-button");
+    if(type)type.textContent=t.quizType;if(p)p.textContent=t.quizDesc;if(m[0])m[0].textContent=t.quizMeta1;if(m[1])m[1].textContent=t.quizMeta2;if(b)b.textContent=t.quizPlay;
+   }
+   if(cards[1]){
+    const type=cards[1].querySelector(".game-card-type"), p=cards[1].querySelector("p"), m=cards[1].querySelectorAll(".game-card-meta span"), b=cards[1].querySelector(".game-play-button");
+    if(type)type.textContent=t.guessType;if(p)p.textContent=t.guessDesc;if(m[0])m[0].textContent=t.guessMeta1;if(m[1])m[1].textContent=t.guessMeta2;if(b)b.textContent=t.guessPlay;
+   }
+   if(cards[2]){
+    const type=cards[2].querySelector(".game-card-type"), badge=cards[2].querySelector(".clicker-crown"),p=cards[2].querySelector("p"),m=cards[2].querySelectorAll(".game-card-meta span"),b=cards[2].querySelector(".game-play-button");
+    if(type)type.textContent=t.main;if(badge)badge.textContent=t.badge;if(p)p.textContent=t.clickDesc;
+    if(m[0])m[0].textContent=t.click;if(m[1])m[1].textContent=t.up;if(m[2])m[2].textContent=t.asc;if(m[3])m[3].textContent=t.prog;if(b)b.textContent=t.play;
+   }
+ }
+ window.applyGamesClickerLanguage=applyGamesClickerLanguage;
+ document.querySelectorAll(".language-button").forEach(b=>b.addEventListener("click",()=>setTimeout(applyGamesClickerLanguage,100)));
+ window.addEventListener("load",()=>setTimeout(applyGamesClickerLanguage,160));
 })();
 </script>
 
